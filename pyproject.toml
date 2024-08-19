@@ -1,0 +1,24 @@
+[project]
+name = "pairipcore"
+version = "0.1"
+description="Disassembler and Decompiler for the Google Play Integrity Protect Virtual Machine (VM)"
+authors = [
+  { name="MatrixEditor", email="not@supported.com" },
+]
+readme = "README.md"
+classifiers = [
+    'Intended Audience :: Science/Research',
+    'Programming Language :: Python :: 3.12',
+]
+
+[project.urls]
+"Homepage" = "https://github.com/MatrixEditor/pairipcore-vm"
+"Repository" = "https://github.com/MatrixEditor/pairipcore-vm"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pairipcore*"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
