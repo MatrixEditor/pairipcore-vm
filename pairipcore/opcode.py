@@ -12,15 +12,17 @@ VMOpcode_CheckPath = 0x4B
 VMOpcode_FindClass = 0x4D
 
 # --- standard operations ---
-VMOpcode_OR_Byte = 0x05
+VMOpcode_Or_Byte = 0x05
 VMOpcode_RAssign_UInt = 0x07  # b = a
 VMOpcode_RShift_SInt = 0x0D  # a = b >> c
 VMOpcode_Compare_ULong = 0x10
-VMOpcode_LAssign_UInt = 0x12  # a = b
+VMOpcode_Assign_UInt = 0x12  # a = b
 VMOpcode_LAssign_Byte = 0x13
 VMOpcode_LAssign_ULong = 0x15
+VMOpcode_IsNull = 0x1A  # checks object in VM storage is null
 VMOpcode_Compare_Double = 0x1B
 VMOpcode_Div_SInt = 0x1F
+VMOpcode_NewArray = 0x21  # new array (XOR'ed data), type encoded in length
 VMOpcode_Add_SInt = 0x25
 VMOpcode_FloatToInt = 0x28  # a = (<int-type>) b
 VMOpcode_IntToFloat = 0x2A  # a = (float) b
@@ -29,6 +31,7 @@ VMOpcode_CastInt = 0x30  # a = (<int-type>) b
 VMOpcode_NOP = 0x33
 VMOpcode_XOR_Byte = 0x34
 VMOpcode_NotEqZ_SInt = 0x35  # c = a != 0 && b != 0
+VMOpcode_GetArrayElement = 0x3B  # array[index]
 VMOpcode_Mul_Float = 0x42
 VMOpcode_Mul_Double = 0x43
 VMOpcode_Add_ULong = 0x47
@@ -43,7 +46,7 @@ VMOpcode_Div_Float = 0x66
 VMOpcode_LAssign_Short = 0x6E
 VMOpcode_And_UInt = 0x73  # c = a & b
 VMOpcode_NOP1 = 0x75
-VMOpcode_Mul_UInt = 0x77
+VMOpcode_Mul_UInt_Int = 0x77
 VMOpcode_CastInt1 = 0x84  # a = (<int-type>) b
 VMOpcode_NotEqZ_UInt = 0x85
 VMOpcode_Compare_SInt = 0x87

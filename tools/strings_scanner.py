@@ -1,6 +1,6 @@
 import argparse
 
-from pairipcore import VMContext, addr_t
+from pairipcore import VM, addr_t
 
 
 KEY = b'\xab\x16+\xc0/D7\xb6\x7fQ1\x8f9@\x13\x11*\xec8\xdd7\xdaO"_T\x97\x00\x1d;\
@@ -17,11 +17,11 @@ _8H\xe9j\xbe\xf4\x1aB\xccm\xa2)\\\x1df\xb68'
 KEY__LEN = 5803
 
 
-def decode_string(context: VMContext, data_addr: addr_t, length: int) -> str | None:
+def decode_string(vm: VM, data_addr: addr_t, length: int) -> str | None:
     result = bytearray(length)
     try:
         for i in range(length):
-            result[i] = context.vm_code[data_addr + i] ^ KEY[i & 0xFF]
+            result[i] = vm.context[data_addr + i] ^ KEY[i & 0xFF]
     except IndexError:
         return
     try:
@@ -30,33 +30,33 @@ def decode_string(context: VMContext, data_addr: addr_t, length: int) -> str | N
         return
 
 
-def address_based(context: VMContext, start_addr: addr_t, strings: set) -> None:
-    for i in range(start_addr, len(context), 4):
-        context.pc = i
-        if i > len(context) - 4:
+def address_based(vm: VM, start_addr: addr_t, strings: set) -> None:
+    for i in range(start_addr, len(vm.context), 4):
+        vm.context.pc = i
+        if i > len(vm.context) - 4:
             break
-        p_data = context.addr(0x00)
-        len__a = context.u16(p_data)
+        p_data = vm.context.addr(0x00)
+        len__a = vm.context.u16(p_data)
         length = (len__a ^ KEY__LEN) + 2
         if length > 1000:
             continue
 
-        result = decode_string(context, p_data, length)
+        result = decode_string(vm, p_data, length)
         if result:
             strings.add(result)
 
 
-def length_based(context: VMContext, start_addr: addr_t, strings: set) -> None:
-    for i in range(start_addr, len(context), 2):
-        context.pc = i
-        if i > len(context) - 2:
+def length_based(vm: VM, start_addr: addr_t, strings: set) -> None:
+    for i in range(start_addr, len(vm.context), 2):
+        vm.pc = i
+        if i > len(vm.context) - 2:
             break
-        len__a = context.u16()
+        len__a = vm.context.u16()
         length = (len__a ^ KEY__LEN) + 2
         if length > 1000:
             continue
 
-        result = decode_string(context, context.pc, length)
+        result = decode_string(vm, vm.context.pc, length)
         if result:
             strings.add(result)
 
@@ -100,7 +100,7 @@ if __name__ == "__main__":
     if not argv.length_based and not argv.address_based:
         argv.length_based = True
 
-    context = VMContext(argv.input_file.read())
+    context = VM(argv.input_file.read())
     if argv.length_based:
         print("[*] Running length-based heuristic scan...")
         length_based(context, argv.start_addr, strings)

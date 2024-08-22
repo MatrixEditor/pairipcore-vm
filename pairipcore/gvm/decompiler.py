@@ -1,196 +1,182 @@
 # Same implementation as in disassembler.py but printing decompiled
 # C pseudocode instead.
-from typing import Any
-from pairipcore.context import VMContext
-from pairipcore.strings import decode_xor
-from pairipcore.opcode import *
+import operator
+import typing as t
 
-from .._types import addr_t, astruct1_t
+from pairipcore.context import VM, VMMemory
+from pairipcore.opcode import *  # noqa
+from pairipcore.insn import Insn, InsnFormat, FormatIDs
+
+from .._types import addr_t
 
 
 # -----------------------------------------------------------------------------
 # Decompiler context
 # -----------------------------------------------------------------------------
-class VMDecompilerContext(VMContext):
-    variables: dict[str, tuple[str, addr_t, Any]]  # name: type
-    stack: list[tuple[str, addr_t]]  # (name, addr)
+def VMOp_PreInit(vm: VM) -> None:
+    vm.state.comment = "//"
+    if vm.context.pc < 0:
+        vm.context.pc = vm.entry_point()
 
-    def __init__(self, base: VMContext):
-        super().__init__(base.vm_code, base.pc, base.verbose)
-        self.should_exit = base.should_exit
-        self.mmap = base.mmap
-        self.mpos = base.mpos
-        self.variables = {}
+    # setup locals and globals
+    vm.state["globals"] = {}
+    vm.state["locals"] = {}
 
-    # -- var ops ---
-    def newvar(
-        self, type: str, addr: addr_t, name: str | None = None, value=None
-    ) -> str:
-        if name is None:
-            name = f"lVar{len(self.variables)}"
 
-        self.variables[name] = (type, addr, value)
-        return name
+def VMOp_Deref(vm: VM, addr: addr_t):
+    return vm.mem[vm.context.u64(addr)]
 
-    def getvar(self, addr: addr_t, create: bool = True) -> str:
-        # error: ignore
-        item = next(filter(lambda x: x[1][1] == addr, self.variables.items()), None)
-        if item is None:
-            if not create:
-                raise ValueError(f"Could not find variable at #{addr:#x}")
-            name = self.newvar("long", addr)
-        else:
-            name, _ = item
-        return name
+
+def VMOp_NewGlobalVar(vm: VM, addr: addr_t, type: str) -> str:
+    global_vars = vm.state["globals"]
+    name = f"gVar{len(global_vars)}"
+    global_vars[addr] = (name, type)
+    return name
+
+
+def VMOp_NewLocalVar(vm: VM, addr: addr_t, type: str) -> str:
+    local_vars = vm.state["locals"]
+    name = f"lVar{len(local_vars)}"
+    local_vars[addr] = (name, type)
+    return name
+
+
+def VMOp_GetVar(vm: VM, addr: addr_t) -> tuple[str, str] | None:
+    obj = vm.state["locals"].get(addr, vm.state["globals"].get(addr))
+    if obj is None:
+        return None
+    return obj[0]
 
 
 # -----------------------------------------------------------------------------
 # FDE loop
 # -----------------------------------------------------------------------------
-def VMOp_Interpret(context: VMContext, table: dict, cb=None) -> None:
-    context = VMDecompilerContext(context)
-    context.comment_start = "//"
-    if context.pc < 0:
-        context.pc = context.entry_point
+def VMOp_Interpret(vm: VM, table: dict, cb=None) -> None:
+    VMOp_PreInit(vm)
 
-    while not context.should_exit:
-        context.pline(f"// +{context.pc:#08x}")
-        opcode = context.current_opcode()
-        context += 2  # skip opcode bytes
+    while not vm.state.should_exit:
+        vm.state.pline(f"// +{vm.context.pc:#08x}")
+        opcode = vm.current_opcode()
+        vm.context += 2  # skip opcode bytes
         handler = table.get(opcode, None)
         if handler is None:
             if cb:
-                cb(context, opcode)
+                cb(vm, opcode)
             else:
-                context.pline(f"Unknown opcode {opcode:#x}")
-                context.should_exit = True
+                vm.state.pline(f"Unknown opcode {opcode:#x}")
+                vm.state.should_exit = True
         else:
-            handler(context)
+            handler(vm)
 
 
 # -----------------------------------------------------------------------------
 # utility ops
 # -----------------------------------------------------------------------------
-def VMOp_VerifyJumpNext(context: VMContext, next_addr_off: int, hash_off: int) -> None:
-    next_instruction_addr = context.addr(next_addr_off)
-    fallback_address = context.addr(next_addr_off + 4)
-    if not context.verify_hash(context.pc + hash_off):
+def VMOp_VerifyJumpNext(vm: VM, insn: Insn) -> None:
+    next_instruction_addr = insn.info.next
+    fallback_address = insn.info.fallback
+    if not vm.verify_hash(vm.context.pc + insn.insn_format.hash_xor_value_off):
         next_instruction_addr = fallback_address
 
-    context.pc = next_instruction_addr
+    vm.context.pc = next_instruction_addr
 
 
 # -----------------------------------------------------------------------------
-# utility ops
+# binary ops
 # -----------------------------------------------------------------------------
-def VMOp_Malloc(context: VMDecompilerContext) -> None:
-    store_address: addr_t = context.addr(0x1A)
-    # we simulate the vector through a Python list
-    ptr = context.malloc(0x18, struct_ty=list)
-    name = context.newvar("std::vector *", store_address)
+def VMOp_BinaryOp(
+    vm: VM,
+    opcode,
+    op,
+    type: str,
+    operand1_fn,
+    store_fn,
+    operand2_fn=None,
+) -> None:
+    insn = Insn(vm, FormatIDs[opcode])
+    address__a = insn.A
+    address__b = insn.B
 
-    context.pline(
-        f"{name} = (std::vector *)malloc(0x18)",
-        f"#{ptr:#x} at #{store_address:#x}",
+    # if no variables exist, we assume these bytes are part of a string
+    var_a = VMOp_GetVar(vm, address__a)
+    var_b = VMOp_GetVar(vm, address__b)
+
+    address__c = insn.R
+    # if store_address is not already assigned to a variable, we create
+    # a new local one
+    var_c = VMOp_GetVar(vm, address__c)
+    if var_c is None:
+        # REVISIT: what about indexed string accesss?
+        var_c = VMOp_NewLocalVar(vm, address__c, type)
+    else:
+        var_c, _ = var_c
+
+    a = operand1_fn(address__a)
+    if operand2_fn is None:
+        operand2_fn = operand1_fn
+
+    b = operand2_fn(address__b)
+    store_fn(op(a, b))
+    if var_a is None:
+        var_a = f"{a:#02x}"
+    if var_b is None:
+        var_b = f"{a:#02x}"
+
+    vm.state.pline(f"{var_c} = {var_a} ^ {var_b};")
+    VMOp_VerifyJumpNext(vm, insn)
+
+
+def VMOp_Or_Byte(vm: VM) -> None:
+    VMOp_BinaryOp(vm, VMOpcode_Or_Byte, operator.or_, "byte", vm.context.u8, vm.context.setu8)
+
+
+def VMOp_And_UInt(vm: VM) -> None:
+    VMOp_BinaryOp(
+        vm, VMOpcode_And_UInt, operator.and_, "uint", vm.context.u32, vm.context.setu32
     )
-    context.setu64(ptr, store_address)
-
-    VMOp_VerifyJumpNext(context, next_addr_off=0x12, hash_off=0x00)
 
 
-def VMOp_MallocAndVectorAppend(context: VMDecompilerContext) -> None:
-    # allocates a new object first and appends it at the
-    # end of the first allocated vector
-    vector_a__addr = context.addr(0x00)
-    vector_b__addr = context.addr(0x04)
-
-    vector_a: list = context.deref(vector_a__addr)
-    vector_a__name = context.getvar(vector_a__addr, create=False)
-
-    #                                            0x16EF08
-    ptr = context.malloc(0x38, astruct1_t, fnPtr=_VMInit, field_0x30=vector_b__addr)
-    obj = context.mmap[ptr]
-    context.pline(f"""{{
-    astruct1_t *v0 =  (astruct_t *)malloc(0x38); // #{ptr:#x}
-    v0->fnPtr      = (void *)0x0016ef08;
-    v0->field_0x30 = (addr_t){vector_b__addr:#08x};
-    v0->field_0x28 = 0x3f800000;
-    {vector_a__name}->append(v0);
-}}""")
-
-    vector_a.append(obj)
-    VMOp_VerifyJumpNext(context, next_addr_off=0x16, hash_off=0x04)
-
-
-def _VMInit(context: VMDecompilerContext, obj: astruct1_t, param_3: addr_t) -> int:
-    pass
-
-
-def VMOp_SetupVM(context: VMDecompilerContext) -> None:
-    vector_a__addr = context.addr(0x00)
-    v1__addr = context.addr(0x04)
-    v2__addr = context.addr(0x08)
-
-    vector_a__name = context.getvar(vector_a__addr)
-    context.pline(f"""{{
-    addr_t v1 = (addr_t){v1__addr:#x};
-    addr_t v2 = (addr_t){v2__addr:#x};                  // *v2 = {context.u32(v2__addr):#x}
-    uint v3 = true, v4 = 0;
-
-    for (astruct1_t *obj = {vector_a__name}->__begin_;
-         obj != {vector_a__name}->__end_;
-         (long *)obj += 1)
-    {{
-        uint v4 = obj->fnPtr(&v4, obj, &v2);
-        if (*v4 != 0) {{
-            v3 = false;
-            break;
-        }}
-    }}
-    *(uint *)(v2) = v3;
-}}""")
-
-    result = 1
-    for item in context.deref(vector_a__addr):
-        # The Python implementation returns the result code directly
-        result = item.fnPtr(context, item, v1__addr)
-
-    context.setu32(result, v2__addr)
-    VMOp_VerifyJumpNext(context, next_addr_off=0x1E, hash_off=0x0C)
+def VMOp_Mul_UIntxInt(vm: VM) -> None:
+    VMOp_BinaryOp(
+        vm,
+        VMOpcode_Mul_UInt_Int,
+        operator.mul,
+        "uint",
+        vm.context.u32,
+        vm.context.setu32,
+        operand2_fn=vm.context.i32,
+    )
 
 
 # -----------------------------------------------------------------------------
-# special ops
+# assignments ops
 # -----------------------------------------------------------------------------
-def VMOp_CheckPath(context: VMDecompilerContext) -> None:
-    # Decodes a string (usually a path to a native library) | and verifies it?
-    address__b = context.addr(0x1E)
-    address__c = context.addr(0x22)
+def VMOp_RAssign(
+    vm: VM, opcode, load_fn, store_fn, type: str
+) -> None:
+    insn = Insn(vm, FormatIDs[opcode])
+    address__a = insn.A
+    address__b = insn.B
 
-    try:
-        data = decode_xor(context, address__c, address__b)
-        context.newvar(
-            type="const char *", addr=len(context.variables), value=data.decode()
-        )
-    except ValueError:
-        pass  # invalid string length
+    var_a = VMOp_GetVar(vm, address__a)
+    var_b = VMOp_GetVar(vm, address__b)
+    b = load_fn(address__b)
+    if not var_a:
+        var_a = VMOp_NewLocalVar(vm, address__a, type)
+    if not var_b:
+        var_b = f"{b:#08x}"
 
-    VMOp_VerifyJumpNext(context, next_addr_off=0x16, hash_off=0x04)
+    vm.state.pline(f"{var_a} = ({type}){var_b};")
+    store_fn(b, address__a)
+    VMOp_VerifyJumpNext(vm, insn)
 
 
-def VMOp_FindClass(context: VMDecompilerContext) -> None:
-    address__b = context.addr(0x1E)
-    address__c = context.addr(0x22)
+def VMOp_RAssign_UInt(vm: VM) -> None:
+    VMOp_RAssign(vm, VMOpcode_RAssign_UInt, vm.context.u32, vm.context.setu32, "uint")
 
-    try:
-        data = decode_xor(context, address__c, address__b)
-        context.newvar(
-            type="const char *", addr=len(context.variables), value=data.decode()
-        )
-    except ValueError:
-        pass  # invalid string length
 
-    VMOp_VerifyJumpNext(context, next_addr_off=0x16, hash_off=0x04)
+def VMOp_Nop(vm: VM) -> None:
+    VMOp_VerifyJumpNext(vm, Insn(vm, FormatIDs[VMOpcode_NOP1]))
 
 
 # -----------------------------------------------------------------------------
@@ -200,15 +186,13 @@ Decompiler = {
     # --- Internal function mapping ---
     VMOpcode_Interpret: VMOp_Interpret,
     # ---------------------------------
+    VMOpcode_NOP1: VMOp_Nop,
     #
-    # --- Vector allocations ---
-    # REVISIT: The vector type is not known and might
-    # be important here
-    VMOpcode_Malloc1: VMOp_Malloc,
-    VMOpcode_Malloc2: VMOp_Malloc,
-    VMOpcode_Init1: VMOp_MallocAndVectorAppend,
-    VMOpcode_Setup1: VMOp_SetupVM,
+    # --- binary ops ---
+    VMOpcode_Or_Byte: VMOp_Or_Byte,
+    VMOpcode_And_UInt: VMOp_And_UInt,
+    VMOpcode_Mul_UInt_Int: VMOp_Mul_UIntxInt,
     #
-    # string ops
-    VMOpcode_CheckPath: VMOp_CheckPath,
+    # --- assignment ops ---
+    VMOpcode_RAssign_UInt: VMOp_RAssign_UInt,
 }

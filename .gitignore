@@ -3,6 +3,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+pyrightconfig.json
 
 # Distribution / packaging
 .Python
@@ -160,3 +161,7 @@ cython_debug/
 
 # VSCode
 .vscode/
+
+# Added by cargo
+
+/target

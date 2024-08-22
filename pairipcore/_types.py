@@ -6,11 +6,11 @@ from typing import Callable
 # Typing
 # -----------------------------------------------------------------------------
 # An address is basically an offset within the bytecode stream
-addr_t = int
+type addr_t = int
 # whereas a pointer refers to an allocated object
-ptr_t = int
+type ptr_t = int
 
-vector_t = list
+type vector_t = list
 
 
 @dataclass

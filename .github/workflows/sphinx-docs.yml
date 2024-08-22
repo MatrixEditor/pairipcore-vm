@@ -1,0 +1,34 @@
+name: Build and Deploy Sphinx Documentation
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.docs.txt && pip install -r requirements.txt && pip install -e .
+
+      - name: Build
+        # Create .nojekyll file to disable Jekyll processing
+        run: |
+          cd docs
+          make html
+          touch build/html/.nojekyll
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/build/html

@@ -1,6 +1,6 @@
 from ._types import *  # noqa
 from .opcode import *  # noqa
-from .context import VMContext, VMMemory, decode_address, fnv  # noqa
+from .context import *  # noqa
 
 
 def interpret(
@@ -9,6 +9,7 @@ def interpret(
     entry_point: int = -1,
     verbose: bool = False,
     cb=None,
+    **env,
 ) -> None:
     """
     Interprets the given GVM bytecode using the specified opcode table.
@@ -29,12 +30,12 @@ def interpret(
     Returns:
         None
     """
-    state = VMContext(vmcode, entry_point, verbose)
+    state = VM(vmcode, entry_point, verbose=verbose, **env)
     interpret_fn = table.get(VMOpcode_Interpret, _interpret_default)
     interpret_fn(state, table, cb)
 
 
-def _interpret_default(context: VMContext, table: dict, cb=None) -> None:
+def _interpret_default(vm: VM, table: dict, cb=None) -> None:
     """Default interpreter function for handling GVM bytecode.
 
     Processes each opcode and invokes the corresponding handler - in other words,
@@ -51,17 +52,17 @@ def _interpret_default(context: VMContext, table: dict, cb=None) -> None:
     Returns:
         None
     """
-    if context.pc < 0:
-        context.pc = context.entry_point
+    if vm.context.pc < 0:
+        vm.context.pc = vm.entry_point()
 
-    while not context.should_exit:
-        opcode = context.current_opcode()
-        context += 2
+    while not vm.state.should_exit:
+        opcode = vm.current_opcode()
+        vm.context += 2
         handler = table.get(opcode)
         if handler is None:
             if cb:
-                cb(context, opcode)
+                cb(vm, opcode)
             else:
-                context.should_exit = True
+                vm.state.should_exit = True
         else:
-            handler(context)
+            handler(vm)
