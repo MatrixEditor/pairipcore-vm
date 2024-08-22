@@ -1,6 +1,7 @@
-from typing import Any
+from typing import Any, Type
+
 from caterpillar.shortcuts import unpack, LittleEndian as le, pack
-from caterpillar.fields import uint16, uint32, uint64, double, int32
+from caterpillar.fields import uint16, uint32, uint64, double, int32, Field
 
 from .opcode import decode_opcode
 from ._types import ptr_t, addr_t
@@ -37,155 +38,158 @@ def decode_address(enc_address: int, code_length: int) -> addr_t:
     return ((enc_address ^ ~code_length) & 0xFFFFFFFF) % code_length
 
 
+# -----------------------------------------------------------------------------
+# public field types
+# -----------------------------------------------------------------------------
 le_u64 = le + uint64
 le_u32 = le + uint32
 le_s32 = le + int32
+le_u16 = le + uint16
 
 
-class VMMemory(bytearray):
-    addr: int
+# -----------------------------------------------------------------------------
+# Memory Management
+# -----------------------------------------------------------------------------
+class VMVariable:
+    #: the human readable type of this variable
+    __type_: str
 
-    def _usigned_int_(self, struct_, addr: int = 0):
-        return unpack(struct_, self[addr:])
+    #: the value associated with this variable
+    __value_: Any
 
-    def _set_int_(self, struct_, value, addr):
-        data = pack(value, struct_)
-        self[addr : addr + len(data)] = data
+    #: the position of this variable in memory (file offset)
+    __address_: addr_t
 
-    def putu64(self, value: int, off: int) -> None:
-        self._set_int_(le_u64, value, off)
+class VMMemory:
+    """Internal memory manager for the VM.
 
-    def getu64(self, off: int = 0) -> int:
-        return self._usigned_int_(le_u64, off)
-
-    def as_[T](self, ty: T) -> T:
-        return unpack(ty, self)
-
-
-class VMContext:
-    """Describes the internal state of the VM.
-
-    Args:
-        code (bytes): The bytecode to be executed by the VM.
-        pc (int, optional): The initial program counter. Defaults to 0.
-        verbose (bool, optional): If True, enables verbose logging. Defaults to False.
+    This class keeps track of objects that are allocated on the heap using
+    malloc(..).
     """
 
-    mmap: dict[ptr_t, VMMemory | Any]
-    """Internal memory map (simulation)"""
+    #: INternal map that stores all objects that should be
+    #: accessible.
+    objects: dict[ptr_t, Any]
 
-    def __init__(self, code: bytes, pc: int = 0, verbose: bool = False):
-        self.vm_code = bytearray(code)
-        self.vm_code_length = len(code)
-        self.pc = pc
-        self.should_exit = False
-        self.verbose = verbose
-        self.mmap = {}
-        self.mbase = 0xDEAD000000000
-        self.mpos = self.mbase
-        self.next_label: str | None = None
-        self.comment_start = ";"
+    #: Memory variables
+    variables: dict[addr_t, VMVariable]
 
-    def __len__(self):
-        """Returns the length of the VM's bytecode."""
+    #: Base address for this memory manager
+    base_address: ptr_t
+
+    # Current address for allocating objects
+    _alloc_pos: ptr_t
+
+    def alloc[T](self, ty: Type[T], *args, **kwargs) -> tuple[ptr_t, T]:
+        """Simulates memory allocation by instantiating an object of the given type.
+
+        This function stores a reference to the created object in the internal
+        object map and resturns the target address together with the created
+        object.
+        """
+        addr = self._alloc_pos
+        obj = ty(*args, **kwargs)
+
+        self.objects[addr] = obj
+        self._alloc_pos += 8
+        return (addr, obj)
+
+    def malloc(self, size: int) -> tuple[ptr_t, bytearray]:
+        """Simulates memory allocation by creating a bytearray using the given size."""
+        addr = self._alloc_pos
+        obj = bytearray(size)
+
+        self.objects[addr] = obj
+        self._alloc_pos += size
+        return (addr, obj)
+
+    # --- special methods ---
+    def __init__(self, base_address: ptr_t) -> None:
+        self.objects = {}
+        self.base_address = base_address
+        self._alloc_pos = base_address
+
+    def __getitem__(self, key: ptr_t) -> Any:
+        return self.objects[key]
+
+
+
+# -----------------------------------------------------------------------------
+# VMContext
+# -----------------------------------------------------------------------------
+class VMContext:
+    """
+    Contains a reference to the bytecode data and maintains the current
+    instruction position
+    """
+
+    # --- special methods ---
+    def __init__(self, bytecode: bytes, pc: addr_t) -> None:
+        self.vm_code: bytearray = bytearray(bytecode)
+        self.vm_code_length: int = len(bytecode)
+        self.pc: addr_t = pc
+
+    def __getitem__(self, key):
+        return self.vm_code[key]
+
+    def __setitem__(self, key, value):
+        self.vm_code[key] = value
+
+    def __len__(self) -> int:
         return self.vm_code_length
 
     def __iadd__(self, n) -> "VMContext":
-        """Increments the program counter by the specified value.
-
-        Args:
-            n (int): The value to increment the program counter by.
-
-        Returns:
-            VMContext: The updated VMContext instance.
-        """
         self.pc += n
         return self
 
-    def __getitem__(self, key):
-        """Retrieves a byte from the VM's code at the specified index.
+    # --- unpacking ---
+    def get(self, field: Field, addr: addr_t = -1):
+        if addr == -1:
+            addr = self.pc
 
-        Args:
-            key (int): The index of the byte to retrieve.
+        return unpack(field @ addr, self.vm_code)
 
-        Returns:
-            int: The byte at the specified index.
-        """
-        return self.vm_code[key]
-
-    def __int__(self):
-        """Returns the current value of the program counter."""
-        return self.pc
-
-    def _unpack_at_(self, struct_, addr: addr_t = -1, decode=False):
-        addr = addr if addr >= 0 else self.pc
-        if decode:
-            addr = decode_address(addr, self.vm_code_length)
-        return unpack(struct_, self.vm_code[addr:])
-
-    def _pack_at_(self, struct_, value, addr: addr_t):
-        data = pack(value, struct_)
-        self.vm_code[addr : addr + len(data)] = data
-
-    def u32(self, addr: addr_t = -1, decode=False) -> int:
+    def u32(self, addr: addr_t = -1) -> int:
         """Reads an unsigned 32bit integer.
 
         Reads the integer from the current program counter if address
-        is -1 and decodes the address before reading the value if decode
-        is set to True.
+        is -1.
 
         Args:
             addr (int, optional): the target address. Defaults to -1.
-            decode (bool, optional): whether to decode the given address before parsing. Defaults to False.
 
         Returns:
             int: the parsed int
         """
-        return self._unpack_at_(le_u32, addr, decode)
+        return self.get(le_u32, addr)
 
-    def i32(self, addr: addr_t = -1, decode=False) -> int:
+    def i32(self, addr: addr_t = -1) -> int:
         """Reads a signed 32bit integer.
 
         Reads the integer from the current program counter if address
-        is -1 and decodes the address before reading the value if decode
-        is set to True.
+        is -1.
 
         Args:
             addr (int, optional): the target address. Defaults to -1.
-            decode (bool, optional): whether to decode the given address befor parsing. Defaults to False.
 
         Returns:
             int: the parsed int
         """
-        return self._unpack_at_(le + int32, addr, decode)
+        return self.get(le_s32, addr)
 
-    def u64(self, addr: addr_t = -1, decode=False) -> int:
+    def u64(self, addr: addr_t = -1) -> int:
         """Reads an unsigned 64bit integer.
 
         Reads the integer from the current program counter if address
-        is -1 and decodes the address before reading the value if decode
-        is set to True.
+        is -1.
 
         Args:
             addr (int, optional): the target address. Defaults to -1.
-            decode (bool, optional): whether to decode the given address befor parsing. Defaults to False.
 
         Returns:
             int: the parsed int
         """
-        return self._unpack_at_(le_u64, addr, decode)
-
-    def setu64(self, val: int, addr: addr_t) -> None:
-        self._pack_at_(le_u64, val, addr)
-
-    def setu32(self, val: int, addr: addr_t) -> None:
-        self._pack_at_(le_u32, val, addr)
-
-    def seti32(self, val: int, addr: addr_t) -> None:
-        self._pack_at_(le_s32, val, addr)
-
-    def setu8(self, val: int, addr: addr_t) -> None:
-        self.vm_code[addr] = val
+        return self.get(le_u64, addr)
 
     def u8(self, addr: addr_t = -1) -> int:
         addr = addr if addr >= 0 else self.pc
@@ -195,33 +199,29 @@ class VMContext:
         """Reads a 64bit floating point value.
 
         Reads the value from the current program counter if address
-        is -1 and decodes the address before reading the value if decode
-        is set to True.
+        is -1.
 
         Args:
             addr (int, optional): the target address. Defaults to -1.
-            decode (bool, optional): whether to decode the given address befor parsing. Defaults to False.
 
         Returns:
             float: the parsed double
         """
-        return self._unpack_at_(le + double, addr, decode=False)
+        return self.get(le + double, addr)
 
     def u16(self, addr: addr_t = -1, decode=False) -> int:
         """Reads an unsigned 16bit integer.
 
         Reads the integer from the current program counter if address
-        is -1 and decodes the address before reading the value if decode
-        is set to True.
+        is -1.
 
         Args:
             addr (int, optional): the target address. Defaults to -1.
-            decode (bool, optional): whether to decode the given address befor parsing. Defaults to False.
 
         Returns:
             int: the parsed int
         """
-        return self._unpack_at_(le + uint16, addr, decode)
+        return self.get(le + uint16, addr)
 
     def addr(self, off: int, rel=True, decode=True) -> addr_t:
         """Reads an encoded address relative to the current addres (default)
@@ -234,34 +234,70 @@ class VMContext:
         Returns:
             int: the parsed address
         """
-        address = self.u32(off if not rel else self.pc + off, decode=False)
+        address = self.u32(off if not rel else self.pc + off)
         if decode:
             return decode_address(address, self.vm_code_length)
         return address
 
-    def deref(self, addr: addr_t) -> Any:
-        return self.mmap[self.u64(addr)]
+    # --- packing ---
+    def put(self, field: Field, value: Any, addr: addr_t = -1) -> None:
+        data: bytes = pack(value, field)
+        if addr == -1:
+            addr = self.pc
+        self.vm_code[addr : addr + len(data)] = data
 
-    @property
-    def entry_point(self) -> addr_t:
-        """Calculates the entry point for the current program
+    def setu64(self, val: int, addr: addr_t) -> None:
+        self.put(le_u64, val, addr)
 
-        Returns:
-            int: the entry point address (file offset)
-        """
-        a = self.u32(addr=0x04)
-        b01 = (~a & 0xFFFFFF8E) * -3 + (~a | 0xFFFFFF8E)
-        b02 = (a * 2) ^ 0xFFFFFF1C
-        return self.addr((b01 + b02) & 0xFFFFFFFF, rel=False)
+    def setu32(self, val: int, addr: addr_t) -> None:
+        self.put(le_u32, val, addr)
 
-    def current_opcode(self) -> int:
-        """Returns the decoded opcode for the current pc.
+    def seti32(self, val: int, addr: addr_t) -> None:
+        self.put(le_s32, val, addr)
 
-        Returns:
-            int: the decoded opcode
-        """
-        return decode_opcode(self.u16())
+    def setu8(self, val: int, addr: addr_t) -> None:
+        self[addr] = val
 
+
+class VMState:
+    """Tracks the internal state of the VM and stores environment options"""
+
+    #: whether to print decompiled or disassembled output
+    verbose: bool
+
+    #: Output writer (may be null)
+    writer: Any
+
+    #: controls whether the VM should stop execution
+    should_exit: bool
+
+    #: comment start character
+    comment: str
+
+    #: internal mapping of variables used by the Decompiler or disassembler
+    _env: dict[str, Any]
+
+    # --- special methods ---
+    def __init__(
+        self,
+        verbose: bool = False,
+        writer: Any = print,
+        comment: str | None = None,
+        **kwargs,
+    ) -> None:
+        self.verbose = verbose
+        self.writer = writer
+        self.should_exit = False
+        self.comment = comment or ";"
+        self._env = dict(kwargs)
+
+    def __getitem__(self, key):
+        return self._env[key]
+
+    def __setitem__(self, key, value):
+        self._env[key] = value
+
+    # --- debugging support ---
     def psection(self, name: str, *comments) -> None:
         """Writes a line to the terminal.
 
@@ -287,24 +323,56 @@ class VMContext:
             name (str): the line to write
         """
         if len(args) > 0:
-            args = [self.comment_start] + list(args)
+            args = [self.comment] + list(args)
+
         if self.verbose:
-            print(f"{line:40s}", *args)
+            self.writer(" ".join([f"{line:40s}"] + list(args)))
 
-    def malloc(self, size: int = -1, struct_ty: type | None = None, **kwargs) -> ptr_t:
-        if size == -1 and type is None:
-            raise ValueError("Expected an allocation size or a struct type!")
 
-        addr = self.mpos
-        if type is None:
-            data = VMMemory(size)
-            setattr(data, "addr", addr)
-        else:
-            data = struct_ty(**kwargs)
+# -----------------------------------------------------------------------------
+# VM
+# -----------------------------------------------------------------------------
+class VM:
+    #: internal state and environment
+    state: VMState
 
-        self.mmap[addr] = data
-        self.mpos = addr + size
-        return addr
+    #: code and code position
+    context: VMContext
+
+    #: memory
+    mem: VMMemory
+
+    def __init__(
+        self,
+        bytecode: bytes,
+        pc: addr_t = -1,
+        mem_base_addr: ptr_t = -1,
+        verbose: bool = False,
+        writer: Any = print,
+        **env,
+    ) -> None:
+        self.mem = VMMemory(mem_base_addr if mem_base_addr >= 0 else 0xDEAD00000000)
+        self.context = VMContext(bytecode, pc)
+        self.state = VMState(verbose, writer, **env)
+
+    def entry_point(self) -> addr_t:
+        """Calculates the entry point for the current program
+
+        Returns:
+            int: the entry point address (file offset)
+        """
+        a = self.context.u32(addr=0x04)
+        b01 = (~a & 0xFFFFFF8E) * -3 + (~a | 0xFFFFFF8E)
+        b02 = (a * 2) ^ 0xFFFFFF1C
+        return self.context.addr((b01 + b02) & 0xFFFFFFFF, rel=False)
+
+    def current_opcode(self) -> int:
+        """Returns the decoded opcode for the current pc.
+
+        Returns:
+            int: the decoded opcode
+        """
+        return decode_opcode(self.context.u16())
 
     def verify_hash(self, addr: addr_t = -1) -> bool:
         """
@@ -319,13 +387,15 @@ class VMContext:
             bool: True if the hash verification is successful, False otherwise.
         """
         if addr < 0:
-            addr = self.pc
+            addr = self.context.pc
 
-        xor_value = self.u32(self.addr(addr, rel=False)) ^ 0xFFFFFFFF00000000
-        hash_value = self.u64(addr + 4)
-        hash_address = self.addr(addr + 12, rel=False)
-        hash_length = self.u16(addr + 16)
+        xor_value = (
+            self.context.u32(self.context.addr(addr, rel=False)) ^ 0xFFFFFFFF00000000
+        )
+        hash_value = self.context.u64(addr + 4)
+        hash_address = self.context.addr(addr + 12, rel=False)
+        hash_length = self.context.u16(addr + 16)
 
-        data = self.vm_code[hash_address : hash_address + hash_length]
+        data = self.context[hash_address : hash_address + hash_length]
         hash_value2 = fnv(data) ^ (xor_value & 0xFFFFFFFFFFFFFFFF)
         return hash_value2 == hash_value

@@ -16,40 +16,21 @@ _8H\xe9j\xbe\xf4\x1aB\xccm\xa2)\\\x1df\xb68'
 KEY__LEN = 5803
 
 
-def ppdecode(context: VMContext, pp_data: addr_t, p_key: addr_t = -1) -> bytes:
-    return pdecode(context, context.addr(pp_data), p_key)
+def ppdecode(code: VMContext, pp_data: addr_t, p_key: addr_t = -1) -> bytes:
+    return pdecode(code, code.addr(pp_data), p_key)
 
 
-def pdecode(context: VMContext, p_data: addr_t, p_key: addr_t = -1) -> bytes:
+def pdecode(code: VMContext, p_data: addr_t, p_key: addr_t = -1) -> bytes:
     key = KEY
     len__b = KEY__LEN
     if p_key != -1:
-        key = context.vm_code[p_key : p_key + 0xFF]
-        len__b = context.u16(p_key)
+        key = code.vm_code[p_key : p_key + 0xFF]
+        len__b = code.u16(p_key)
 
-    len__a = context.u16(p_data)
+    len__a = code.u16(p_data)
     length = len__a ^ len__b
     result = bytearray(length)
-    for i, b in enumerate(context.vm_code[p_data : p_data + length + 2]):
+    for i, b in enumerate(code.vm_code[p_data : p_data + length + 2]):
         result[i] = b ^ key[i & 0xFF]
-
-    return result[2:]
-
-
-# -- depcrecated
-def decode_xor(context: VMContext, ppdata: addr_t, pkey: addr_t) -> bytes:
-    # address__a points to another address, like char **
-    ppdata = context.addr(ppdata, rel=False)
-
-    len__a = context.u16(ppdata)
-    len__b = context.u16(pkey)
-    # length must be XOR'ed before it can be used
-    length = len__a ^ len__b
-    if length > 1000:
-        raise ValueError(f"String too long ({length})")
-
-    result = bytearray(length + 2)
-    for i, b in enumerate(context.vm_code[ppdata : ppdata + length + 2]):
-        result[i] = b ^ context.vm_code[pkey + (i & 0xFF)]
 
     return result[2:]
