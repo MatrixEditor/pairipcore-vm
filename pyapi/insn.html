@@ -1,0 +1,905 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Instruction Format Classes &#8212; pairipcore-vm</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pyapi/insn';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="String Decoding" href="strings.html" />
+    <link rel="prev" title="Virtual Machine Context" href="context.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pairipcore-vm</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reversing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cfg.html">Identifying the VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../instructions.html">Instruction Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../strings.html">Strings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building a Decompiler</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../decompiler/design.html">Design Guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../decompiler/insn_format.html">Instruction Format</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="context.html">Virtual Machine Context</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Instruction Format Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strings.html">String Decoding</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/blob/master/pyapi/insn.rst?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/edit/master/pyapi/insn.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/issues/new?title=Issue%20on%20page%20%2Fpyapi/insn.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/pyapi/insn.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Instruction Format Classes</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat"><code class="docutils literal notranslate"><span class="pre">InsnFormat</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.A"><code class="docutils literal notranslate"><span class="pre">InsnFormat.A</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.B"><code class="docutils literal notranslate"><span class="pre">InsnFormat.B</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.C"><code class="docutils literal notranslate"><span class="pre">InsnFormat.C</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.D"><code class="docutils literal notranslate"><span class="pre">InsnFormat.D</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.E"><code class="docutils literal notranslate"><span class="pre">InsnFormat.E</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.__init__"><code class="docutils literal notranslate"><span class="pre">InsnFormat.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.parse"><code class="docutils literal notranslate"><span class="pre">InsnFormat.parse()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.next_addr_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.next_addr_off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.fallback_addr_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.fallback_addr_off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.hash_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.hash_off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.hash_xor_value_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.hash_xor_value_off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.hash_data_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.hash_data_off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.hash_data_length_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.hash_data_length_off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.store_var_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.store_var_off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.vars"><code class="docutils literal notranslate"><span class="pre">InsnFormat.vars()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo"><code class="docutils literal notranslate"><span class="pre">InsnInfo</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo.__init__"><code class="docutils literal notranslate"><span class="pre">InsnInfo.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo.hash"><code class="docutils literal notranslate"><span class="pre">InsnInfo.hash</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo.hash_data_addr"><code class="docutils literal notranslate"><span class="pre">InsnInfo.hash_data_addr</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo.hash_data_length"><code class="docutils literal notranslate"><span class="pre">InsnInfo.hash_data_length</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo.xor_value_addr"><code class="docutils literal notranslate"><span class="pre">InsnInfo.xor_value_addr</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo.fallback"><code class="docutils literal notranslate"><span class="pre">InsnInfo.fallback</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo.next"><code class="docutils literal notranslate"><span class="pre">InsnInfo.next</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn"><code class="docutils literal notranslate"><span class="pre">Insn</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.A"><code class="docutils literal notranslate"><span class="pre">Insn.A</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.B"><code class="docutils literal notranslate"><span class="pre">Insn.B</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.C"><code class="docutils literal notranslate"><span class="pre">Insn.C</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.D"><code class="docutils literal notranslate"><span class="pre">Insn.D</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.E"><code class="docutils literal notranslate"><span class="pre">Insn.E</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.R"><code class="docutils literal notranslate"><span class="pre">Insn.R</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.__init__"><code class="docutils literal notranslate"><span class="pre">Insn.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.address"><code class="docutils literal notranslate"><span class="pre">Insn.address</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.opcode_address"><code class="docutils literal notranslate"><span class="pre">Insn.opcode_address</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.insn_format"><code class="docutils literal notranslate"><span class="pre">Insn.insn_format</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.info"><code class="docutils literal notranslate"><span class="pre">Insn.info</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.O"><code class="docutils literal notranslate"><span class="pre">O()</span></code></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-pairipcore.insn">
+<span id="instruction-format-classes"></span><span id="pyapi-insn"></span><h1>Instruction Format Classes<a class="headerlink" href="#module-pairipcore.insn" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pairipcore.insn.</span></span><span class="sig-name descname"><span class="pre">InsnFormat</span></span><a class="reference internal" href="../_modules/pairipcore/insn.html#InsnFormat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.insn.InsnFormat" title="Link to this definition">#</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.A">
+<span class="sig-name descname"><span class="pre">A</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.A" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.B">
+<span class="sig-name descname"><span class="pre">B</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.B" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.C">
+<span class="sig-name descname"><span class="pre">C</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.C" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.D">
+<span class="sig-name descname"><span class="pre">D</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.D" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.E">
+<span class="sig-name descname"><span class="pre">E</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.E" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info_off</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_vars</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_vars</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage_var</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/insn.html#InsnFormat.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.insn.InsnFormat.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>info_off</strong> (<em>int</em>)</p></li>
+<li><p><strong>stack_vars</strong> (<em>int</em>)</p></li>
+<li><p><strong>extra_vars</strong> (<em>int</em>)</p></li>
+<li><p><strong>storage_var</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.parse">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pairipcore.insn.InsnFormat" title="pairipcore.insn.InsnFormat"><span class="pre">InsnFormat</span></a></span></span><a class="reference internal" href="../_modules/pairipcore/insn.html#InsnFormat.parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.insn.InsnFormat.parse" title="Link to this definition">#</a></dt>
+<dd><p>Parses a format ID string to create an InsnFormat object.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>format_id (str): A string representing the instruction format.</p>
+</dd>
+<dt>Returns:</dt><dd><p>InsnFormat: The corresponding InsnFormat object.</p>
+</dd>
+<dt>Raises:</dt><dd><p>ValueError: If the format ID is empty.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>format_id</strong> (<em>str</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#pairipcore.insn.InsnFormat" title="pairipcore.insn.InsnFormat"><em>InsnFormat</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.next_addr_off">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">next_addr_off</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.next_addr_off" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the offset for the next instruction address.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.fallback_addr_off">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fallback_addr_off</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.fallback_addr_off" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the offset for the fallback instruction address.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.hash_off">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hash_off</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.hash_off" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the offset for the hash value.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.hash_xor_value_off">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hash_xor_value_off</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.hash_xor_value_off" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the offset for the XOR value used in the hash.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.hash_data_off">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hash_data_off</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.hash_data_off" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the offset for the hash data.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.hash_data_length_off">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hash_data_length_off</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.hash_data_length_off" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the offset for the length of the hash data.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>int: The offset for the length of the hash data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.store_var_off">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">store_var_off</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.store_var_off" title="Link to this definition">#</a></dt>
+<dd><p>Returns the offset of the storage variable.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>int: The offset of the storage variable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.vars">
+<span class="sig-name descname"><span class="pre">vars</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pairipcore/insn.html#InsnFormat.vars"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.insn.InsnFormat.vars" title="Link to this definition">#</a></dt>
+<dd><p>Returns the offsets of each stack variable.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>dict[str, int]: A dictionary mapping variable names (A, B, C, etc.) to their offsets.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnInfo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pairipcore.insn.</span></span><span class="sig-name descname"><span class="pre">InsnInfo</span></span><a class="reference internal" href="../_modules/pairipcore/insn.html#InsnInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.insn.InsnInfo" title="Link to this definition">#</a></dt>
+<dd><p>Represents the metadata and control flow information associated with a
+particular instruction in the VM.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnInfo.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">VM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insn_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pairipcore.insn.InsnFormat" title="pairipcore.insn.InsnFormat"><span class="pre">InsnFormat</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/insn.html#InsnInfo.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.insn.InsnInfo.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vm</strong> (<em>VM</em>)</p></li>
+<li><p><strong>insn_format</strong> (<a class="reference internal" href="#pairipcore.insn.InsnFormat" title="pairipcore.insn.InsnFormat"><em>InsnFormat</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnInfo.hash">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hash</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnInfo.hash" title="Link to this definition">#</a></dt>
+<dd><p>Returns the expected hash value for verification.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnInfo.hash_data_addr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hash_data_addr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">addr_t</span></em><a class="headerlink" href="#pairipcore.insn.InsnInfo.hash_data_addr" title="Link to this definition">#</a></dt>
+<dd><p>Returns the memory address where the data to be hashed is located.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnInfo.hash_data_length">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hash_data_length</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnInfo.hash_data_length" title="Link to this definition">#</a></dt>
+<dd><p>Returns the length of the data to be hashed.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnInfo.xor_value_addr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">xor_value_addr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">addr_t</span></em><a class="headerlink" href="#pairipcore.insn.InsnInfo.xor_value_addr" title="Link to this definition">#</a></dt>
+<dd><p>Returns the memory address of the XOR value used in the hash calculation.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnInfo.fallback">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fallback</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">addr_t</span></em><a class="headerlink" href="#pairipcore.insn.InsnInfo.fallback" title="Link to this definition">#</a></dt>
+<dd><p>Returns the address of the fallback instruction if the hash verification fails.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnInfo.next">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">next</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">addr_t</span></em><a class="headerlink" href="#pairipcore.insn.InsnInfo.next" title="Link to this definition">#</a></dt>
+<dd><p>Returns the address of the next instruction to execute if the hash verification succeeds.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pairipcore.insn.Insn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pairipcore.insn.</span></span><span class="sig-name descname"><span class="pre">Insn</span></span><a class="reference internal" href="../_modules/pairipcore/insn.html#Insn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.insn.Insn" title="Link to this definition">#</a></dt>
+<dd><p>Represents an instruction in the virtual machine, including its format, address,
+and associated metadata.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.insn.Insn.A">
+<span class="sig-name descname"><span class="pre">A</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">addr_t</span></em><a class="headerlink" href="#pairipcore.insn.Insn.A" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.insn.Insn.B">
+<span class="sig-name descname"><span class="pre">B</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">addr_t</span></em><a class="headerlink" href="#pairipcore.insn.Insn.B" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.insn.Insn.C">
+<span class="sig-name descname"><span class="pre">C</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">addr_t</span></em><a class="headerlink" href="#pairipcore.insn.Insn.C" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.insn.Insn.D">
+<span class="sig-name descname"><span class="pre">D</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">addr_t</span></em><a class="headerlink" href="#pairipcore.insn.Insn.D" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.insn.Insn.E">
+<span class="sig-name descname"><span class="pre">E</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">addr_t</span></em><a class="headerlink" href="#pairipcore.insn.Insn.E" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.insn.Insn.R">
+<span class="sig-name descname"><span class="pre">R</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">addr_t</span></em><a class="headerlink" href="#pairipcore.insn.Insn.R" title="Link to this definition">#</a></dt>
+<dd><p>Address where the result of the instruction is stored.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.insn.Insn.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">VM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insn_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pairipcore.insn.InsnFormat" title="pairipcore.insn.InsnFormat"><span class="pre">InsnFormat</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/insn.html#Insn.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.insn.Insn.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vm</strong> (<em>VM</em>)</p></li>
+<li><p><strong>insn_format</strong> (<a class="reference internal" href="#pairipcore.insn.InsnFormat" title="pairipcore.insn.InsnFormat"><em>InsnFormat</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.Insn.address">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">addr_t</span></em><a class="headerlink" href="#pairipcore.insn.Insn.address" title="Link to this definition">#</a></dt>
+<dd><p>Returns the address of this instruction (excluding the opcode).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.Insn.opcode_address">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">opcode_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">addr_t</span></em><a class="headerlink" href="#pairipcore.insn.Insn.opcode_address" title="Link to this definition">#</a></dt>
+<dd><p>Returns the address where the opcode for this instruction is located.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.Insn.insn_format">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">insn_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pairipcore.insn.InsnFormat" title="pairipcore.insn.InsnFormat"><span class="pre">InsnFormat</span></a></em><a class="headerlink" href="#pairipcore.insn.Insn.insn_format" title="Link to this definition">#</a></dt>
+<dd><p>Returns the format of this instruction.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.Insn.info">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pairipcore.insn.InsnInfo" title="pairipcore.insn.InsnInfo"><span class="pre">InsnInfo</span></a></em><a class="headerlink" href="#pairipcore.insn.Insn.info" title="Link to this definition">#</a></dt>
+<dd><p>Returns the metadata and control flow information associated with this instruction.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pairipcore.insn.O">
+<span class="sig-prename descclassname"><span class="pre">pairipcore.insn.</span></span><span class="sig-name descname"><span class="pre">O</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opcode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/pairipcore/insn.html#O"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.insn.O" title="Link to this definition">#</a></dt>
+<dd><p>Registers an opcode with its corresponding format and name.</p>
+<p>This function associates an opcode with a specific instruction format (represented
+by the format ID) and a mnemonic name. The format and name are stored in the
+<code class="code docutils literal notranslate"><span class="pre">FormatIDs</span></code> and <code class="code docutils literal notranslate"><span class="pre">OpcodeIDs</span></code> dictionaries, respectively.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>name (str): The mnemonic name of the opcode. If the name is <code class="code docutils literal notranslate"><span class="pre">&quot;_&quot;</span></code>, it will be auto-generated based on the format ID.
+opcode (int): The numeric opcode to be registered.
+format_id (str): The format ID string that describes the structure of the instruction.</p>
+</dd>
+<dt>Returns:</dt><dd><p>int: The opcode that was registered.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>)</p></li>
+<li><p><strong>opcode</strong> (<em>int</em>)</p></li>
+<li><p><strong>format_id</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="context.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Virtual Machine Context</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="strings.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">String Decoding</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat"><code class="docutils literal notranslate"><span class="pre">InsnFormat</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.A"><code class="docutils literal notranslate"><span class="pre">InsnFormat.A</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.B"><code class="docutils literal notranslate"><span class="pre">InsnFormat.B</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.C"><code class="docutils literal notranslate"><span class="pre">InsnFormat.C</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.D"><code class="docutils literal notranslate"><span class="pre">InsnFormat.D</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.E"><code class="docutils literal notranslate"><span class="pre">InsnFormat.E</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.__init__"><code class="docutils literal notranslate"><span class="pre">InsnFormat.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.parse"><code class="docutils literal notranslate"><span class="pre">InsnFormat.parse()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.next_addr_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.next_addr_off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.fallback_addr_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.fallback_addr_off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.hash_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.hash_off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.hash_xor_value_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.hash_xor_value_off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.hash_data_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.hash_data_off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.hash_data_length_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.hash_data_length_off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.store_var_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.store_var_off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.vars"><code class="docutils literal notranslate"><span class="pre">InsnFormat.vars()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo"><code class="docutils literal notranslate"><span class="pre">InsnInfo</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo.__init__"><code class="docutils literal notranslate"><span class="pre">InsnInfo.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo.hash"><code class="docutils literal notranslate"><span class="pre">InsnInfo.hash</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo.hash_data_addr"><code class="docutils literal notranslate"><span class="pre">InsnInfo.hash_data_addr</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo.hash_data_length"><code class="docutils literal notranslate"><span class="pre">InsnInfo.hash_data_length</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo.xor_value_addr"><code class="docutils literal notranslate"><span class="pre">InsnInfo.xor_value_addr</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo.fallback"><code class="docutils literal notranslate"><span class="pre">InsnInfo.fallback</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo.next"><code class="docutils literal notranslate"><span class="pre">InsnInfo.next</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn"><code class="docutils literal notranslate"><span class="pre">Insn</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.A"><code class="docutils literal notranslate"><span class="pre">Insn.A</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.B"><code class="docutils literal notranslate"><span class="pre">Insn.B</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.C"><code class="docutils literal notranslate"><span class="pre">Insn.C</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.D"><code class="docutils literal notranslate"><span class="pre">Insn.D</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.E"><code class="docutils literal notranslate"><span class="pre">Insn.E</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.R"><code class="docutils literal notranslate"><span class="pre">Insn.R</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.__init__"><code class="docutils literal notranslate"><span class="pre">Insn.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.address"><code class="docutils literal notranslate"><span class="pre">Insn.address</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.opcode_address"><code class="docutils literal notranslate"><span class="pre">Insn.opcode_address</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.insn_format"><code class="docutils literal notranslate"><span class="pre">Insn.insn_format</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.Insn.info"><code class="docutils literal notranslate"><span class="pre">Insn.info</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.O"><code class="docutils literal notranslate"><span class="pre">O()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By MatrixEditor
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, MatrixEditor.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,434 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pairipcore.strings &#8212; pairipcore-vm</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pairipcore/strings';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pairipcore-vm</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reversing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cfg.html">Identifying the VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../instructions.html">Instruction Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strings.html">Strings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building a Decompiler</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../decompiler/design.html">Design Guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../decompiler/insn_format.html">Instruction Format</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/context.html">Virtual Machine Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/insn.html">Instruction Format Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/strings.html">String Decoding</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/issues/new?title=Issue%20on%20page%20%2F_modules/pairipcore/strings.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pairipcore.strings</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.context</span> <span class="kn">import</span> <span class="n">VMContext</span>
+<span class="kn">from</span> <span class="nn">._types</span> <span class="kn">import</span> <span class="n">addr_t</span>
+
+<span class="c1"># default key - you might need to verify it for your asset files</span>
+<span class="n">KEY</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xab\x16</span><span class="s1">+</span><span class="se">\xc0</span><span class="s1">/D7</span><span class="se">\xb6\x7f</span><span class="s1">Q1</span><span class="se">\x8f</span><span class="s1">9@</span><span class="se">\x13\x11</span><span class="s1">*</span><span class="se">\xec</span><span class="s1">8</span><span class="se">\xdd</span><span class="s1">7</span><span class="se">\xda</span><span class="s1">O&quot;_T</span><span class="se">\x97\x00\x1d</span><span class="s1">;</span><span class="se">\</span>
+<span class="se">\xa6</span><span class="s1">T`</span><span class="se">\xad\xbf</span><span class="s1">P</span><span class="se">\x8c\x86\xfe</span><span class="s1">g</span><span class="se">\xc9\xc2\xaf\xaf</span><span class="s1">_</span><span class="se">\xba</span><span class="s1">q</span><span class="se">\xc1\x9a</span><span class="s1">6</span><span class="se">\x1b</span><span class="s1">q.</span><span class="se">\xb6</span><span class="s1">C3</span><span class="se">\n\xa5\xe5\</span>
+<span class="se">\xea\xf9</span><span class="s1"> Y</span><span class="se">\xf1</span><span class="s1">t</span><span class="se">\x11\x13</span><span class="s1">%</span><span class="se">\xf2\x87\xd8\xb6\x8e\xcd\xa8</span><span class="s1">#</span><span class="se">\xb3</span><span class="s1">o</span><span class="se">\xd8</span><span class="s1">NR</span><span class="se">\xe8\xbe\xd9\xc1\</span>
+<span class="se">\xa0</span><span class="s1">j</span><span class="se">\xc2</span><span class="s1">(Vw</span><span class="se">\xd9</span><span class="s1">C</span><span class="se">\xfc\x92</span><span class="s1">k</span><span class="se">\x0c</span><span class="s1">#</span><span class="se">\xf8\xa9</span><span class="s1">h</span><span class="se">\xb8\xf7\xd4</span><span class="s1">$</span><span class="se">\xac\xad</span><span class="s1">-</span><span class="se">\x88</span><span class="s1">W</span><span class="se">\x92\x8a\xb3</span><span class="s1">y</span><span class="se">\</span>
+<span class="se">\xcd</span><span class="s1">Ye</span><span class="se">\xd9\xab\xa8\xd1\x93\x87\x91</span><span class="s1">o</span><span class="se">\xf5</span><span class="s1">c</span><span class="se">\xeb\xa0\x05\xc7\xd4\xc6</span><span class="s1">?</span><span class="se">\x80\xb9\xf5\xa3\</span>
+<span class="se">\xd0</span><span class="s1">|</span><span class="se">\x7f</span><span class="s1">O</span><span class="se">\n\&#39;\xe1\xf5\xbe\x98\xb5\xd1\xd9</span><span class="s1">P_lI</span><span class="se">\x18</span><span class="s1">x</span><span class="se">\xa2\x16\xf8\xf7\xab\x03\xf0\xaf</span><span class="s1">_</span><span class="se">\</span>
+<span class="se">\xe8\xf8\xf6\xce\xcc\r\xd2\xb3\xb4</span><span class="s1">fO</span><span class="se">\xf2\xa9</span><span class="s1">&lt;</span><span class="se">\xd7\x0e\x04\x05\xa4\x85\xb5</span><span class="s1">&amp;</span><span class="se">\xcf\xbc\</span>
+<span class="se">\x16\xd3\xfe\x0b\xb8\xfa\xb1\xfb</span><span class="s1">4</span><span class="se">\xf8\x16</span><span class="s1">v</span><span class="se">\x92\x96\xe3\xee\x97\xf1\xc1\xad\x15\xe3\</span>
+<span class="se">\x0f\x18</span><span class="s1">:^/</span><span class="se">\xfe\x14\x1a\xdd\x1b\xe9</span><span class="s1">q</span><span class="se">\x11\xc8\xc3\xaa\xf2\xa0\xca</span><span class="s1">&quot;}</span><span class="se">\x91\xcd\xc8\x01\</span>
+<span class="s1">_8H</span><span class="se">\xe9</span><span class="s1">j</span><span class="se">\xbe\xf4\x1a</span><span class="s1">B</span><span class="se">\xcc</span><span class="s1">m</span><span class="se">\xa2</span><span class="s1">)</span><span class="se">\\\x1d</span><span class="s1">f</span><span class="se">\xb6</span><span class="s1">8&#39;</span>
+
+<span class="n">KEY__LEN</span> <span class="o">=</span> <span class="mi">5803</span>
+
+
+<div class="viewcode-block" id="ppdecode">
+<a class="viewcode-back" href="../../pyapi/strings.html#pairipcore.strings.ppdecode">[docs]</a>
+<span class="k">def</span> <span class="nf">ppdecode</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n">VMContext</span><span class="p">,</span> <span class="n">pp_data</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">p_key</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">pdecode</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">pp_data</span><span class="p">),</span> <span class="n">p_key</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="pdecode">
+<a class="viewcode-back" href="../../pyapi/strings.html#pairipcore.strings.pdecode">[docs]</a>
+<span class="k">def</span> <span class="nf">pdecode</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n">VMContext</span><span class="p">,</span> <span class="n">p_data</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">p_key</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="n">KEY</span>
+    <span class="n">len__b</span> <span class="o">=</span> <span class="n">KEY__LEN</span>
+    <span class="k">if</span> <span class="n">p_key</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">code</span><span class="o">.</span><span class="n">vm_code</span><span class="p">[</span><span class="n">p_key</span> <span class="p">:</span> <span class="n">p_key</span> <span class="o">+</span> <span class="mh">0xFF</span><span class="p">]</span>
+        <span class="n">len__b</span> <span class="o">=</span> <span class="n">code</span><span class="o">.</span><span class="n">u16</span><span class="p">(</span><span class="n">p_key</span><span class="p">)</span>
+
+    <span class="n">len__a</span> <span class="o">=</span> <span class="n">code</span><span class="o">.</span><span class="n">u16</span><span class="p">(</span><span class="n">p_data</span><span class="p">)</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">len__a</span> <span class="o">^</span> <span class="n">len__b</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">code</span><span class="o">.</span><span class="n">vm_code</span><span class="p">[</span><span class="n">p_data</span> <span class="p">:</span> <span class="n">p_data</span> <span class="o">+</span> <span class="n">length</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]):</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span> <span class="o">^</span> <span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By MatrixEditor
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, MatrixEditor.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,847 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pairipcore.context &#8212; pairipcore-vm</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pairipcore/context';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pairipcore-vm</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reversing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cfg.html">Identifying the VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../instructions.html">Instruction Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strings.html">Strings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building a Decompiler</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../decompiler/design.html">Design Guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../decompiler/insn_format.html">Instruction Format</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/context.html">Virtual Machine Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/insn.html">Instruction Format Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/strings.html">String Decoding</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/issues/new?title=Issue%20on%20page%20%2F_modules/pairipcore/context.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pairipcore.context</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Type</span>
+
+<span class="kn">from</span> <span class="nn">caterpillar.shortcuts</span> <span class="kn">import</span> <span class="n">unpack</span><span class="p">,</span> <span class="n">LittleEndian</span> <span class="k">as</span> <span class="n">le</span><span class="p">,</span> <span class="n">pack</span>
+<span class="kn">from</span> <span class="nn">caterpillar.fields</span> <span class="kn">import</span> <span class="n">uint16</span><span class="p">,</span> <span class="n">uint32</span><span class="p">,</span> <span class="n">uint64</span><span class="p">,</span> <span class="n">double</span><span class="p">,</span> <span class="n">int32</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="kn">from</span> <span class="nn">.opcode</span> <span class="kn">import</span> <span class="n">decode_opcode</span>
+<span class="kn">from</span> <span class="nn">._types</span> <span class="kn">import</span> <span class="n">ptr_t</span><span class="p">,</span> <span class="n">addr_t</span>
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># FNV-1 Hash</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="n">FNV_prime</span> <span class="o">=</span> <span class="mh">0x100000001B3</span>
+
+
+<span class="k">def</span> <span class="nf">fnv</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+    <span class="n">hval</span> <span class="o">=</span> <span class="mh">0xCBF29CE484222325</span>
+    <span class="k">for</span> <span class="n">byte</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">hval</span> <span class="o">=</span> <span class="p">(</span><span class="n">hval</span> <span class="o">*</span> <span class="n">FNV_prime</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span><span class="o">**</span><span class="mi">64</span>
+        <span class="n">hval</span> <span class="o">^=</span> <span class="n">byte</span>
+    <span class="k">return</span> <span class="n">hval</span>
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Address decoding</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="decode_address">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.decode_address">[docs]</a>
+<span class="k">def</span> <span class="nf">decode_address</span><span class="p">(</span><span class="n">enc_address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">code_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Resolves an encoded address and returns the corresponding file offset.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        enc_address (int): The encoded address to be resolved.</span>
+<span class="sd">        code_length (int): The length of the bytecode file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: The decoded address as an absolute file offset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">((</span><span class="n">enc_address</span> <span class="o">^</span> <span class="o">~</span><span class="n">code_length</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">)</span> <span class="o">%</span> <span class="n">code_length</span></div>
+
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># public field types</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="n">le_u64</span> <span class="o">=</span> <span class="n">le</span> <span class="o">+</span> <span class="n">uint64</span>
+<span class="n">le_u32</span> <span class="o">=</span> <span class="n">le</span> <span class="o">+</span> <span class="n">uint32</span>
+<span class="n">le_s32</span> <span class="o">=</span> <span class="n">le</span> <span class="o">+</span> <span class="n">int32</span>
+<span class="n">le_u16</span> <span class="o">=</span> <span class="n">le</span> <span class="o">+</span> <span class="n">uint16</span>
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Memory Management</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="k">class</span> <span class="nc">VMVariable</span><span class="p">:</span>
+    <span class="c1">#: the human readable type of this variable</span>
+    <span class="n">__type_</span><span class="p">:</span> <span class="nb">str</span>
+
+    <span class="c1">#: the value associated with this variable</span>
+    <span class="n">__value_</span><span class="p">:</span> <span class="n">Any</span>
+
+    <span class="c1">#: the position of this variable in memory (file offset)</span>
+    <span class="n">__address_</span><span class="p">:</span> <span class="n">addr_t</span>
+
+<div class="viewcode-block" id="VMMemory">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMMemory">[docs]</a>
+<span class="k">class</span> <span class="nc">VMMemory</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Internal memory manager for the VM.</span>
+
+<span class="sd">    This class keeps track of objects that are allocated on the heap using</span>
+<span class="sd">    malloc(..).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#: INternal map that stores all objects that should be</span>
+    <span class="c1">#: accessible.</span>
+    <span class="n">objects</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">ptr_t</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+
+    <span class="c1">#: Memory variables</span>
+    <span class="n">variables</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">addr_t</span><span class="p">,</span> <span class="n">VMVariable</span><span class="p">]</span>
+
+    <span class="c1">#: Base address for this memory manager</span>
+    <span class="n">base_address</span><span class="p">:</span> <span class="n">ptr_t</span>
+
+    <span class="c1"># Current address for allocating objects</span>
+    <span class="n">_alloc_pos</span><span class="p">:</span> <span class="n">ptr_t</span>
+
+<div class="viewcode-block" id="VMMemory.alloc">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMMemory.alloc">[docs]</a>
+    <span class="k">def</span> <span class="nf">alloc</span><span class="p">[</span><span class="n">T</span><span class="p">](</span><span class="bp">self</span><span class="p">,</span> <span class="n">ty</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">ptr_t</span><span class="p">,</span> <span class="n">T</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Simulates memory allocation by instantiating an object of the given type.</span>
+
+<span class="sd">        This function stores a reference to the created object in the internal</span>
+<span class="sd">        object map and resturns the target address together with the created</span>
+<span class="sd">        object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">addr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_alloc_pos</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">ty</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">addr</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_alloc_pos</span> <span class="o">+=</span> <span class="mi">8</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VMMemory.malloc">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMMemory.malloc">[docs]</a>
+    <span class="k">def</span> <span class="nf">malloc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">ptr_t</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Simulates memory allocation by creating a bytearray using the given size.&quot;&quot;&quot;</span>
+        <span class="n">addr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_alloc_pos</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">addr</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_alloc_pos</span> <span class="o">+=</span> <span class="n">size</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span></div>
+
+
+    <span class="c1"># --- special methods ---</span>
+<div class="viewcode-block" id="VMMemory.__init__">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMMemory.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_address</span><span class="p">:</span> <span class="n">ptr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_address</span> <span class="o">=</span> <span class="n">base_address</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_alloc_pos</span> <span class="o">=</span> <span class="n">base_address</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">ptr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
+
+
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># VMContext</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="VMContext">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMContext">[docs]</a>
+<span class="k">class</span> <span class="nc">VMContext</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Contains a reference to the bytecode data and maintains the current</span>
+<span class="sd">    instruction position</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># --- special methods ---</span>
+<div class="viewcode-block" id="VMContext.__init__">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMContext.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bytecode</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">pc</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vm_code</span><span class="p">:</span> <span class="nb">bytearray</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">bytecode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vm_code_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bytecode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pc</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="n">pc</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vm_code</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vm_code</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vm_code_length</span>
+
+    <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;VMContext&quot;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pc</span> <span class="o">+=</span> <span class="n">n</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1"># --- unpacking ---</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">Field</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">addr</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">addr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pc</span>
+
+        <span class="k">return</span> <span class="n">unpack</span><span class="p">(</span><span class="n">field</span> <span class="o">@</span> <span class="n">addr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vm_code</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VMContext.u32">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMContext.u32">[docs]</a>
+    <span class="k">def</span> <span class="nf">u32</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads an unsigned 32bit integer.</span>
+
+<span class="sd">        Reads the integer from the current program counter if address</span>
+<span class="sd">        is -1.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            addr (int, optional): the target address. Defaults to -1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: the parsed int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">le_u32</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VMContext.i32">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMContext.i32">[docs]</a>
+    <span class="k">def</span> <span class="nf">i32</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads a signed 32bit integer.</span>
+
+<span class="sd">        Reads the integer from the current program counter if address</span>
+<span class="sd">        is -1.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            addr (int, optional): the target address. Defaults to -1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: the parsed int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">le_s32</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VMContext.u64">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMContext.u64">[docs]</a>
+    <span class="k">def</span> <span class="nf">u64</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads an unsigned 64bit integer.</span>
+
+<span class="sd">        Reads the integer from the current program counter if address</span>
+<span class="sd">        is -1.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            addr (int, optional): the target address. Defaults to -1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: the parsed int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">le_u64</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">u8</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">addr</span> <span class="o">=</span> <span class="n">addr</span> <span class="k">if</span> <span class="n">addr</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">pc</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vm_code</span><span class="p">[</span><span class="n">addr</span><span class="p">]</span>
+
+<div class="viewcode-block" id="VMContext.double">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMContext.double">[docs]</a>
+    <span class="k">def</span> <span class="nf">double</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads a 64bit floating point value.</span>
+
+<span class="sd">        Reads the value from the current program counter if address</span>
+<span class="sd">        is -1.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            addr (int, optional): the target address. Defaults to -1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float: the parsed double</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">le</span> <span class="o">+</span> <span class="n">double</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VMContext.u16">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMContext.u16">[docs]</a>
+    <span class="k">def</span> <span class="nf">u16</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads an unsigned 16bit integer.</span>
+
+<span class="sd">        Reads the integer from the current program counter if address</span>
+<span class="sd">        is -1.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            addr (int, optional): the target address. Defaults to -1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: the parsed int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">le</span> <span class="o">+</span> <span class="n">uint16</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VMContext.addr">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMContext.addr">[docs]</a>
+    <span class="k">def</span> <span class="nf">addr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">off</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads an encoded address relative to the current addres (default)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            off (int): relative offset (absolute if rel=False)</span>
+<span class="sd">            rel (bool, optional): whether off is relative. Defaults to True.</span>
+<span class="sd">            decode (bool, optional): decodes the address after parsing. Defaults to True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: the parsed address</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">u32</span><span class="p">(</span><span class="n">off</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">rel</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">pc</span> <span class="o">+</span> <span class="n">off</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">decode</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">decode_address</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vm_code_length</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">address</span></div>
+
+
+    <span class="c1"># --- packing ---</span>
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">Field</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="n">pack</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">addr</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">addr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vm_code</span><span class="p">[</span><span class="n">addr</span> <span class="p">:</span> <span class="n">addr</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)]</span> <span class="o">=</span> <span class="n">data</span>
+
+    <span class="k">def</span> <span class="nf">setu64</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">le_u64</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setu32</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">le_u32</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">seti32</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">le_s32</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setu8</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">[</span><span class="n">addr</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span></div>
+
+
+
+<div class="viewcode-block" id="VMState">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMState">[docs]</a>
+<span class="k">class</span> <span class="nc">VMState</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tracks the internal state of the VM and stores environment options&quot;&quot;&quot;</span>
+
+    <span class="c1">#: whether to print decompiled or disassembled output</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span>
+
+    <span class="c1">#: Output writer (may be null)</span>
+    <span class="n">writer</span><span class="p">:</span> <span class="n">Any</span>
+
+    <span class="c1">#: controls whether the VM should stop execution</span>
+    <span class="n">should_exit</span><span class="p">:</span> <span class="nb">bool</span>
+
+    <span class="c1">#: comment start character</span>
+    <span class="n">comment</span><span class="p">:</span> <span class="nb">str</span>
+
+    <span class="c1">#: internal mapping of variables used by the Decompiler or disassembler</span>
+    <span class="n">_env</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+
+    <span class="c1"># --- special methods ---</span>
+<div class="viewcode-block" id="VMState.__init__">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMState.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">writer</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">print</span><span class="p">,</span>
+        <span class="n">comment</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">writer</span> <span class="o">=</span> <span class="n">writer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">should_exit</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comment</span> <span class="o">=</span> <span class="n">comment</span> <span class="ow">or</span> <span class="s2">&quot;;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="c1"># --- debugging support ---</span>
+<div class="viewcode-block" id="VMState.psection">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMState.psection">[docs]</a>
+    <span class="k">def</span> <span class="nf">psection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">comments</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Writes a line to the terminal.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): the section name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">:&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pline</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="o">*</span><span class="n">comments</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VMState.pinsn">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMState.pinsn">[docs]</a>
+    <span class="k">def</span> <span class="nf">pinsn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">insn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">comments</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">indent</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Writes an instruction to the terminal.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): the line to write</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;    &quot;</span> <span class="o">*</span> <span class="n">indent</span><span class="p">)</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">insn</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pline</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="o">*</span><span class="n">comments</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VMState.pline">
+<a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMState.pline">[docs]</a>
+    <span class="k">def</span> <span class="nf">pline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Writes a line to the terminal.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): the line to write</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">comment</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">line</span><span class="si">:</span><span class="s2">40s</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span></div>
+</div>
+
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># VM</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="k">class</span> <span class="nc">VM</span><span class="p">:</span>
+    <span class="c1">#: internal state and environment</span>
+    <span class="n">state</span><span class="p">:</span> <span class="n">VMState</span>
+
+    <span class="c1">#: code and code position</span>
+    <span class="n">context</span><span class="p">:</span> <span class="n">VMContext</span>
+
+    <span class="c1">#: memory</span>
+    <span class="n">mem</span><span class="p">:</span> <span class="n">VMMemory</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">bytecode</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span>
+        <span class="n">pc</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">mem_base_addr</span><span class="p">:</span> <span class="n">ptr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">writer</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">print</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">env</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mem</span> <span class="o">=</span> <span class="n">VMMemory</span><span class="p">(</span><span class="n">mem_base_addr</span> <span class="k">if</span> <span class="n">mem_base_addr</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mh">0xDEAD00000000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">VMContext</span><span class="p">(</span><span class="n">bytecode</span><span class="p">,</span> <span class="n">pc</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">VMState</span><span class="p">(</span><span class="n">verbose</span><span class="p">,</span> <span class="n">writer</span><span class="p">,</span> <span class="o">**</span><span class="n">env</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">entry_point</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the entry point for the current program</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: the entry point address (file offset)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u32</span><span class="p">(</span><span class="n">addr</span><span class="o">=</span><span class="mh">0x04</span><span class="p">)</span>
+        <span class="n">b01</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">a</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFF8E</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">3</span> <span class="o">+</span> <span class="p">(</span><span class="o">~</span><span class="n">a</span> <span class="o">|</span> <span class="mh">0xFFFFFF8E</span><span class="p">)</span>
+        <span class="n">b02</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">^</span> <span class="mh">0xFFFFFF1C</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">((</span><span class="n">b01</span> <span class="o">+</span> <span class="n">b02</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">,</span> <span class="n">rel</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">current_opcode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the decoded opcode for the current pc.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: the decoded opcode</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">decode_opcode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">verify_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Verifies the integrity of a section of the VM&#39;s code by checking</span>
+<span class="sd">        its hash value. (Used to select the next instruction address)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            addr (addr_t, optional): The address in the bytecode to verify.</span>
+<span class="sd">                                     Defaults to the current program counter (pc) if not provided.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the hash verification is successful, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">addr</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">addr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pc</span>
+
+        <span class="n">xor_value</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u32</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">rel</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span> <span class="o">^</span> <span class="mh">0xFFFFFFFF00000000</span>
+        <span class="p">)</span>
+        <span class="n">hash_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u64</span><span class="p">(</span><span class="n">addr</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">hash_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">addr</span> <span class="o">+</span> <span class="mi">12</span><span class="p">,</span> <span class="n">rel</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">hash_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">(</span><span class="n">addr</span> <span class="o">+</span> <span class="mi">16</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="n">hash_address</span> <span class="p">:</span> <span class="n">hash_address</span> <span class="o">+</span> <span class="n">hash_length</span><span class="p">]</span>
+        <span class="n">hash_value2</span> <span class="o">=</span> <span class="n">fnv</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">xor_value</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFFFFFFFFFF</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">hash_value2</span> <span class="o">==</span> <span class="n">hash_value</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By MatrixEditor
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, MatrixEditor.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

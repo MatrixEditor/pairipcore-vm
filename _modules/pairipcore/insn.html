@@ -1,0 +1,845 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pairipcore.insn &#8212; pairipcore-vm</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pairipcore/insn';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pairipcore-vm</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reversing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cfg.html">Identifying the VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../instructions.html">Instruction Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strings.html">Strings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building a Decompiler</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../decompiler/design.html">Design Guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../decompiler/insn_format.html">Instruction Format</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/context.html">Virtual Machine Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/insn.html">Instruction Format Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/strings.html">String Decoding</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/issues/new?title=Issue%20on%20page%20%2F_modules/pairipcore/insn.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pairipcore.insn</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">._types</span> <span class="kn">import</span> <span class="n">addr_t</span>
+<span class="kn">from</span> <span class="nn">.context</span> <span class="kn">import</span> <span class="n">VM</span>
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># instruction formats</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="InsnFormat">
+<a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.InsnFormat">[docs]</a>
+<span class="k">class</span> <span class="nc">InsnFormat</span><span class="p">:</span>
+    <span class="n">__info_begin_</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Specifies the offset where the instruction info can be found.&quot;&quot;&quot;</span>
+
+    <span class="n">__stack_</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Specifies the number of variables taken from the compiled stack.&quot;&quot;&quot;</span>
+
+    <span class="n">__extra_</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Specifies the number of additional variables loaded.&quot;&quot;&quot;</span>
+
+    <span class="n">__store_</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Specifies the variable containing the destination address.&quot;&quot;&quot;</span>
+
+    <span class="c1"># All five variables here (typing only)</span>
+    <span class="n">A</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">B</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">C</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">D</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">E</span><span class="p">:</span> <span class="nb">int</span>
+
+<div class="viewcode-block" id="InsnFormat.__init__">
+<a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.InsnFormat.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">info_off</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">stack_vars</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">extra_vars</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">storage_var</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__info_begin_</span> <span class="o">=</span> <span class="n">info_off</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__stack_</span> <span class="o">=</span> <span class="n">stack_vars</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__extra_</span> <span class="o">=</span> <span class="n">extra_vars</span>
+        <span class="n">name_idx</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">stack_vars</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">stack_vars</span><span class="p">):</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">chr</span><span class="p">(</span><span class="n">name_idx</span><span class="p">),</span> <span class="n">i</span><span class="p">)</span>
+                <span class="n">name_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">extra_vars</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">extra_vars</span><span class="p">):</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">chr</span><span class="p">(</span><span class="n">name_idx</span><span class="p">),</span> <span class="n">info_off</span> <span class="o">+</span> <span class="mh">0x1A</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
+                <span class="n">name_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__store_</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">storage_var</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">storage_var</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;X&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">extra_vars</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">stack_vars</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Storage variable </span><span class="si">{</span><span class="n">storage_var</span><span class="si">!r}</span><span class="s2"> is not defined, &quot;</span>
+                    <span class="s2">&quot;because no variables are loaded!&quot;</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__store_</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">storage_var</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="InsnFormat.parse">
+<a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.InsnFormat.parse">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">format_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;InsnFormat&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Parses a format ID string to create an InsnFormat object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            format_id (str): A string representing the instruction format.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            InsnFormat: The corresponding InsnFormat object.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the format ID is empty.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">format_id</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty instruction format not allowed!&quot;</span><span class="p">)</span>
+
+        <span class="n">stack_vars</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">format_id</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">extra_vars</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">format_id</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">storage_var</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">format_id</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">storage_var</span> <span class="o">=</span> <span class="n">format_id</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">InsnFormat</span><span class="p">(</span><span class="n">stack_vars</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">stack_vars</span><span class="p">,</span> <span class="n">extra_vars</span><span class="p">,</span> <span class="n">storage_var</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the total length of the instruction format.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: The length of the instruction format.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mh">0x16</span> <span class="o">+</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__stack_</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__extra_</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">next_addr_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the offset for the next instruction address.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_begin_</span> <span class="o">+</span> <span class="mh">0x12</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fallback_addr_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the offset for the fallback instruction address.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_begin_</span> <span class="o">+</span> <span class="mh">0x16</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hash_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the offset for the hash value.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_begin_</span> <span class="o">+</span> <span class="mh">0x04</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hash_xor_value_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the offset for the XOR value used in the hash.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_begin_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hash_data_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the offset for the hash data.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_begin_</span> <span class="o">+</span> <span class="mh">0x0C</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hash_data_length_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the offset for the length of the hash data.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: The offset for the length of the hash data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_begin_</span> <span class="o">+</span> <span class="mh">0x10</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">store_var_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the offset of the storage variable.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: The offset of the storage variable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__store_</span>
+
+<div class="viewcode-block" id="InsnFormat.vars">
+<a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.InsnFormat.vars">[docs]</a>
+    <span class="k">def</span> <span class="nf">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the offsets of each stack variable.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict[str, int]: A dictionary mapping variable names (A, B, C, etc.) to their offsets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="nb">chr</span><span class="p">(</span><span class="mi">65</span> <span class="o">+</span> <span class="n">i</span><span class="p">):</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">65</span> <span class="o">+</span> <span class="n">i</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__stack_</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__extra_</span><span class="p">)</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># instructions</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="InsnInfo">
+<a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.InsnInfo">[docs]</a>
+<span class="k">class</span> <span class="nc">InsnInfo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents the metadata and control flow information associated with a</span>
+<span class="sd">    particular instruction in the VM.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__next_</span><span class="p">:</span> <span class="n">addr_t</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Next address on equal hash&quot;&quot;&quot;</span>
+
+    <span class="n">__fallback_</span><span class="p">:</span> <span class="n">addr_t</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fallback address on hash verification failure&quot;&quot;&quot;</span>
+
+    <span class="n">__hash_</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Expected hash value for verification&quot;&quot;&quot;</span>
+
+    <span class="n">__hash_data_</span><span class="p">:</span> <span class="n">addr_t</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Memory address where the data to be hashed is located&quot;&quot;&quot;</span>
+
+    <span class="n">__hash_data_len_</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Length of the data to be hashed&quot;&quot;&quot;</span>
+
+    <span class="n">__hash_xor_value_</span><span class="p">:</span> <span class="n">addr_t</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Memory address of the XOR value used in the hash calculation&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="InsnInfo.__init__">
+<a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.InsnInfo.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">insn_format</span><span class="p">:</span> <span class="n">InsnFormat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__hash_xor_value_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">hash_xor_value_off</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__hash_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u64</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">hash_off</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__hash_data_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">hash_data_off</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__hash_data_len_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">hash_data_length_off</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__fallback_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">fallback_addr_off</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__next_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">next_addr_off</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the expected hash value for verification.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hash_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hash_data_addr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the memory address where the data to be hashed is located.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hash_data_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hash_data_length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the length of the data to be hashed.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hash_data_len_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">xor_value_addr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the memory address of the XOR value used in the hash calculation.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hash_xor_value_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fallback</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the address of the fallback instruction if the hash verification fails.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fallback_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the address of the next instruction to execute if the hash verification succeeds.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__next_</span></div>
+
+
+
+<div class="viewcode-block" id="Insn">
+<a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.Insn">[docs]</a>
+<span class="k">class</span> <span class="nc">Insn</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents an instruction in the virtual machine, including its format, address,</span>
+<span class="sd">    and associated metadata.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__format_</span><span class="p">:</span> <span class="n">InsnFormat</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Defines the instruction format for this instruction.&quot;&quot;&quot;</span>
+
+    <span class="n">__address_</span><span class="p">:</span> <span class="n">addr_t</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Address of this instruction (without opcode).&quot;&quot;&quot;</span>
+
+    <span class="n">__info_</span><span class="p">:</span> <span class="n">InsnInfo</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Metadata and control flow information associated with this instruction.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Addresses associated with the operands of the instruction.</span>
+    <span class="n">A</span><span class="p">:</span> <span class="n">addr_t</span>
+    <span class="n">B</span><span class="p">:</span> <span class="n">addr_t</span>
+    <span class="n">C</span><span class="p">:</span> <span class="n">addr_t</span>
+    <span class="n">D</span><span class="p">:</span> <span class="n">addr_t</span>
+    <span class="n">E</span><span class="p">:</span> <span class="n">addr_t</span>
+
+    <span class="c1">#: Address where the result of the instruction is stored.</span>
+    <span class="n">R</span><span class="p">:</span> <span class="n">addr_t</span>
+
+<div class="viewcode-block" id="Insn.__init__">
+<a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.Insn.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">insn_format</span><span class="p">:</span> <span class="n">InsnFormat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__format_</span> <span class="o">=</span> <span class="n">insn_format</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__address_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__info_</span> <span class="o">=</span> <span class="n">InsnInfo</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">insn_format</span><span class="p">)</span>
+
+        <span class="c1"># Set the addresses for the operands (A, B, C, D, E) based on the instruction format</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">offset</span> <span class="ow">in</span> <span class="n">insn_format</span><span class="o">.</span><span class="n">vars</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">offset</span><span class="p">))</span>
+
+        <span class="c1"># Set the address for the result (R) if applicable</span>
+        <span class="k">if</span> <span class="n">insn_format</span><span class="o">.</span><span class="n">store_var_off</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">store_var_off</span><span class="p">))</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the address of this instruction (excluding the opcode).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__address_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">opcode_address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the address where the opcode for this instruction is located.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">-</span> <span class="mi">2</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">insn_format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InsnFormat</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the format of this instruction.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__format_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InsnInfo</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the metadata and control flow information associated with this instruction.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_</span></div>
+
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># opcode mapping</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+<span class="c1"># Instruction Format IDs</span>
+<span class="c1"># This file documents all identified instruction formats based on initial analysis.</span>
+<span class="c1"># The naming convention assigns a unique ID to each format according to their behavior.</span>
+
+<span class="c1"># Format IDs typically consist of three characters: two digits followed by a letter.</span>
+<span class="c1"># - The first digit represents the number of variables taken from the compiled stack.</span>
+<span class="c1"># - The second digit represents the number of additional variables that must be loaded.</span>
+<span class="c1"># - The final letter indicates which variable stores the destination address. This</span>
+<span class="c1">#   address is where the result of the operation will be stored, if applicable.</span>
+<span class="c1">#</span>
+<span class="c1"># For example, the format &quot;20a&quot; indicates:</span>
+<span class="c1"># - Two variables are read from the compiled stack.</span>
+<span class="c1"># - No extra variables are loaded.</span>
+<span class="c1"># - The operation&#39;s result is stored in variable &#39;a&#39;.</span>
+<span class="c1">#</span>
+<span class="c1"># The total length of an instruction can be calculated by adding the size of the</span>
+<span class="c1"># instruction info structure to the size required for the variables:</span>
+<span class="c1">#   size := &lt;info-size&gt; + ( &lt;var-count&gt; * 4 )</span>
+<span class="c1">#</span>
+<span class="c1"># Note: An additional special letter &#39;z&#39; is used to indicate that no additional</span>
+<span class="c1"># data is stored in memory.</span>
+
+<span class="c1"># Dictionary that maps opcodes to their corresponding instruction formats.</span>
+<span class="n">FormatIDs</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1"># Opcode IDs</span>
+<span class="c1"># Similar to format IDs, opcode IDs are defined by a certain naming scheme.</span>
+<span class="c1"># The opcode ID consists of the instruction mnemonic name, followed by optional type</span>
+<span class="c1"># specifications (e.g., UInt, Byte), and finally the instruction format ID.</span>
+
+<span class="c1"># Dictionary that maps opcodes to their corresponding mnemonic names.</span>
+<span class="n">OpcodeIDs</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="O">
+<a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.O">[docs]</a>
+<span class="k">def</span> <span class="nf">O</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">opcode</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">format_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="c1">#: noqa</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Registers an opcode with its corresponding format and name.</span>
+
+<span class="sd">    This function associates an opcode with a specific instruction format (represented</span>
+<span class="sd">    by the format ID) and a mnemonic name. The format and name are stored in the</span>
+<span class="sd">    :code:`FormatIDs` and :code:`OpcodeIDs` dictionaries, respectively.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): The mnemonic name of the opcode. If the name is :code:`&quot;_&quot;`, it will be auto-generated based on the format ID.</span>
+<span class="sd">        opcode (int): The numeric opcode to be registered.</span>
+<span class="sd">        format_id (str): The format ID string that describes the structure of the instruction.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: The opcode that was registered.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">FormatIDs</span><span class="p">[</span><span class="n">opcode</span><span class="p">]</span> <span class="o">=</span> <span class="n">InsnFormat</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">format_id</span><span class="p">)</span>
+    <span class="n">OpcodeIDs</span><span class="p">[</span><span class="n">opcode</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;_&quot;</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="n">format_id</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">opcode</span></div>
+
+
+
+<span class="c1"># fmt: off</span>
+<span class="c1">#           Name           |  Opcode     | human-oriented syntax</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x00</span><span class="p">,</span> <span class="s2">&quot;13x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x05</span><span class="p">,</span> <span class="s2">&quot;21x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x06</span><span class="p">,</span> <span class="s2">&quot;30x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;Assign_UInt_02b&quot;</span><span class="p">,</span>        <span class="mh">0x07</span><span class="p">,</span> <span class="s2">&quot;02b&quot;</span><span class="p">)</span> <span class="c1"># b = a</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x08</span><span class="p">,</span> <span class="s2">&quot;11x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x09</span><span class="p">,</span> <span class="s2">&quot;03x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x0C</span><span class="p">,</span> <span class="s2">&quot;32x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x0d</span><span class="p">,</span> <span class="s2">&quot;03x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x0e</span><span class="p">,</span> <span class="s2">&quot;30x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x0f</span><span class="p">,</span> <span class="s2">&quot;40x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;Compare_ULong_12b&quot;</span><span class="p">,</span>      <span class="mh">0x10</span><span class="p">,</span> <span class="s2">&quot;12b&quot;</span><span class="p">)</span> <span class="c1"># b = c - a (-1, 0 or 1)</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x1C</span><span class="p">,</span> <span class="s2">&quot;12x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x11</span><span class="p">,</span> <span class="s2">&quot;20x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;Assign_UInt_02a&quot;</span><span class="p">,</span>        <span class="mh">0x12</span><span class="p">,</span> <span class="s2">&quot;02a&quot;</span><span class="p">)</span> <span class="c1"># a = b</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;Assign_Byte_11a&quot;</span><span class="p">,</span>        <span class="mh">0x13</span><span class="p">,</span> <span class="s2">&quot;11a&quot;</span><span class="p">)</span> <span class="c1"># a = b</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;Assign_ULong_20a&quot;</span><span class="p">,</span>       <span class="mh">0x15</span><span class="p">,</span> <span class="s2">&quot;20a&quot;</span><span class="p">)</span> <span class="c1"># a = b</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x18</span><span class="p">,</span> <span class="s2">&quot;11x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x19</span><span class="p">,</span> <span class="s2">&quot;40x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;Compate_Double_03a&quot;</span><span class="p">,</span>     <span class="mh">0x1B</span><span class="p">,</span> <span class="s2">&quot;03a&quot;</span><span class="p">)</span> <span class="c1"># a = c - b (-1, 0 or 1)</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;Div_Int_03b&quot;</span><span class="p">,</span>            <span class="mh">0x1F</span><span class="p">,</span> <span class="s2">&quot;03b&quot;</span><span class="p">)</span> <span class="c1"># b = a / c</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x1a</span><span class="p">,</span> <span class="s2">&quot;20x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x1e</span><span class="p">,</span> <span class="s2">&quot;11x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x21</span><span class="p">,</span> <span class="s2">&quot;22x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;Add_Int_30c&quot;</span><span class="p">,</span>            <span class="mh">0x25</span><span class="p">,</span> <span class="s2">&quot;30c&quot;</span><span class="p">)</span> <span class="c1"># c = a + b</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x26</span><span class="p">,</span> <span class="s2">&quot;11x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;CastToInt_22d&quot;</span><span class="p">,</span>          <span class="mh">0x28</span><span class="p">,</span> <span class="s2">&quot;22d&quot;</span><span class="p">)</span> <span class="c1"># d = convert(src=c, dst=a, val=b)</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;CastToFloat_04a&quot;</span><span class="p">,</span>        <span class="mh">0x2A</span><span class="p">,</span> <span class="s2">&quot;04a&quot;</span><span class="p">)</span> <span class="c1"># a = convert(src=c, dst=d, val=b)</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;Assign_Long_20a&quot;</span><span class="p">,</span>        <span class="mh">0x2E</span><span class="p">,</span> <span class="s2">&quot;20a&quot;</span><span class="p">)</span> <span class="c1"># a = b</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;Div_Double_12b&quot;</span><span class="p">,</span>         <span class="mh">0x2c</span><span class="p">,</span> <span class="s2">&quot;12b&quot;</span><span class="p">)</span> <span class="c1"># b = a / c</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x2d</span><span class="p">,</span> <span class="s2">&quot;12x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x2f</span><span class="p">,</span> <span class="s2">&quot;12x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x30</span><span class="p">,</span> <span class="s2">&quot;40x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x33</span><span class="p">,</span> <span class="s2">&quot;10x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x34</span><span class="p">,</span> <span class="s2">&quot;21x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x35</span><span class="p">,</span> <span class="s2">&quot;21x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x37</span><span class="p">,</span> <span class="s2">&quot;23x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x38</span><span class="p">,</span> <span class="s2">&quot;40x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x3a</span><span class="p">,</span> <span class="s2">&quot;11x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x3b</span><span class="p">,</span> <span class="s2">&quot;21x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x3d</span><span class="p">,</span> <span class="s2">&quot;41x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;Alloc_Vector_01a&quot;</span><span class="p">,</span>       <span class="mh">0x41</span><span class="p">,</span> <span class="s2">&quot;01a&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x42</span><span class="p">,</span> <span class="s2">&quot;03x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x43</span><span class="p">,</span> <span class="s2">&quot;12x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x44</span><span class="p">,</span> <span class="s2">&quot;11x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x46</span><span class="p">,</span> <span class="s2">&quot;01x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x47</span><span class="p">,</span> <span class="s2">&quot;30x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x48</span><span class="p">,</span> <span class="s2">&quot;30x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x49</span><span class="p">,</span> <span class="s2">&quot;30x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x4a</span><span class="p">,</span> <span class="s2">&quot;02x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x4b</span><span class="p">,</span> <span class="s2">&quot;21x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x4c</span><span class="p">,</span> <span class="s2">&quot;13x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x4d</span><span class="p">,</span> <span class="s2">&quot;21x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x4f</span><span class="p">,</span> <span class="s2">&quot;30x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x50</span><span class="p">,</span> <span class="s2">&quot;30x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x54</span><span class="p">,</span> <span class="s2">&quot;03x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x57</span><span class="p">,</span> <span class="s2">&quot;20x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;Alloc_Vector_01a&quot;</span><span class="p">,</span>       <span class="mh">0x58</span><span class="p">,</span> <span class="s2">&quot;01a&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x59</span><span class="p">,</span> <span class="s2">&quot;41x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x5a</span><span class="p">,</span> <span class="s2">&quot;03x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x5b</span><span class="p">,</span> <span class="s2">&quot;20x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x5c</span><span class="p">,</span> <span class="s2">&quot;12x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x5e</span><span class="p">,</span> <span class="s2">&quot;40x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x5f</span><span class="p">,</span> <span class="s2">&quot;30x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x60</span><span class="p">,</span> <span class="s2">&quot;21x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x64</span><span class="p">,</span> <span class="s2">&quot;30x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x65</span><span class="p">,</span> <span class="s2">&quot;30x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x66</span><span class="p">,</span> <span class="s2">&quot;21x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x68</span><span class="p">,</span> <span class="s2">&quot;11x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x6b</span><span class="p">,</span> <span class="s2">&quot;30x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x6c</span><span class="p">,</span> <span class="s2">&quot;10x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x6d</span><span class="p">,</span> <span class="s2">&quot;11x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x6e</span><span class="p">,</span> <span class="s2">&quot;02x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x70</span><span class="p">,</span> <span class="s2">&quot;22x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x71</span><span class="p">,</span> <span class="s2">&quot;03x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x72</span><span class="p">,</span> <span class="s2">&quot;03x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x73</span><span class="p">,</span> <span class="s2">&quot;21x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x74</span><span class="p">,</span> <span class="s2">&quot;30x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x75</span><span class="p">,</span> <span class="s2">&quot;00x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x76</span><span class="p">,</span> <span class="s2">&quot;20x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x77</span><span class="p">,</span> <span class="s2">&quot;12x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x7a</span><span class="p">,</span> <span class="s2">&quot;20x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x7b</span><span class="p">,</span> <span class="s2">&quot;30x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x7e</span><span class="p">,</span> <span class="s2">&quot;30x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x82</span><span class="p">,</span> <span class="s2">&quot;20x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x83</span><span class="p">,</span> <span class="s2">&quot;11x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x84</span><span class="p">,</span> <span class="s2">&quot;22x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x85</span><span class="p">,</span> <span class="s2">&quot;20x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x87</span><span class="p">,</span> <span class="s2">&quot;03x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x89</span><span class="p">,</span> <span class="s2">&quot;12x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x8b</span><span class="p">,</span> <span class="s2">&quot;12x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x8c</span><span class="p">,</span> <span class="s2">&quot;12x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x8d</span><span class="p">,</span> <span class="s2">&quot;11x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x8e</span><span class="p">,</span> <span class="s2">&quot;21x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x93</span><span class="p">,</span> <span class="s2">&quot;03x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x95</span><span class="p">,</span> <span class="s2">&quot;12x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x96</span><span class="p">,</span> <span class="s2">&quot;11x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x98</span><span class="p">,</span> <span class="s2">&quot;20x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x9a</span><span class="p">,</span> <span class="s2">&quot;32x&quot;</span><span class="p">)</span> <span class="c1">#</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By MatrixEditor
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, MatrixEditor.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

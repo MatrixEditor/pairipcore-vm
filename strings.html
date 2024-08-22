@@ -1,0 +1,619 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Strings &#8212; pairipcore-vm</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'strings';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Design Guide" href="decompiler/design.html" />
+    <link rel="prev" title="Instruction Set" href="instructions.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pairipcore-vm</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reversing</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cfg.html">Identifying the VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instructions.html">Instruction Set</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Strings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building a Decompiler</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="decompiler/design.html">Design Guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="decompiler/insn_format.html">Instruction Format</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pyapi/context.html">Virtual Machine Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyapi/insn.html">Instruction Format Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyapi/strings.html">String Decoding</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/blob/master/strings.md?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/edit/master/strings.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/issues/new?title=Issue%20on%20page%20%2Fstrings.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/strings.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Strings</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristic-string-scanning">Heuristic String Scanning</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="strings">
+<h1>Strings<a class="headerlink" href="#strings" title="Link to this heading">#</a></h1>
+<p>Instead of embedding strings (or arrays) directly into the bytecode files, Google decided
+to obfuscate them using a simple XOR mechanism. Unfortunately, only a few opcodes encode
+the data and key addresses directly into their instruction data (<code class="docutils literal notranslate"><span class="pre">0x4B</span></code>, <code class="docutils literal notranslate"><span class="pre">0x4D</span></code> and <code class="docutils literal notranslate"><span class="pre">0x70</span></code>
+confirmed).</p>
+<p>To decode a string, we need two variables: the key address and the data array address.
+Instructions don’t store the data address directly but rather another address that points
+to it (essentially a pointer to a pointer). The first two bytes at the key and data addresses
+specify a portion of their length. The final length is calculated by XOR’ing these two
+values - yeah, XOR again. The decoder might look something like this <label for='marginnote-role-1' class='margin-toggle marginnote-label'></label><input type='checkbox' id='marginnote-role-1' name='marginnote-role-1' class='margin-toggle'><span class="marginnote"> The function responsible for decoding strings is also decoding all other kinds of
+arrays. The array type seems to be endoded within the length value - encoding remains unknown.</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pp_data</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">p_key</span>   <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">p_data</span>  <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">pp_data</span><span class="p">)</span>
+
+<span class="n">length</span>  <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">(</span><span class="n">p_key</span><span class="p">)</span> <span class="o">^</span> <span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">(</span><span class="n">p_data</span><span class="p">))</span>
+<span class="n">result</span>  <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+    <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">vm_code</span><span class="p">[</span><span class="n">p_data</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="n">context</span><span class="o">.</span><span class="n">vm_code</span><span class="p">[</span><span class="n">p_key</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>By running a quick opcode scan of <code class="docutils literal notranslate"><span class="pre">0x4B</span></code>, we can identify some static strings
+encoded within the bytecode file. These strings typically refer to the native
+libraries used within the application.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">lVar0</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;lib/armeabi-v7a/libglog.so&quot;</span><span class="w">                    </span><span class="p">;</span><span class="w"> </span><span class="c1">// +0x1deb2</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">lVar1</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;lib/x86/libgifimage.so&quot;</span><span class="w">                        </span><span class="p">;</span><span class="w"> </span><span class="c1">// +0x1df62</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">lVar2</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;lib/x86/librrc_text.so&quot;</span><span class="w">                        </span><span class="p">;</span><span class="w"> </span><span class="c1">// +0x1f05e</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">lVar3</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;lib/armeabi-v7a/libyoga.so&quot;</span><span class="w">                    </span><span class="p">;</span><span class="w"> </span><span class="c1">// +0x1f99a</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">lVar4</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;lib/armeabi-v7a/libfbjni.so&quot;</span><span class="w">                   </span><span class="p">;</span><span class="w"> </span><span class="c1">// +0x20100</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">lVar5</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;lib/x86/libfbjni.so&quot;</span><span class="w">                           </span><span class="p">;</span><span class="w"> </span><span class="c1">// +0x2034c</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">lVar6</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;lib/x86_64/libreact_utils.so&quot;</span><span class="w">                  </span><span class="p">;</span><span class="w"> </span><span class="c1">// +0x20436</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">lVar7</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;lib/x86_64/libreact_nativemodule_core.so&quot;</span><span class="w">      </span><span class="p">;</span><span class="w"> </span><span class="c1">// +0x2046c</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">lVar8</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;lib/arm64-v8a/librrc_view.so&quot;</span><span class="w">                  </span><span class="p">;</span><span class="w"> </span><span class="c1">// +0x20554</span>
+<span class="c1">// ...</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The key appears to be the same for decoding all strings. However, the strings are
+not sequential; instead, they seem to be placed randomly (needs to be verified)
+throughout the file.</p>
+</div>
+<section id="heuristic-string-scanning">
+<h2>Heuristic String Scanning<a class="headerlink" href="#heuristic-string-scanning" title="Link to this heading">#</a></h2>
+<p>Since we know the XOR key used to decode strings is always the same, we can compare
+the keys across the asset files to decode the strings within them. <strong>Surprisingly, the
+decoding key remains consistent across all files!</strong> Here it is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xab\x16</span><span class="s1">+</span><span class="se">\xc0</span><span class="s1">/D7</span><span class="se">\xb6\x7f</span><span class="s1">Q1</span><span class="se">\x8f</span><span class="s1">9@</span><span class="se">\x13\x11</span><span class="s1">*</span><span class="se">\xec</span><span class="s1">8</span><span class="se">\xdd</span><span class="s1">7</span><span class="se">\xda</span><span class="s1">O&quot;_T</span><span class="se">\x97\x00\x1d</span><span class="s1">;</span><span class="se">\xa6</span><span class="s1">T`</span><span class="se">\</span>
+<span class="se">\xad\xbf</span><span class="s1">P</span><span class="se">\x8c\x86\xfe</span><span class="s1">g</span><span class="se">\xc9\xc2\xaf\xaf</span><span class="s1">_</span><span class="se">\xba</span><span class="s1">q</span><span class="se">\xc1\x9a</span><span class="s1">6</span><span class="se">\x1b</span><span class="s1">q.</span><span class="se">\xb6</span><span class="s1">C3</span><span class="se">\n\xa5\xe5\xea\</span>
+<span class="se">\xf9</span><span class="s1"> Y</span><span class="se">\xf1</span><span class="s1">t</span><span class="se">\x11\x13</span><span class="s1">%</span><span class="se">\xf2\x87\xd8\xb6\x8e\xcd\xa8</span><span class="s1">#</span><span class="se">\xb3</span><span class="s1">o</span><span class="se">\xd8</span><span class="s1">NR</span><span class="se">\xe8\xbe\xd9\xc1\xa0\</span>
+<span class="s1">j</span><span class="se">\xc2</span><span class="s1">(Vw</span><span class="se">\xd9</span><span class="s1">C</span><span class="se">\xfc\x92</span><span class="s1">k</span><span class="se">\x0c</span><span class="s1">#</span><span class="se">\xf8\xa9</span><span class="s1">h</span><span class="se">\xb8\xf7\xd4</span><span class="s1">$</span><span class="se">\xac\xad</span><span class="s1">-</span><span class="se">\x88</span><span class="s1">W</span><span class="se">\x92\x8a\xb3</span><span class="s1">y</span><span class="se">\xcd\</span>
+<span class="s1">Ye</span><span class="se">\xd9\xab\xa8\xd1\x93\x87\x91</span><span class="s1">o</span><span class="se">\xf5</span><span class="s1">c</span><span class="se">\xeb\xa0\x05\xc7\xd4\xc6</span><span class="s1">?</span><span class="se">\x80\xb9\xf5\xa3\xd0\</span>
+<span class="s1">|</span><span class="se">\x7f</span><span class="s1">O</span><span class="se">\n\&#39;\xe1\xf5\xbe\x98\xb5\xd1\xd9</span><span class="s1">P_lI</span><span class="se">\x18</span><span class="s1">x</span><span class="se">\xa2\x16\xf8\xf7\xab\x03\xf0\xaf</span><span class="s1">_</span><span class="se">\</span>
+<span class="se">\xe8\xf8\xf6\xce\xcc\r\xd2\xb3\xb4</span><span class="s1">fO</span><span class="se">\xf2\xa9</span><span class="s1">&lt;</span><span class="se">\xd7\x0e\x04\x05\xa4\x85\xb5</span><span class="s1">&amp;</span><span class="se">\xcf\xbc\</span>
+<span class="se">\x16\xd3\xfe\x0b\xb8\xfa\xb1\xfb</span><span class="s1">4</span><span class="se">\xf8\x16</span><span class="s1">v</span><span class="se">\x92\x96\xe3\xee\x97\xf1\xc1\xad\x15\xe3\</span>
+<span class="se">\x0f\x18</span><span class="s1">:^/</span><span class="se">\xfe\x14\x1a\xdd\x1b\xe9</span><span class="s1">q</span><span class="se">\x11\xc8\xc3\xaa\xf2\xa0\xca</span><span class="s1">&quot;}</span><span class="se">\x91\xcd\xc8\x01\</span>
+<span class="s1">_8H</span><span class="se">\xe9</span><span class="s1">j</span><span class="se">\xbe\xf4\x1a</span><span class="s1">B</span><span class="se">\xcc</span><span class="s1">m</span><span class="se">\xa2</span><span class="s1">)</span><span class="se">\\\x1d</span><span class="s1">f</span><span class="se">\xb6</span><span class="s1">8&#39;</span>
+</pre></div>
+</div>
+<p>While it may not look like a typical key, this allows us to decode more strings that
+may be scattered throughout the files. A script is available to automate this scanning
+process (<code class="docutils literal notranslate"><span class="pre">tools/strings_scanner.py</span></code>). Currently, there are two methods for identifying
+possible strings:</p>
+<ol class="arabic simple">
+<li><p><em>length-based</em>: Each string starts with an encoded length value (<code class="docutils literal notranslate"><span class="pre">u16</span></code>), so we can
+scan the entire file for potential strings in increments of 2.</p></li>
+<li><p><em>address-based</em>: Some strings can be located by reading an address at the current
+position that points to the string’s location.</p></li>
+</ol>
+<p>Although these brute-force methods may result in some false positives, they can
+effectively reveal strings:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Output of <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">strings_scanner.py</span> <span class="pre">-in</span> <span class="pre">&lt;bytecode&gt;</span> <span class="pre">--length-based</span> <span class="pre">--address-based</span></code></span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># --- snip ---
+conversationId
+SWYItiQZA
+HOUSE
+SYSuZqEnqZo
+secondary_button
+ConversationTargetSelected(conversationTarget=
+HtNnj
+TRACK_USER_STEPS
+soP
+, selected=
+NiqnbSk
+Error in channel configureNotification ForegroundServiceStartNotAllowedException
+FmgjECZFS
+ExWObCGTTdQ
+jjmfpr
+com.google.android.gms.dynamite.IDynamiteLoaderV2
+xesg
+RESULT_BASELINE_PROFILE_NOT_FOUND
+FRAGMENT_STARTED
+lib/arm64-v8a/libreact_render_mapbuffer.so
+# --- snip ---
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<hr class="footnotes docutils" />
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="instructions.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Instruction Set</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="decompiler/design.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Design Guide</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristic-string-scanning">Heuristic String Scanning</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By MatrixEditor
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, MatrixEditor.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
