@@ -4,6 +4,11 @@ Further research based on
 [pairipcore](https://github.com/Solaree/pairipcore), focusing on the virtual
 machine (VM) used to virtualize code in Android apps as a protection mechanism.
 
+> [!IMPORTANT]
+> Google designed the VM to be custom for every release of an application. The
+> analysis provided here acan be used up to the point where opcodes are analyzed.
+> A workaround is WIP!
+
 > [!NOTE]
 > A detailed writeup is work-in-progress and will be published to GitHub Pages
 > soon. Decompiler and Disassembler are WIP!
