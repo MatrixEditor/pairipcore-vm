@@ -10,7 +10,7 @@ def interpret(
     verbose: bool = False,
     cb=None,
     **env,
-) -> None:
+):
     """
     Interprets the given GVM bytecode using the specified opcode table.
 
@@ -26,13 +26,10 @@ def interpret(
         cb (callable, optional): A callback function to be called when an
                                  unrecognized opcode is encountered. Defaults
                                  to None.
-
-    Returns:
-        None
     """
     state = VM(vmcode, entry_point, verbose=verbose, **env)
     interpret_fn = table.get(VMOpcode_Interpret, _interpret_default)
-    interpret_fn(state, table, cb)
+    return interpret_fn(state, table, cb)
 
 
 def _interpret_default(vm: VM, table: dict, cb=None) -> None:

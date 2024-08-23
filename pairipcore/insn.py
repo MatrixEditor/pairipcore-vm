@@ -46,7 +46,7 @@ class InsnFormat:
                 name_idx += 1
 
         self.__store_ = -1
-        if storage_var is not None and storage_var.upper() != "X":
+        if storage_var is not None and storage_var.upper() not in ("X", "Z"):
             if extra_vars <= 0 and stack_vars <= 0:
                 raise ValueError(
                     f"Storage variable {storage_var!r} is not defined, "
@@ -303,7 +303,8 @@ FormatIDs = {}
 # Dictionary that maps opcodes to their corresponding mnemonic names.
 OpcodeIDs = {}
 
-def O(name: str, opcode: int, format_id: str) -> int: #: noqa
+
+def O(name: str, opcode: int, format_id: str) -> int:  #: noqa
     """
     Registers an opcode with its corresponding format and name.
 
@@ -352,6 +353,7 @@ O("_",                      0x21, "22x") #
 O("Add_Int_30c",            0x25, "30c") # c = a + b
 O("_",                      0x26, "11x") #
 O("CastToInt_22d",          0x28, "22d") # d = convert(src=c, dst=a, val=b)
+O("_",                      0x29, "20x") #
 O("CastToFloat_04a",        0x2A, "04a") # a = convert(src=c, dst=d, val=b)
 O("Assign_Long_20a",        0x2E, "20a") # a = b
 O("Div_Double_12b",         0x2c, "12b") # b = a / c
@@ -393,7 +395,7 @@ O("_",                      0x60, "21x") #
 O("_",                      0x64, "30x") #
 O("_",                      0x65, "30x") #
 O("_",                      0x66, "21x") #
-O("_",                      0x68, "11x") #
+O("_",                      0x68, "11z") #
 O("_",                      0x6b, "30x") #
 O("_",                      0x6c, "10x") #
 O("_",                      0x6d, "11x") #

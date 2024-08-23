@@ -26,9 +26,7 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx_copybutton",
 ]
-myst_enable_extensions = [
-    "attrs_inline"
-]
+myst_enable_extensions = ["attrs_inline"]
 
 templates_path = ["_templates"]
 exclude_patterns = ["build", "Thumbs.db", ".DS_Store"]

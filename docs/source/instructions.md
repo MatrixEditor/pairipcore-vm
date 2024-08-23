@@ -8,7 +8,7 @@ the opcodes is the first step in the process.
 ## Opcode Obfuscation
 
 Google, of course, applies obfuscation to each opcode, making identification more
-challenging.  Despite this, the decoding algorithm for each opcode is provided below,
+challenging. Despite this, the decoding algorithm for each opcode is provided below,
 which will enable us to decode the opcodes used in the bytecode:
 
 ```{code-block} python
@@ -96,7 +96,7 @@ universal instruction structure for this VM.
 However, we can identify common elements to determine how many items
 are taken from the stack and how many are pushed onto it.
 
-[^mn6]: {-} *"stack-based"* is confusing here, because there is no "real" stack
+[^mn6]: {-} _"stack-based"_ is confusing here, because there is no "real" stack
 
 ```{code-block} c
 typedef struct {
@@ -135,7 +135,7 @@ asset file is listed below:
 void *v0 = malloc(0x18);
 void *v1 = malloc(0x18);
 ```
-`````
+````
 
 ```{code-block} asm
 .init:
@@ -160,7 +160,7 @@ of execution [^mn5]:
 
 [^mn5]: {-} The instruction format IDs used here will be discussed in the [Design Guide](/decompiler/design)
 
-```{figure} _static/depth_5.png
+```{figure} _static/depth_5.svg
 Example visualization of a decision tree based on the first five instructions executed
 upon loading the first bytecode file. [Red]{.text-danger} lines point to fallback addresses
 and [Green]{.text-success} lines to the next instruction address upon successful hash
@@ -178,146 +178,147 @@ Below is a table of all the opcodes identified so far. The names provided here a
 based on their decompiled output, which can be found in the `src/_opcode_cases/`
 directory. Some files already include their instruction structure, generated using
 a small script (applicable only to cases of `vm_dispatch_0`).
+
 ```{margin} **Important Info**
 The opcodes in the visualization were extracted from a dump of the library
 at runtime of the app. However, it is important to note that some of these opcodes do not correspond directly to the implementations found in the original library.
 ```
 
-| Value | Proposed Name | Function |
-|:-----:|:--------------|:--------:|
-| `0x00` |  | *vm_dispatch_1* |
-| `0x01` |  | *vm_dispatch_1* |
-| `0x02` |  | *vm_dispatch_0* |
-| `0x03` |  | *vm_dispatch_1* |
-| `0x04` |  | *vm_dispatch_1* |
-| `0x05` | `VMOpcode_OR_Byte` | *vm_dispatch_0* |
-| `0x06` |  | *vm_dispatch_2* |
-| `0x07` | `VMOpcode_RAssign_UInt` | *vm_dispatch_0* |
-| `0x08` |  | *vm_dispatch_2* |
-| `0x09` |  | *vm_dispatch_1* |
-| `0x0A` |  | *vm_dispatch_1* |
-| `0x0B` |  | *vm_dispatch_1* |
-| `0x0C` |  | *vm_dispatch_1* |
-| `0x0D` | `VMOpcode_RShift_SInt` | *vm_dispatch_0* |
-| `0x0E` |  | *vm_dispatch_2* |
-| `0x0F` |  | *vm_dispatch_2* |
-| `0x10` | `VMOpcode_Compare_ULong` | *vm_dispatch_0* |
-| `0x11` |  | *vm_dispatch_2* |
-| `0x12` | `VMOpcode_Assign_UInt` | *vm_dispatch_0* |
-| `0x13` | `VMOpcode_LAssign_Byte` | *vm_dispatch_0* |
-| `0x14` |  | *vm_dispatch_1* |
-| `0x15` | `VMOpcode_LAssign_ULong` | *vm_dispatch_0* |
-| `0x17` |  | *vm_dispatch_1* |
-| `0x18` |  | *vm_dispatch_2* |
-| `0x19` |  | *vm_dispatch_2* |
-| `0x1A` |  | *vm_dispatch_2* |
-| `0x1C` |  | *vm_dispatch_1* |
-| `0x1B` | `VMOpcode_Compare_Double` | *vm_dispatch_0* |
-| `0x1D` |  | *vm_dispatch_2* |
-| `0x1E` |  | *vm_dispatch_2* |
-| `0x1F` | `VMOpcode_Div_SInt` | *vm_dispatch_0* |
-| `0x20` |  | *vm_dispatch_1* |
-| `0x21` |  | *vm_dispatch_2* |
-| `0x24` |  | *vm_dispatch_1* |
-| `0x25` | `VMOpcode_Add_SInt` | *vm_dispatch_0* |
-| `0x26` |  | *vm_dispatch_1* |
-| `0x27` |  | *vm_dispatch_1* |
-| `0x28` | `VMOpcode_FloatToInt` | *vm_dispatch_0* |
-| `0x29` |  | *vm_dispatch_1* |
-| `0x2A` | `VMOpcode_IntToFloat` | *vm_dispatch_0* |
-| `0x2B` |  | *vm_dispatch_1* |
-| `0x2C` |  | *vm_dispatch_0* |
-| `0x2D` |  | *vm_dispatch_2* |
-| `0x2E` | `VMOpcode_LAssign_ULong2` | *vm_dispatch_0* |
-| `0x2F` |  | *vm_dispatch_2* |
-| `0x30` | `VMOpcode_CastInt` | *vm_dispatch_0* |
-| `0x31` |  | *vm_dispatch_1* |
-| `0x32` |  | *vm_dispatch_1* |
-| `0x33` | `VMOpcode_NOP` | *vm_dispatch_0* |
-| `0x34` | `VMOpcode_XOR_Byte` | *vm_dispatch_0* |
-| `0x35` | `VMOpcode_NotEqZ_SInt` | *vm_dispatch_0* |
-| `0x36` |  | *vm_dispatch_1* |
-| `0x37` |  | *vm_dispatch_2* |
-| `0x38` |  | *vm_dispatch_2* |
-| `0x39` |  | *vm_dispatch_1* |
-| `0x3A` |  | *vm_dispatch_2* |
-| `0x3B` |  | *vm_dispatch_2* |
-| `0x3C` |  | *vm_dispatch_1* |
-| `0x3D` | `VMOpcode_Main` | *vm_dispatch_1* |
-| `0x3E` |  | *vm_dispatch_1* |
-| `0x40` |  | *vm_dispatch_1* |
-| `0x41` | `VMOpcode_Malloc2` | *vm_dispatch_1* |
-| `0x42` | `VMOpcode_Mul_Float` | *vm_dispatch_0* |
-| `0x43` | `VMOpcode_Mul_Double` | *vm_dispatch_0* |
-| `0x44` |  | *vm_dispatch_2* |
-| `0x45` |  | *vm_dispatch_0* |
-| `0x47` | `VMOpcode_Add_ULong` | *vm_dispatch_0* |
-| `0x48` | `VMOpcode_Add_Double` | *vm_dispatch_0* |
-| `0x49` | `VMOpcode_Setup1` | *vm_dispatch_1* |
-| `0x4A` | `VMOpcode_RAssign_SInt` | *vm_dispatch_0* |
-| `0x4B` |  | *vm_dispatch_2* |
-| `0x4C` | `VMOpcode_CastFP` | *vm_dispatch_0* |
-| `0x4D` |  | *vm_dispatch_2* |
-| `0x4E` |  | *vm_dispatch_1* |
-| `0x4F` |  | *vm_dispatch_2* |
-| `0x50` |  | *vm_dispatch_2* |
-| `0x52` |  | *vm_dispatch_1* |
-| `0x56` |  | *vm_dispatch_1* |
-| `0x57` |  | *vm_dispatch_2* |
-| `0x58` | `VMOpcode_Malloc1` | *vm_dispatch_1* |
-| `0x59` |  | *vm_dispatch_2* |
-| `0x5A` | `VMOpcode_Add_Float` | *vm_dispatch_0* |
-| `0x5B` |  | *vm_dispatch_2* |
-| `0x5C` |  | *vm_dispatch_0* |
-| `0x5D` |  | *vm_dispatch_2* |
-| `0x5E` |  | *vm_dispatch_2* |
-| `0x5F` | `VMOpcode_Compare_UInt` | *vm_dispatch_0* |
-| `0x60` | `VMOpcode_RShift_SLong` | *vm_dispatch_0* |
-| `0x63` |  | *vm_dispatch_1* |
-| `0x64` |  | *vm_dispatch_2* |
-| `0x65` | `VMOpcode_Not_ULong` | *vm_dispatch_0* |
-| `0x66` | `VMOpcode_Div_Float` | *vm_dispatch_0* |
-| `0x68` | `VMOpcode_Init1` | *vm_dispatch_1* |
-| `0x69` |  | *vm_dispatch_1* |
-| `0x6A` |  | *vm_dispatch_2* |
-| `0x6B` |  | *vm_dispatch_2* |
-| `0x6C` |  | *vm_dispatch_2* |
-| `0x6D` |  | *vm_dispatch_2* |
-| `0x6E` | `VMOpcode_LAssign_Short` | *vm_dispatch_0* |
-| `0x6F` |  | *vm_dispatch_1* |
-| `0x70` |  | *vm_dispatch_2* |
-| `0x71` |  | *vm_dispatch_0* |
-| `0x72` |  | *vm_dispatch_0* |
-| `0x73` | `VMOpcode_And_UInt` | *vm_dispatch_0* |
-| `0x74` |  | *vm_dispatch_2* |
-| `0x75` | `VMOpcode_NOP1` | *vm_dispatch_0* |
-| `0x76` |  | *vm_dispatch_2* |
-| `0x77` | `VMOpcode_Mul_UInt` | *vm_dispatch_0* |
-| `0x79` |  | *vm_dispatch_1* |
-| `0x7A` |  | *vm_dispatch_2* |
-| `0x7B` |  | *vm_dispatch_2* |
-| `0x7D` |  | *vm_dispatch_1* |
-| `0x7E` |  | *vm_dispatch_2* |
-| `0x80` |  | *vm_dispatch_1* |
-| `0x81` |  | *vm_dispatch_1* |
-| `0x82` |  | *vm_dispatch_2* |
-| `0x83` |  | *vm_dispatch_2* |
-| `0x84` | `VMOpcode_CastInt1` | *vm_dispatch_0* |
-| `0x85` | `VMOpcode_NotEqZ_UInt` | *vm_dispatch_0* |
-| `0x86` |  | *vm_dispatch_1* |
-| `0x87` | `VMOpcode_Compare_SInt` | *vm_dispatch_0* |
-| `0x88` |  | *vm_dispatch_1* |
-| `0x89` | `VMOpcode_SLongToULong` | *vm_dispatch_0* |
-| `0x8A` |  | *vm_dispatch_1* |
-| `0x8B` |  | *vm_dispatch_0* |
-| `0x8C` | `VMOpcode_Sub_UInt` | *vm_dispatch_0* |
-| `0x8D` | `VMOpcode_RAssign_Short` | *vm_dispatch_0* |
-| `0x8E` | `VMOpcode_Sub_SLong` | *vm_dispatch_0* |
-| `0x90` |  | *vm_dispatch_1* |
-| `0x93` | `VMOpcode_XOR_ULong` | *vm_dispatch_0* |
-| `0x94` |  | *vm_dispatch_1* |
-| `0x95` | `VMOpcode_Div_SLong` | *vm_dispatch_0* |
-| `0x96` | `VMOpcode_RAssign_UInt1` | *vm_dispatch_0* |
-| `0x98` |  | *vm_dispatch_2* |
-| `0x99` |  | *vm_dispatch_1* |
-| `0x9A` | `VMOpcode_AddrToUInt` | *vm_dispatch_0* |
+| Value  | Proposed Name             |    Function     |
+| :----: | :------------------------ | :-------------: |
+| `0x00` |                           | _vm_dispatch_1_ |
+| `0x01` |                           | _vm_dispatch_1_ |
+| `0x02` |                           | _vm_dispatch_0_ |
+| `0x03` |                           | _vm_dispatch_1_ |
+| `0x04` |                           | _vm_dispatch_1_ |
+| `0x05` | `VMOpcode_OR_Byte`        | _vm_dispatch_0_ |
+| `0x06` |                           | _vm_dispatch_2_ |
+| `0x07` | `VMOpcode_RAssign_UInt`   | _vm_dispatch_0_ |
+| `0x08` |                           | _vm_dispatch_2_ |
+| `0x09` |                           | _vm_dispatch_1_ |
+| `0x0A` |                           | _vm_dispatch_1_ |
+| `0x0B` |                           | _vm_dispatch_1_ |
+| `0x0C` |                           | _vm_dispatch_1_ |
+| `0x0D` | `VMOpcode_RShift_SInt`    | _vm_dispatch_0_ |
+| `0x0E` |                           | _vm_dispatch_2_ |
+| `0x0F` |                           | _vm_dispatch_2_ |
+| `0x10` | `VMOpcode_Compare_ULong`  | _vm_dispatch_0_ |
+| `0x11` |                           | _vm_dispatch_2_ |
+| `0x12` | `VMOpcode_Assign_UInt`    | _vm_dispatch_0_ |
+| `0x13` | `VMOpcode_LAssign_Byte`   | _vm_dispatch_0_ |
+| `0x14` |                           | _vm_dispatch_1_ |
+| `0x15` | `VMOpcode_LAssign_ULong`  | _vm_dispatch_0_ |
+| `0x17` |                           | _vm_dispatch_1_ |
+| `0x18` |                           | _vm_dispatch_2_ |
+| `0x19` |                           | _vm_dispatch_2_ |
+| `0x1A` |                           | _vm_dispatch_2_ |
+| `0x1C` |                           | _vm_dispatch_1_ |
+| `0x1B` | `VMOpcode_Compare_Double` | _vm_dispatch_0_ |
+| `0x1D` |                           | _vm_dispatch_2_ |
+| `0x1E` |                           | _vm_dispatch_2_ |
+| `0x1F` | `VMOpcode_Div_SInt`       | _vm_dispatch_0_ |
+| `0x20` |                           | _vm_dispatch_1_ |
+| `0x21` |                           | _vm_dispatch_2_ |
+| `0x24` |                           | _vm_dispatch_1_ |
+| `0x25` | `VMOpcode_Add_SInt`       | _vm_dispatch_0_ |
+| `0x26` |                           | _vm_dispatch_1_ |
+| `0x27` |                           | _vm_dispatch_1_ |
+| `0x28` | `VMOpcode_FloatToInt`     | _vm_dispatch_0_ |
+| `0x29` |                           | _vm_dispatch_1_ |
+| `0x2A` | `VMOpcode_IntToFloat`     | _vm_dispatch_0_ |
+| `0x2B` |                           | _vm_dispatch_1_ |
+| `0x2C` |                           | _vm_dispatch_0_ |
+| `0x2D` |                           | _vm_dispatch_2_ |
+| `0x2E` | `VMOpcode_LAssign_ULong2` | _vm_dispatch_0_ |
+| `0x2F` |                           | _vm_dispatch_2_ |
+| `0x30` | `VMOpcode_CastInt`        | _vm_dispatch_0_ |
+| `0x31` |                           | _vm_dispatch_1_ |
+| `0x32` |                           | _vm_dispatch_1_ |
+| `0x33` | `VMOpcode_NOP`            | _vm_dispatch_0_ |
+| `0x34` | `VMOpcode_XOR_Byte`       | _vm_dispatch_0_ |
+| `0x35` | `VMOpcode_NotEqZ_SInt`    | _vm_dispatch_0_ |
+| `0x36` |                           | _vm_dispatch_1_ |
+| `0x37` |                           | _vm_dispatch_2_ |
+| `0x38` |                           | _vm_dispatch_2_ |
+| `0x39` |                           | _vm_dispatch_1_ |
+| `0x3A` |                           | _vm_dispatch_2_ |
+| `0x3B` |                           | _vm_dispatch_2_ |
+| `0x3C` |                           | _vm_dispatch_1_ |
+| `0x3D` | `VMOpcode_Main`           | _vm_dispatch_1_ |
+| `0x3E` |                           | _vm_dispatch_1_ |
+| `0x40` |                           | _vm_dispatch_1_ |
+| `0x41` | `VMOpcode_Malloc2`        | _vm_dispatch_1_ |
+| `0x42` | `VMOpcode_Mul_Float`      | _vm_dispatch_0_ |
+| `0x43` | `VMOpcode_Mul_Double`     | _vm_dispatch_0_ |
+| `0x44` |                           | _vm_dispatch_2_ |
+| `0x45` |                           | _vm_dispatch_0_ |
+| `0x47` | `VMOpcode_Add_ULong`      | _vm_dispatch_0_ |
+| `0x48` | `VMOpcode_Add_Double`     | _vm_dispatch_0_ |
+| `0x49` | `VMOpcode_Setup1`         | _vm_dispatch_1_ |
+| `0x4A` | `VMOpcode_RAssign_SInt`   | _vm_dispatch_0_ |
+| `0x4B` |                           | _vm_dispatch_2_ |
+| `0x4C` | `VMOpcode_CastFP`         | _vm_dispatch_0_ |
+| `0x4D` |                           | _vm_dispatch_2_ |
+| `0x4E` |                           | _vm_dispatch_1_ |
+| `0x4F` |                           | _vm_dispatch_2_ |
+| `0x50` |                           | _vm_dispatch_2_ |
+| `0x52` |                           | _vm_dispatch_1_ |
+| `0x56` |                           | _vm_dispatch_1_ |
+| `0x57` |                           | _vm_dispatch_2_ |
+| `0x58` | `VMOpcode_Malloc1`        | _vm_dispatch_1_ |
+| `0x59` |                           | _vm_dispatch_2_ |
+| `0x5A` | `VMOpcode_Add_Float`      | _vm_dispatch_0_ |
+| `0x5B` |                           | _vm_dispatch_2_ |
+| `0x5C` |                           | _vm_dispatch_0_ |
+| `0x5D` |                           | _vm_dispatch_2_ |
+| `0x5E` |                           | _vm_dispatch_2_ |
+| `0x5F` | `VMOpcode_Compare_UInt`   | _vm_dispatch_0_ |
+| `0x60` | `VMOpcode_RShift_SLong`   | _vm_dispatch_0_ |
+| `0x63` |                           | _vm_dispatch_1_ |
+| `0x64` |                           | _vm_dispatch_2_ |
+| `0x65` | `VMOpcode_Not_ULong`      | _vm_dispatch_0_ |
+| `0x66` | `VMOpcode_Div_Float`      | _vm_dispatch_0_ |
+| `0x68` | `VMOpcode_Init1`          | _vm_dispatch_1_ |
+| `0x69` |                           | _vm_dispatch_1_ |
+| `0x6A` |                           | _vm_dispatch_2_ |
+| `0x6B` |                           | _vm_dispatch_2_ |
+| `0x6C` |                           | _vm_dispatch_2_ |
+| `0x6D` |                           | _vm_dispatch_2_ |
+| `0x6E` | `VMOpcode_LAssign_Short`  | _vm_dispatch_0_ |
+| `0x6F` |                           | _vm_dispatch_1_ |
+| `0x70` |                           | _vm_dispatch_2_ |
+| `0x71` |                           | _vm_dispatch_0_ |
+| `0x72` |                           | _vm_dispatch_0_ |
+| `0x73` | `VMOpcode_And_UInt`       | _vm_dispatch_0_ |
+| `0x74` |                           | _vm_dispatch_2_ |
+| `0x75` | `VMOpcode_NOP1`           | _vm_dispatch_0_ |
+| `0x76` |                           | _vm_dispatch_2_ |
+| `0x77` | `VMOpcode_Mul_UInt`       | _vm_dispatch_0_ |
+| `0x79` |                           | _vm_dispatch_1_ |
+| `0x7A` |                           | _vm_dispatch_2_ |
+| `0x7B` |                           | _vm_dispatch_2_ |
+| `0x7D` |                           | _vm_dispatch_1_ |
+| `0x7E` |                           | _vm_dispatch_2_ |
+| `0x80` |                           | _vm_dispatch_1_ |
+| `0x81` |                           | _vm_dispatch_1_ |
+| `0x82` |                           | _vm_dispatch_2_ |
+| `0x83` |                           | _vm_dispatch_2_ |
+| `0x84` | `VMOpcode_CastInt1`       | _vm_dispatch_0_ |
+| `0x85` | `VMOpcode_NotEqZ_UInt`    | _vm_dispatch_0_ |
+| `0x86` |                           | _vm_dispatch_1_ |
+| `0x87` | `VMOpcode_Compare_SInt`   | _vm_dispatch_0_ |
+| `0x88` |                           | _vm_dispatch_1_ |
+| `0x89` | `VMOpcode_SLongToULong`   | _vm_dispatch_0_ |
+| `0x8A` |                           | _vm_dispatch_1_ |
+| `0x8B` |                           | _vm_dispatch_0_ |
+| `0x8C` | `VMOpcode_Sub_UInt`       | _vm_dispatch_0_ |
+| `0x8D` | `VMOpcode_RAssign_Short`  | _vm_dispatch_0_ |
+| `0x8E` | `VMOpcode_Sub_SLong`      | _vm_dispatch_0_ |
+| `0x90` |                           | _vm_dispatch_1_ |
+| `0x93` | `VMOpcode_XOR_ULong`      | _vm_dispatch_0_ |
+| `0x94` |                           | _vm_dispatch_1_ |
+| `0x95` | `VMOpcode_Div_SLong`      | _vm_dispatch_0_ |
+| `0x96` | `VMOpcode_RAssign_UInt1`  | _vm_dispatch_0_ |
+| `0x98` |                           | _vm_dispatch_2_ |
+| `0x99` |                           | _vm_dispatch_1_ |
+| `0x9A` | `VMOpcode_AddrToUInt`     | _vm_dispatch_0_ |

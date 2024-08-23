@@ -69,6 +69,12 @@ def decode_opcode(raw_opcode: int) -> int:
     Returns:
         int: the decode opcode (u32)
     """
+    # The following logic comes from aarch64 decompilation
+    # x86 would've been much cleaner:
+    # raw_opcode = ...
+    # a = raw_opcode ^ 0xff5f;
+    # opcode = a + (a / 5 & 0xffffffe0) * -5;
+
     a = (raw_opcode ^ 0xFFFFFF64) & 0xFFFF
     b = (a * 0xA6D1) >> 16
 

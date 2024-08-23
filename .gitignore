@@ -4,6 +4,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 pyrightconfig.json
+_artifacts/
 
 # Distribution / packaging
 .Python

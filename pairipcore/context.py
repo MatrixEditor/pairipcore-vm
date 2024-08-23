@@ -52,13 +52,31 @@ le_u16 = le + uint16
 # -----------------------------------------------------------------------------
 class VMVariable:
     #: the human readable type of this variable
-    __type_: str
+    type: str | None
 
     #: the value associated with this variable
-    __value_: Any
+    value: Any
+
+    name: str
 
     #: the position of this variable in memory (file offset)
     __address_: addr_t
+
+    def __init__(
+        self, addr: addr_t, ty: str | None = None, value: Any = None
+    ) -> None:
+        self.__address_ = addr
+        self.value = value
+        self.type = ty
+        self.name = "_"
+
+    @property
+    def address(self) -> addr_t:
+        return self.__address_
+
+    def __str__(self) -> str:
+        return self.name
+
 
 class VMMemory:
     """Internal memory manager for the VM.
@@ -106,12 +124,12 @@ class VMMemory:
     # --- special methods ---
     def __init__(self, base_address: ptr_t) -> None:
         self.objects = {}
+        self.variables = {}
         self.base_address = base_address
         self._alloc_pos = base_address
 
     def __getitem__(self, key: ptr_t) -> Any:
         return self.objects[key]
-
 
 
 # -----------------------------------------------------------------------------
@@ -307,7 +325,9 @@ class VMState:
         line = f".{name}:"
         self.pline(line, *comments)
 
-    def pinsn(self, insn: str, args: str, *comments: str, indent: int = 1) -> None:
+    def pinsn(
+        self, insn: str, args: str, *comments: str, indent: int = 1
+    ) -> None:
         """Writes an instruction to the terminal.
 
         Args:
@@ -351,7 +371,9 @@ class VM:
         writer: Any = print,
         **env,
     ) -> None:
-        self.mem = VMMemory(mem_base_addr if mem_base_addr >= 0 else 0xDEAD00000000)
+        self.mem = VMMemory(
+            mem_base_addr if mem_base_addr >= 0 else 0xDEAD00000000
+        )
         self.context = VMContext(bytecode, pc)
         self.state = VMState(verbose, writer, **env)
 
@@ -380,8 +402,7 @@ class VM:
         its hash value. (Used to select the next instruction address)
 
         Args:
-            addr (addr_t, optional): The address in the bytecode to verify.
-                                     Defaults to the current program counter (pc) if not provided.
+            addr (addr_t, optional): The address in the bytecode to verify. Defaults to the current program counter (pc) if not provided.
 
         Returns:
             bool: True if the hash verification is successful, False otherwise.
@@ -390,7 +411,8 @@ class VM:
             addr = self.context.pc
 
         xor_value = (
-            self.context.u32(self.context.addr(addr, rel=False)) ^ 0xFFFFFFFF00000000
+            self.context.u32(self.context.addr(addr, rel=False))
+            ^ 0xFFFFFFFF00000000
         )
         hash_value = self.context.u64(addr + 4)
         hash_address = self.context.addr(addr + 12, rel=False)

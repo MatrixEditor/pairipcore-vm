@@ -127,7 +127,9 @@ def VMOp_BinaryOp(
 
 
 def VMOp_Or_Byte(vm: VM) -> None:
-    VMOp_BinaryOp(vm, VMOpcode_Or_Byte, operator.or_, "byte", vm.context.u8, vm.context.setu8)
+    VMOp_BinaryOp(
+        vm, VMOpcode_Or_Byte, operator.or_, "byte", vm.context.u8, vm.context.setu8
+    )
 
 
 def VMOp_And_UInt(vm: VM) -> None:
@@ -151,9 +153,7 @@ def VMOp_Mul_UIntxInt(vm: VM) -> None:
 # -----------------------------------------------------------------------------
 # assignments ops
 # -----------------------------------------------------------------------------
-def VMOp_RAssign(
-    vm: VM, opcode, load_fn, store_fn, type: str
-) -> None:
+def VMOp_RAssign(vm: VM, opcode, load_fn, store_fn, type: str) -> None:
     insn = Insn(vm, FormatIDs[opcode])
     address__a = insn.A
     address__b = insn.B
