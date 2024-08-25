@@ -13,10 +13,6 @@ machine (VM) used to virtualize code in Android apps as a protection mechanism.
 > A detailed writeup is work-in-progress and will be published to GitHub Pages
 > soon. Decompiler and Disassembler are WIP!
 
-> [!NOTE]
-> The opcodes seem to change each version release - therefore, the decompiler
-> given here can't be used against newer bytecode files!
-
 ## Disclaimer
 
 The information presented here is for educational purposes only!

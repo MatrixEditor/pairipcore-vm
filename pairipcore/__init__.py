@@ -1,15 +1,13 @@
 from ._types import *  # noqa
 from .opcode import *  # noqa
 from .context import *  # noqa
+from typing import Mapping
 
 
 def interpret(
-    vmcode: bytes,
-    table: dict,
-    entry_point: int = -1,
-    verbose: bool = False,
+    table: Mapping,
+    vm: VM,
     cb=None,
-    **env,
 ):
     """
     Interprets the given GVM bytecode using the specified opcode table.
@@ -27,12 +25,14 @@ def interpret(
                                  unrecognized opcode is encountered. Defaults
                                  to None.
     """
-    state = VM(vmcode, entry_point, verbose=verbose, **env)
-    interpret_fn = table.get(VMOpcode_Interpret, _interpret_default)
-    return interpret_fn(state, table, cb)
+    try:
+        interpret_fn = table[VMOpcode_Interpret]
+    except KeyError:
+        interpret_fn = _interpret_default
+    return interpret_fn(vm, table, cb)
 
 
-def _interpret_default(vm: VM, table: dict, cb=None) -> None:
+def _interpret_default(vm: VM, table: Mapping, cb=None):
     """Default interpreter function for handling GVM bytecode.
 
     Processes each opcode and invokes the corresponding handler - in other words,
@@ -55,11 +55,11 @@ def _interpret_default(vm: VM, table: dict, cb=None) -> None:
     while not vm.state.should_exit:
         opcode = vm.current_opcode()
         vm.context += 2
-        handler = table.get(opcode)
-        if handler is None:
+        try:
+            handler = table[opcode]
+            handler(vm)
+        except KeyError:
             if cb:
                 cb(vm, opcode)
             else:
                 vm.state.should_exit = True
-        else:
-            handler(vm)

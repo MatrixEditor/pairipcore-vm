@@ -23,14 +23,7 @@ introduction
 cfg
 instructions
 strings
-```
-
-
-```{toctree}
-:maxdepth: 2
-:caption: Building a Decompiler
-
-decompiler/design
+automation
 ```
 
 ```{toctree}
@@ -40,4 +33,5 @@ decompiler/design
 pyapi/context
 pyapi/insn
 pyapi/strings
+pyapi/decompiler
 ```

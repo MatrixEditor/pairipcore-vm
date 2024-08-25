@@ -1,0 +1,4 @@
+tree_sitter_c@https://github.com/tree-sitter/tree-sitter-c
+tree_sitter
+pyhidra
+rich

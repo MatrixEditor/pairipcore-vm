@@ -1,12 +1,18 @@
-from typing import Any, Type
+from typing import Any, Type, Callable
 
 from caterpillar.shortcuts import unpack, LittleEndian as le, pack
 from caterpillar.fields import uint16, uint32, uint64, double, int32, Field
 
-from .opcode import decode_opcode
-from ._types import ptr_t, addr_t
+from ._types import ptr_t, addr_t, opcode_t
 
 
+# -----------------------------------------------------------------------------
+# Typing functions
+# -----------------------------------------------------------------------------
+AddressDecoderFn = Callable[[int, int], addr_t]
+OpcodeDecoderFn = Callable[[int], opcode_t]
+EntryPointDecoderFn = Callable[["VM"], addr_t]
+HashVerifierFn = Callable[[addr_t, "VM"], bool]
 # -----------------------------------------------------------------------------
 # FNV-1 Hash
 # -----------------------------------------------------------------------------
@@ -19,6 +25,20 @@ def fnv(data: bytes):
         hval = (hval * FNV_prime) % 2**64
         hval ^= byte
     return hval
+
+
+def verify_fnv(addr: addr_t, vm: "VM") -> bool:
+    if addr < 0:
+        addr = vm.context.pc
+
+    xor_value = vm.context.u32(vm.context.addr(addr, rel=False)) ^ 0xFFFFFFFF00000000
+    hash_value = vm.context.u64(addr + 4)
+    hash_address = vm.context.addr(addr + 12, rel=False)
+    hash_length = vm.context.u16(addr + 16)
+
+    data = vm.context[hash_address : hash_address + hash_length]
+    hash_value2 = fnv(data) ^ (xor_value & 0xFFFFFFFFFFFFFFFF)
+    return hash_value2 == hash_value
 
 
 # -----------------------------------------------------------------------------
@@ -36,6 +56,21 @@ def decode_address(enc_address: int, code_length: int) -> addr_t:
         int: The decoded address as an absolute file offset.
     """
     return ((enc_address ^ ~code_length) & 0xFFFFFFFF) % code_length
+
+
+# -----------------------------------------------------------------------------
+# Entry point decoding
+# -----------------------------------------------------------------------------
+def decode_entry_point_v0(vm: "VM") -> addr_t:
+    a = vm.context.u32(addr=0x04)
+    b01 = (~a & 0xFFFFFF8E) * -3 + (~a | 0xFFFFFF8E)
+    b02 = (a * 2) ^ 0xFFFFFF1C
+    return vm.context.addr((b01 + b02) & 0xFFFFFFFF, rel=False)
+
+
+def decode_entry_point_v1(vm: "VM") -> addr_t:
+    a = vm.context.u32(addr=0x04)
+    return vm.context.addr((a ^ 0x44) + ((a << 1) & 0x88), rel=False)
 
 
 # -----------------------------------------------------------------------------
@@ -62,9 +97,7 @@ class VMVariable:
     #: the position of this variable in memory (file offset)
     __address_: addr_t
 
-    def __init__(
-        self, addr: addr_t, ty: str | None = None, value: Any = None
-    ) -> None:
+    def __init__(self, addr: addr_t, ty: str | None = None, value: Any = None) -> None:
         self.__address_ = addr
         self.value = value
         self.type = ty
@@ -325,9 +358,7 @@ class VMState:
         line = f".{name}:"
         self.pline(line, *comments)
 
-    def pinsn(
-        self, insn: str, args: str, *comments: str, indent: int = 1
-    ) -> None:
+    def pinsn(self, insn: str, args: str, *comments: str, indent: int = 1) -> None:
         """Writes an instruction to the terminal.
 
         Args:
@@ -365,17 +396,23 @@ class VM:
     def __init__(
         self,
         bytecode: bytes,
+        opcode_decoder_fn: OpcodeDecoderFn,
+        entry_point_decode_fn: EntryPointDecoderFn,
+        address_decoder_fn: AddressDecoderFn = decode_address,
+        hash_verifier_fn: HashVerifierFn = verify_fnv,
         pc: addr_t = -1,
         mem_base_addr: ptr_t = -1,
         verbose: bool = False,
         writer: Any = print,
         **env,
     ) -> None:
-        self.mem = VMMemory(
-            mem_base_addr if mem_base_addr >= 0 else 0xDEAD00000000
-        )
+        self.mem = VMMemory(mem_base_addr if mem_base_addr >= 0 else 0xDEAD00000000)
         self.context = VMContext(bytecode, pc)
         self.state = VMState(verbose, writer, **env)
+        self._entry_point_decoder = entry_point_decode_fn
+        self._address_decoder = address_decoder_fn
+        self._opcode_decoder = opcode_decoder_fn
+        self._hash_verifier = hash_verifier_fn
 
     def entry_point(self) -> addr_t:
         """Calculates the entry point for the current program
@@ -383,10 +420,10 @@ class VM:
         Returns:
             int: the entry point address (file offset)
         """
-        a = self.context.u32(addr=0x04)
-        b01 = (~a & 0xFFFFFF8E) * -3 + (~a | 0xFFFFFF8E)
-        b02 = (a * 2) ^ 0xFFFFFF1C
-        return self.context.addr((b01 + b02) & 0xFFFFFFFF, rel=False)
+        if not self._entry_point_decoder:
+            raise ValueError(f"{self.__class__.__name__} can't resolve entry point!")
+
+        return self._entry_point_decoder(self)
 
     def current_opcode(self) -> int:
         """Returns the decoded opcode for the current pc.
@@ -394,7 +431,13 @@ class VM:
         Returns:
             int: the decoded opcode
         """
-        return decode_opcode(self.context.u16())
+        if not self._opcode_decoder:
+            raise ValueError(
+                f"{self.__class__.__name__} does not support decoding opcodes!"
+            )
+
+        return self._opcode_decoder(self.context.u16())
+        # return decode_opcode(self.context.u16()) & 0xFFFF
 
     def verify_hash(self, addr: addr_t = -1) -> bool:
         """
@@ -407,17 +450,9 @@ class VM:
         Returns:
             bool: True if the hash verification is successful, False otherwise.
         """
-        if addr < 0:
-            addr = self.context.pc
+        if not self._hash_verifier:
+            raise NotImplementedError(
+                f"{self.__class__.__name__} does not implement hash verification!"
+            )
 
-        xor_value = (
-            self.context.u32(self.context.addr(addr, rel=False))
-            ^ 0xFFFFFFFF00000000
-        )
-        hash_value = self.context.u64(addr + 4)
-        hash_address = self.context.addr(addr + 12, rel=False)
-        hash_length = self.context.u16(addr + 16)
-
-        data = self.context[hash_address : hash_address + hash_length]
-        hash_value2 = fnv(data) ^ (xor_value & 0xFFFFFFFFFFFFFFFF)
-        return hash_value2 == hash_value
+        return self._hash_verifier(addr, self)

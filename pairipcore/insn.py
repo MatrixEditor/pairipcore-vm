@@ -35,6 +35,7 @@ class InsnFormat:
         self.__info_begin_ = info_off
         self.__stack_ = stack_vars
         self.__extra_ = extra_vars
+        self.__fmt_ = f"{stack_vars}{extra_vars}{(storage_var or 'X').lower()}"
         name_idx = ord("A")
         if stack_vars > 0:
             for i in range(stack_vars):
@@ -139,6 +140,9 @@ class InsnFormat:
             chr(65 + i): getattr(self, chr(65 + i))
             for i in range(self.__stack_ + self.__extra_)
         }
+
+    def __str__(self) -> str:
+        return self.__fmt_
 
 
 # -----------------------------------------------------------------------------
@@ -293,7 +297,7 @@ class Insn:
 # data is stored in memory.
 
 # Dictionary that maps opcodes to their corresponding instruction formats.
-FormatIDs = {}
+FormatIDs: dict[int, InsnFormat] = {}
 
 # Opcode IDs
 # Similar to format IDs, opcode IDs are defined by a certain naming scheme.
@@ -301,7 +305,7 @@ FormatIDs = {}
 # specifications (e.g., UInt, Byte), and finally the instruction format ID.
 
 # Dictionary that maps opcodes to their corresponding mnemonic names.
-OpcodeIDs = {}
+OpcodeIDs: dict[int, str] = {}
 
 
 def O(name: str, opcode: int, format_id: str) -> int:  #: noqa
@@ -325,6 +329,7 @@ def O(name: str, opcode: int, format_id: str) -> int:  #: noqa
     return opcode
 
 
+# TODO: shceduled for removal
 # fmt: off
 #           Name           |  Opcode     | human-oriented syntax
 O("_",                      0x00, "13x") #
