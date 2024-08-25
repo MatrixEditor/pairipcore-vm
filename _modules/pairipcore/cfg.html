@@ -1,0 +1,728 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pairipcore.cfg &#8212; pairipcore-vm</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pairipcore/cfg';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pairipcore-vm</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reversing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cfg.html">Identifying the VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../instructions.html">Instruction Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strings.html">Strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../automation.html">Automatic Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/context.html">Virtual Machine Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/insn.html">Instruction Format Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/strings.html">String Decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/decompiler.html">Decompiler Components</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/issues/new?title=Issue%20on%20page%20%2F_modules/pairipcore/cfg.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pairipcore.cfg</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">graphviz</span>
+
+<span class="kn">from</span> <span class="nn">pairipcore.context</span> <span class="kn">import</span> <span class="n">VM</span><span class="p">,</span> <span class="n">addr_t</span>
+<span class="kn">from</span> <span class="nn">pairipcore.insn</span> <span class="kn">import</span> <span class="n">Insn</span><span class="p">,</span> <span class="n">InsnFormat</span>
+
+
+<div class="viewcode-block" id="LocationDB">
+<a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.LocationDB">[docs]</a>
+<span class="k">class</span> <span class="nc">LocationDB</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A database for managing address ranges and labels within a virtual machine.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        __ranges_ (List[range]): List of address ranges.</span>
+<span class="sd">        __labels_ (Dict[addr_t, str]): Dictionary of address labels.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__ranges_</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">range</span><span class="p">]</span>
+    <span class="n">__labels_</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">addr_t</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
+
+<div class="viewcode-block" id="LocationDB.__init__">
+<a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.LocationDB.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__ranges_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__labels_</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if an address is within any of the managed ranges.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            addr (addr_t): The address to check.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the address is within any range, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">addr</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__ranges_</span><span class="p">))</span>
+
+<div class="viewcode-block" id="LocationDB.add_insn">
+<a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.LocationDB.add_insn">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_insn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">insn</span><span class="p">:</span> <span class="n">Insn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an instruction&#39;s address range to the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            insn (Insn): The instruction to add.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__ranges_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="nb">range</span><span class="p">(</span>
+                <span class="n">insn</span><span class="o">.</span><span class="n">opcode_address</span><span class="p">,</span> <span class="n">insn</span><span class="o">.</span><span class="n">opcode_address</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">insn</span><span class="o">.</span><span class="n">insn_format</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LocationDB.add_memory">
+<a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.LocationDB.add_memory">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a memory range to the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            start (addr_t): Starting address of the memory range.</span>
+<span class="sd">            length (int): Length of the memory range.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__ranges_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="n">length</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="LocationDB.add">
+<a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.LocationDB.add">[docs]</a>
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a custom address range to the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            start (addr_t): Starting address of the range.</span>
+<span class="sd">            end (addr_t): Ending address of the range.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__ranges_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="LocationDB.get_label">
+<a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.LocationDB.get_label">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">is_mem</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve or generate a label for an address.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            addr (addr_t): The address to label.</span>
+<span class="sd">            is_mem (bool): Whether the address is for memory or not.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The label for the address.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__labels_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is_mem</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;DAT_</span><span class="si">{</span><span class="n">addr</span><span class="si">:</span><span class="s2">#08x</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;LAB_</span><span class="si">{</span><span class="n">addr</span><span class="si">:</span><span class="s2">#08x</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__labels_</span><span class="p">[</span><span class="n">addr</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">return</span> <span class="n">name</span></div>
+
+
+<div class="viewcode-block" id="LocationDB.has_label">
+<a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.LocationDB.has_label">[docs]</a>
+    <span class="k">def</span> <span class="nf">has_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if an address has an assigned label.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            addr (addr_t): The address to check.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the address has a label, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">addr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__labels_</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="GraphDelegate">
+<a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.GraphDelegate">[docs]</a>
+<span class="k">class</span> <span class="nc">GraphDelegate</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A delegate class for managing graph nodes and edges related to VM instructions and memory.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph (graphviz.Digraph): The graph object for visualization.</span>
+<span class="sd">        opcode_ids (Dict[int, str]): Mapping of opcodes to human-readable names.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        graph (graphviz.Digraph): The graph object for visualization.</span>
+<span class="sd">        opcode_ids (Dict[int, str]): Mapping of opcodes to human-readable names.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">graph</span><span class="p">:</span> <span class="n">graphviz</span><span class="o">.</span><span class="n">Digraph</span>
+
+<div class="viewcode-block" id="GraphDelegate.__init__">
+<a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">opcode_ids</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opcode_ids</span> <span class="o">=</span> <span class="n">opcode_ids</span></div>
+
+
+<div class="viewcode-block" id="GraphDelegate.memory_node">
+<a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.memory_node">[docs]</a>
+    <span class="k">def</span> <span class="nf">memory_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mem_label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mem_addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a graph node for a memory location.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            mem_label (str): The label for the memory node.</span>
+<span class="sd">            mem_addr (addr_t): The memory address.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mem_html_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&lt;td align=&quot;center&quot; colspan=&quot;2&quot;&gt;&lt;font color=&quot;forestgreen&quot;&gt;DAT_</span><span class="si">{</span><span class="n">mem_addr</span><span class="si">:</span><span class="s1">#08x</span><span class="si">}</span><span class="s1">&lt;/font&gt;&lt;/td&gt;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
+            <span class="n">mem_label</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s1">&#39;&lt;&lt;table border=&quot;0&quot; cellborder=&quot;0&quot; cellpadding=&quot;3&quot;&gt;&lt;tr&gt;</span><span class="si">{</span><span class="n">mem_html_label</span><span class="si">}</span><span class="s1">&lt;/tr&gt;&lt;/table&gt;&gt;&#39;</span><span class="p">,</span>
+            <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="s2">&quot;record&quot;</span><span class="p">,</span> <span class="s2">&quot;fontname&quot;</span><span class="p">:</span> <span class="s2">&quot;Courier New&quot;</span><span class="p">},</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GraphDelegate.leaf_insn_node">
+<a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.leaf_insn_node">[docs]</a>
+    <span class="k">def</span> <span class="nf">leaf_insn_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">opcode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a graph node for a leaf instruction.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            label (str): The label for the instruction node.</span>
+<span class="sd">            opcode (int): The opcode of the instruction.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">opcode_html</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opcode_ids</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">opcode</span><span class="p">,</span> <span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">opcode_html</span> <span class="o">==</span> <span class="s2">&quot;unknown&quot;</span><span class="p">:</span>
+            <span class="n">opcode_html</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&lt;font color=&quot;red&quot;&gt;</span><span class="si">{</span><span class="n">opcode_html</span><span class="si">}</span><span class="s1">&lt;/font&gt;&#39;</span>
+        <span class="n">head_html</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">opcode_html</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">opcode</span><span class="si">:</span><span class="s2">#04x</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&lt;td align=&quot;center&quot; colspan=&quot;2&quot; bgcolor=&quot;lightgrey&quot;&gt;</span><span class="si">{</span><span class="n">head_html</span><span class="si">}</span><span class="s1">&lt;/td&gt;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
+            <span class="n">label</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s1">&#39;&lt;&lt;table border=&quot;0&quot; cellborder=&quot;0&quot; cellpadding=&quot;3&quot;&gt;&lt;tr&gt;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">&lt;/tr&gt;&lt;/table&gt;&gt;&#39;</span><span class="p">,</span>
+            <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="s2">&quot;Mrecord&quot;</span><span class="p">,</span> <span class="s2">&quot;fontname&quot;</span><span class="p">:</span> <span class="s2">&quot;Courier New&quot;</span><span class="p">},</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GraphDelegate.insn_node">
+<a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.insn_node">[docs]</a>
+    <span class="k">def</span> <span class="nf">insn_node</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">opcode</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">insn</span><span class="p">:</span> <span class="n">Insn</span><span class="p">,</span> <span class="n">loc_db</span><span class="p">:</span> <span class="n">LocationDB</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a graph node for an instruction, including its memory accesses.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            label (str): The label for the instruction node.</span>
+<span class="sd">            opcode (int): The opcode of the instruction.</span>
+<span class="sd">            insn (Insn): The instruction object.</span>
+<span class="sd">            loc_db (LocationDB): The location database for memory and label management.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">html_text</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">insn</span><span class="o">.</span><span class="n">insn_format</span><span class="o">.</span><span class="n">vars</span><span class="p">():</span>
+            <span class="n">mem_addr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">insn</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">create_node</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">loc_db</span><span class="o">.</span><span class="n">has_label</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">)</span>
+            <span class="n">mem_label</span> <span class="o">=</span> <span class="n">loc_db</span><span class="o">.</span><span class="n">get_label</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">,</span> <span class="n">is_mem</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">create_node</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">memory_node</span><span class="p">(</span><span class="n">mem_label</span><span class="p">,</span> <span class="n">mem_addr</span><span class="p">)</span>
+                <span class="n">loc_db</span><span class="o">.</span><span class="n">add_memory</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">html_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&lt;font color=&quot;blue1&quot;&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s1">&lt;8</span><span class="si">}</span><span class="s1">&lt;/font&gt;&#39;</span>
+            <span class="n">html_addr</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&lt;font color=&quot;black&quot;&gt;#&lt;/font&gt;&lt;font color=&quot;azure4&quot;&gt;</span><span class="si">{</span><span class="n">mem_addr</span><span class="si">:</span><span class="s1">#08x</span><span class="si">}</span><span class="s1">&lt;/font&gt;&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span>
+                <span class="n">label</span><span class="p">,</span>
+                <span class="n">mem_label</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">,</span>
+                <span class="n">group</span><span class="o">=</span><span class="s2">&quot;mem&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">html_text</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&lt;td align=&quot;left&quot;&gt;</span><span class="si">{</span><span class="n">html_name</span><span class="si">}{</span><span class="n">html_addr</span><span class="si">}</span><span class="s1">&lt;/td&gt;&#39;</span><span class="p">)</span>
+
+        <span class="n">head_html</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">opcode_ids</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">opcode</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">opcode</span><span class="si">:</span><span class="s1">#04x</span><span class="si">}</span><span class="s1">) @</span><span class="si">{</span><span class="n">insn</span><span class="o">.</span><span class="n">opcode_address</span><span class="si">:</span><span class="s1">#08x</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">html_text</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s1">&#39;&lt;td align=&quot;center&quot; colspan=&quot;2&quot; bgcolor=&quot;lightgrey&quot;&gt;</span><span class="si">{</span><span class="n">head_html</span><span class="si">}</span><span class="s1">&lt;/td&gt;&#39;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&lt;tr&gt;&quot;</span> <span class="o">+</span> <span class="s2">&quot;&lt;/tr&gt;&lt;tr&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">html_text</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&lt;/tr&gt;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">node</span><span class="p">(</span>
+            <span class="n">label</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s1">&#39;&lt;&lt;table border=&quot;0&quot; cellborder=&quot;0&quot; cellpadding=&quot;3&quot;&gt;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">&lt;/table&gt;&gt;&#39;</span><span class="p">,</span>
+            <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="s2">&quot;Mrecord&quot;</span><span class="p">,</span> <span class="s2">&quot;fontname&quot;</span><span class="p">:</span> <span class="s2">&quot;Courier New&quot;</span><span class="p">},</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="instruction_handler">
+<a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.instruction_handler">[docs]</a>
+<span class="k">def</span> <span class="nf">instruction_handler</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Recursively handle and visualize instructions in the VM&#39;s memory, updating</span>
+<span class="sd">    the location database and graph delegate with instruction details.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        vm (VM): The virtual machine instance.</span>
+<span class="sd">        depth (int): The current depth of recursion.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">loc_db</span><span class="p">:</span> <span class="n">LocationDB</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;loc_db&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pc</span> <span class="ow">in</span> <span class="n">loc_db</span><span class="p">:</span>
+        <span class="c1"># memory region or overlaps with another instruction</span>
+        <span class="k">return</span>
+
+    <span class="n">argv</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;argv&quot;</span><span class="p">]</span>
+    <span class="n">graph</span><span class="p">:</span> <span class="n">GraphDelegate</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;graph&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">depth</span> <span class="o">&gt;=</span> <span class="n">argv</span><span class="o">.</span><span class="n">depth</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">opcode</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">current_opcode</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">argv</span><span class="o">.</span><span class="n">path</span> <span class="ow">and</span> <span class="n">opcode</span> <span class="o">!=</span> <span class="n">argv</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="n">depth</span><span class="p">]:</span>
+        <span class="k">return</span>
+    <span class="n">vm</span><span class="o">.</span><span class="n">context</span> <span class="o">+=</span> <span class="mi">2</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">loc_db</span><span class="o">.</span><span class="n">get_label</span><span class="p">(</span><span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pc</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">format_ids</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;format_ids&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">opcode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">format_ids</span><span class="p">:</span>
+        <span class="n">graph</span><span class="o">.</span><span class="n">leaf_insn_node</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">opcode</span><span class="p">)</span>
+        <span class="n">loc_db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pc</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pc</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">insn</span> <span class="o">=</span> <span class="n">Insn</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">format_ids</span><span class="p">[</span><span class="n">opcode</span><span class="p">])</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">insn_node</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">opcode</span><span class="p">,</span> <span class="n">insn</span><span class="p">,</span> <span class="n">loc_db</span><span class="p">)</span>
+    <span class="n">loc_db</span><span class="o">.</span><span class="n">add_insn</span><span class="p">(</span><span class="n">insn</span><span class="p">)</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">loc_db</span><span class="o">.</span><span class="n">get_label</span><span class="p">(</span><span class="n">insn</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">next</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">loc_db</span><span class="o">.</span><span class="n">get_label</span><span class="p">(</span><span class="n">insn</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">fallback</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">insn</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">next</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">loc_db</span><span class="p">:</span>
+        <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pc</span> <span class="o">=</span> <span class="n">insn</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">next</span>
+        <span class="n">instruction_handler</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">insn</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">fallback</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">loc_db</span><span class="p">:</span>
+        <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pc</span> <span class="o">=</span> <span class="n">insn</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">fallback</span>
+        <span class="n">instruction_handler</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="new_cfg">
+<a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.new_cfg">[docs]</a>
+<span class="k">def</span> <span class="nf">new_cfg</span><span class="p">(</span>
+    <span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">opcode_def</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">loc_db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">graphviz</span><span class="o">.</span><span class="n">Digraph</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a control flow graph (CFG) for a VM&#39;s instructions.</span>
+
+<span class="sd">    &gt;&gt;&gt; vm = VM(...)</span>
+<span class="sd">    &gt;&gt;&gt; cfg = pairipcore.cfg.new_cfg(vm, opcode_def={...}, depth=5)</span>
+<span class="sd">    &gt;&gt;&gt; open(&quot;cfg.dot&quot;).write(str(cfg))</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        vm (VM): The virtual machine instance.</span>
+<span class="sd">        opcode_def (dict): Definitions of opcodes, including format IDs.</span>
+<span class="sd">        loc_db (LocationDB, optional): Pre-existing location database. If None, a new one will be created.</span>
+<span class="sd">        depth (int, optional): Maximum depth for recursion in CFG generation.</span>
+<span class="sd">        path (list[int], optional): Specific opcode path to follow in the CFG.</span>
+<span class="sd">        layout (str, optional): Graphviz layout direction (e.g., &#39;TB&#39; for top-to-bottom).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        graphviz.Digraph: The generated control flow graph.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;opcodes&quot;</span> <span class="ow">in</span> <span class="n">opcode_def</span><span class="p">:</span>
+        <span class="n">opcode_def</span> <span class="o">=</span> <span class="n">opcode_def</span><span class="p">[</span><span class="s2">&quot;opcodes&quot;</span><span class="p">]</span>
+
+    <span class="n">opcode_ids</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">format_ids</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">opcode</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">opcode_def</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">opcode</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">opcode</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;format_id&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+            <span class="n">format_id</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;format_id&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">format_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">format_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">format_ids</span><span class="p">[</span><span class="n">opcode</span><span class="p">]</span> <span class="o">=</span> <span class="n">InsnFormat</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">format_id</span><span class="p">)</span>
+            <span class="n">opcode_ids</span><span class="p">[</span><span class="n">opcode</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="n">format_id</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="n">argv</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">(</span><span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">argv</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+        <span class="n">argv</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">argv</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">argv</span><span class="o">.</span><span class="n">depth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">argv</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="n">dot</span> <span class="o">=</span> <span class="n">graphviz</span><span class="o">.</span><span class="n">Digraph</span><span class="p">(</span>
+        <span class="s2">&quot;instruction-tree&quot;</span><span class="p">,</span>
+        <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Instruction Trace&quot;</span><span class="p">,</span>
+        <span class="n">graph_attr</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;rankdir&quot;</span><span class="p">:</span> <span class="n">layout</span> <span class="ow">or</span> <span class="s2">&quot;TB&quot;</span><span class="p">},</span>
+        <span class="n">node_attr</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="s2">&quot;Mrecord&quot;</span><span class="p">,</span> <span class="s2">&quot;fontname&quot;</span><span class="p">:</span> <span class="s2">&quot;Courier New&quot;</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="n">loc_db</span> <span class="o">=</span> <span class="n">LocationDB</span><span class="p">()</span>
+    <span class="n">vm</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;loc_db&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">loc_db</span>
+    <span class="n">vm</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;graph&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">GraphDelegate</span><span class="p">(</span><span class="n">dot</span><span class="p">,</span> <span class="n">opcode_ids</span><span class="p">)</span>
+    <span class="n">vm</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;format_ids&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">format_ids</span>
+    <span class="n">vm</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;argv&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">argv</span>
+    <span class="n">instruction_handler</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dot</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By MatrixEditor
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, MatrixEditor.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

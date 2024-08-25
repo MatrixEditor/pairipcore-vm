@@ -156,9 +156,7 @@ void *v1 = malloc(0x18);
 
 When visualizing the execution of the initial opcodes, we look at their memory access and
 decision paths. Each opcode's behavior can be mapped out to show how it influences the flow
-of execution [^mn5]:
-
-[^mn5]: {-} The instruction format IDs used here will be discussed in the [Design Guide](/decompiler/design)
+of execution:
 
 ```{figure} _static/depth_5.svg
 Example visualization of a decision tree based on the first five instructions executed
@@ -168,157 +166,42 @@ verification. [Gray]{.text-secondary} points to the memory locations accessed wi
 instruction.
 ```
 
-```{admonition} Next Steps
-We are now ready to look at each handler function and try to implement a decompiler.
-```
-
 ### Opcode Table
 
-Below is a table of all the opcodes identified so far. The names provided here are
-based on their decompiled output, which can be found in the `src/_opcode_cases/`
-directory. Some files already include their instruction structure, generated using
-a small script (applicable only to cases of `vm_dispatch_0`).
+With the structure of the instruction format identified, we can construct an opcode table
+that maps each opcode value to its corresponding handler function. However, before investing
+time into analyzing each handler, it's important to verify the identified opcode handler for
+a newer version of the library to be the same.
 
-```{margin} **Important Info**
-The opcodes in the visualization were extracted from a dump of the library
-at runtime of the app. However, it is important to note that some of these opcodes do not correspond directly to the implementations found in the original library.
+Upon repeating the analysis steps described earlier, we discovered that the opcode handler for
+`0x05` implements behavior different from the expected bitwise OR operation. Unfortunately,
+Google has introduced a feature that randomizes the opcode handler mapping each time the
+library is compiled, making analysis significantly more challenging.
+
+To counter this measure, we can implement handlers based on so-called format IDs, which allow
+us to abstract away the specific opcode values and focus on the underlying instruction formats
+instead.
+
+#### Format IDs
+
+Format IDs are used to describe the structure of each instruction. They generally consist
+of three characters: two digits followed by a letter.
+
+- The first digit specifies the number of variables taken from the compiled stack.
+- The second digit indicates the number of additional variables that need to be loaded.
+- The final letter denotes which variable is used to store the result of the operation, if applicable.
+
+For example, the format :code:`"20a"` means the instruction reads two variables from the
+stack, does not load any additional variables, and stores the result in variable :code:`'a'`.
+If the letter is :code:`"z"`, it indicates that no data is being stored.
+
+```{note}
+Note there is one additional special letter :code:`'x'` which indicates that the
+storage variable has not yet been identified.
 ```
 
-| Value  | Proposed Name             |    Function     |
-| :----: | :------------------------ | :-------------: |
-| `0x00` |                           | _vm_dispatch_1_ |
-| `0x01` |                           | _vm_dispatch_1_ |
-| `0x02` |                           | _vm_dispatch_0_ |
-| `0x03` |                           | _vm_dispatch_1_ |
-| `0x04` |                           | _vm_dispatch_1_ |
-| `0x05` | `VMOpcode_OR_Byte`        | _vm_dispatch_0_ |
-| `0x06` |                           | _vm_dispatch_2_ |
-| `0x07` | `VMOpcode_RAssign_UInt`   | _vm_dispatch_0_ |
-| `0x08` |                           | _vm_dispatch_2_ |
-| `0x09` |                           | _vm_dispatch_1_ |
-| `0x0A` |                           | _vm_dispatch_1_ |
-| `0x0B` |                           | _vm_dispatch_1_ |
-| `0x0C` |                           | _vm_dispatch_1_ |
-| `0x0D` | `VMOpcode_RShift_SInt`    | _vm_dispatch_0_ |
-| `0x0E` |                           | _vm_dispatch_2_ |
-| `0x0F` |                           | _vm_dispatch_2_ |
-| `0x10` | `VMOpcode_Compare_ULong`  | _vm_dispatch_0_ |
-| `0x11` |                           | _vm_dispatch_2_ |
-| `0x12` | `VMOpcode_Assign_UInt`    | _vm_dispatch_0_ |
-| `0x13` | `VMOpcode_LAssign_Byte`   | _vm_dispatch_0_ |
-| `0x14` |                           | _vm_dispatch_1_ |
-| `0x15` | `VMOpcode_LAssign_ULong`  | _vm_dispatch_0_ |
-| `0x17` |                           | _vm_dispatch_1_ |
-| `0x18` |                           | _vm_dispatch_2_ |
-| `0x19` |                           | _vm_dispatch_2_ |
-| `0x1A` |                           | _vm_dispatch_2_ |
-| `0x1C` |                           | _vm_dispatch_1_ |
-| `0x1B` | `VMOpcode_Compare_Double` | _vm_dispatch_0_ |
-| `0x1D` |                           | _vm_dispatch_2_ |
-| `0x1E` |                           | _vm_dispatch_2_ |
-| `0x1F` | `VMOpcode_Div_SInt`       | _vm_dispatch_0_ |
-| `0x20` |                           | _vm_dispatch_1_ |
-| `0x21` |                           | _vm_dispatch_2_ |
-| `0x24` |                           | _vm_dispatch_1_ |
-| `0x25` | `VMOpcode_Add_SInt`       | _vm_dispatch_0_ |
-| `0x26` |                           | _vm_dispatch_1_ |
-| `0x27` |                           | _vm_dispatch_1_ |
-| `0x28` | `VMOpcode_FloatToInt`     | _vm_dispatch_0_ |
-| `0x29` |                           | _vm_dispatch_1_ |
-| `0x2A` | `VMOpcode_IntToFloat`     | _vm_dispatch_0_ |
-| `0x2B` |                           | _vm_dispatch_1_ |
-| `0x2C` |                           | _vm_dispatch_0_ |
-| `0x2D` |                           | _vm_dispatch_2_ |
-| `0x2E` | `VMOpcode_LAssign_ULong2` | _vm_dispatch_0_ |
-| `0x2F` |                           | _vm_dispatch_2_ |
-| `0x30` | `VMOpcode_CastInt`        | _vm_dispatch_0_ |
-| `0x31` |                           | _vm_dispatch_1_ |
-| `0x32` |                           | _vm_dispatch_1_ |
-| `0x33` | `VMOpcode_NOP`            | _vm_dispatch_0_ |
-| `0x34` | `VMOpcode_XOR_Byte`       | _vm_dispatch_0_ |
-| `0x35` | `VMOpcode_NotEqZ_SInt`    | _vm_dispatch_0_ |
-| `0x36` |                           | _vm_dispatch_1_ |
-| `0x37` |                           | _vm_dispatch_2_ |
-| `0x38` |                           | _vm_dispatch_2_ |
-| `0x39` |                           | _vm_dispatch_1_ |
-| `0x3A` |                           | _vm_dispatch_2_ |
-| `0x3B` |                           | _vm_dispatch_2_ |
-| `0x3C` |                           | _vm_dispatch_1_ |
-| `0x3D` | `VMOpcode_Main`           | _vm_dispatch_1_ |
-| `0x3E` |                           | _vm_dispatch_1_ |
-| `0x40` |                           | _vm_dispatch_1_ |
-| `0x41` | `VMOpcode_Malloc2`        | _vm_dispatch_1_ |
-| `0x42` | `VMOpcode_Mul_Float`      | _vm_dispatch_0_ |
-| `0x43` | `VMOpcode_Mul_Double`     | _vm_dispatch_0_ |
-| `0x44` |                           | _vm_dispatch_2_ |
-| `0x45` |                           | _vm_dispatch_0_ |
-| `0x47` | `VMOpcode_Add_ULong`      | _vm_dispatch_0_ |
-| `0x48` | `VMOpcode_Add_Double`     | _vm_dispatch_0_ |
-| `0x49` | `VMOpcode_Setup1`         | _vm_dispatch_1_ |
-| `0x4A` | `VMOpcode_RAssign_SInt`   | _vm_dispatch_0_ |
-| `0x4B` |                           | _vm_dispatch_2_ |
-| `0x4C` | `VMOpcode_CastFP`         | _vm_dispatch_0_ |
-| `0x4D` |                           | _vm_dispatch_2_ |
-| `0x4E` |                           | _vm_dispatch_1_ |
-| `0x4F` |                           | _vm_dispatch_2_ |
-| `0x50` |                           | _vm_dispatch_2_ |
-| `0x52` |                           | _vm_dispatch_1_ |
-| `0x56` |                           | _vm_dispatch_1_ |
-| `0x57` |                           | _vm_dispatch_2_ |
-| `0x58` | `VMOpcode_Malloc1`        | _vm_dispatch_1_ |
-| `0x59` |                           | _vm_dispatch_2_ |
-| `0x5A` | `VMOpcode_Add_Float`      | _vm_dispatch_0_ |
-| `0x5B` |                           | _vm_dispatch_2_ |
-| `0x5C` |                           | _vm_dispatch_0_ |
-| `0x5D` |                           | _vm_dispatch_2_ |
-| `0x5E` |                           | _vm_dispatch_2_ |
-| `0x5F` | `VMOpcode_Compare_UInt`   | _vm_dispatch_0_ |
-| `0x60` | `VMOpcode_RShift_SLong`   | _vm_dispatch_0_ |
-| `0x63` |                           | _vm_dispatch_1_ |
-| `0x64` |                           | _vm_dispatch_2_ |
-| `0x65` | `VMOpcode_Not_ULong`      | _vm_dispatch_0_ |
-| `0x66` | `VMOpcode_Div_Float`      | _vm_dispatch_0_ |
-| `0x68` | `VMOpcode_Init1`          | _vm_dispatch_1_ |
-| `0x69` |                           | _vm_dispatch_1_ |
-| `0x6A` |                           | _vm_dispatch_2_ |
-| `0x6B` |                           | _vm_dispatch_2_ |
-| `0x6C` |                           | _vm_dispatch_2_ |
-| `0x6D` |                           | _vm_dispatch_2_ |
-| `0x6E` | `VMOpcode_LAssign_Short`  | _vm_dispatch_0_ |
-| `0x6F` |                           | _vm_dispatch_1_ |
-| `0x70` |                           | _vm_dispatch_2_ |
-| `0x71` |                           | _vm_dispatch_0_ |
-| `0x72` |                           | _vm_dispatch_0_ |
-| `0x73` | `VMOpcode_And_UInt`       | _vm_dispatch_0_ |
-| `0x74` |                           | _vm_dispatch_2_ |
-| `0x75` | `VMOpcode_NOP1`           | _vm_dispatch_0_ |
-| `0x76` |                           | _vm_dispatch_2_ |
-| `0x77` | `VMOpcode_Mul_UInt`       | _vm_dispatch_0_ |
-| `0x79` |                           | _vm_dispatch_1_ |
-| `0x7A` |                           | _vm_dispatch_2_ |
-| `0x7B` |                           | _vm_dispatch_2_ |
-| `0x7D` |                           | _vm_dispatch_1_ |
-| `0x7E` |                           | _vm_dispatch_2_ |
-| `0x80` |                           | _vm_dispatch_1_ |
-| `0x81` |                           | _vm_dispatch_1_ |
-| `0x82` |                           | _vm_dispatch_2_ |
-| `0x83` |                           | _vm_dispatch_2_ |
-| `0x84` | `VMOpcode_CastInt1`       | _vm_dispatch_0_ |
-| `0x85` | `VMOpcode_NotEqZ_UInt`    | _vm_dispatch_0_ |
-| `0x86` |                           | _vm_dispatch_1_ |
-| `0x87` | `VMOpcode_Compare_SInt`   | _vm_dispatch_0_ |
-| `0x88` |                           | _vm_dispatch_1_ |
-| `0x89` | `VMOpcode_SLongToULong`   | _vm_dispatch_0_ |
-| `0x8A` |                           | _vm_dispatch_1_ |
-| `0x8B` |                           | _vm_dispatch_0_ |
-| `0x8C` | `VMOpcode_Sub_UInt`       | _vm_dispatch_0_ |
-| `0x8D` | `VMOpcode_RAssign_Short`  | _vm_dispatch_0_ |
-| `0x8E` | `VMOpcode_Sub_SLong`      | _vm_dispatch_0_ |
-| `0x90` |                           | _vm_dispatch_1_ |
-| `0x93` | `VMOpcode_XOR_ULong`      | _vm_dispatch_0_ |
-| `0x94` |                           | _vm_dispatch_1_ |
-| `0x95` | `VMOpcode_Div_SLong`      | _vm_dispatch_0_ |
-| `0x96` | `VMOpcode_RAssign_UInt1`  | _vm_dispatch_0_ |
-| `0x98` |                           | _vm_dispatch_2_ |
-| `0x99` |                           | _vm_dispatch_1_ |
-| `0x9A` | `VMOpcode_AddrToUInt`     | _vm_dispatch_0_ |
+We can leverage format IDs to implement a disassembler that is based on these identifiers. In
+the following sections, we will explore the possibility of automating the analysis process and
+demonstrate how to implement a decompiler/disassembler effectively. This approach allows us to
+systematically handle the opcode randomization challenge by focusing on the consistent patterns
+found in the instruction formats, rather than the opcodes themselves.

@@ -160,19 +160,14 @@
 <li class="toctree-l1"><a class="reference internal" href="cfg.html">Identifying the VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="strings.html">Strings</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building a Decompiler</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="decompiler/design.html">Design Guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="decompiler/insn_format.html">Instruction Format</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="automation.html">Automatic Analysis</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pyapi/context.html">Virtual Machine Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyapi/insn.html">Instruction Format Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyapi/strings.html">String Decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyapi/decompiler.html">Decompiler Components</a></li>
 </ul>
 
     </div>
@@ -438,13 +433,10 @@ in the repository.</p>
 <li class="toctree-l2"><a class="reference internal" href="strings.html#heuristic-string-scanning">Heuristic String Scanning</a></li>
 </ul>
 </li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building a Decompiler</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="decompiler/design.html">Design Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="decompiler/insn_format.html">Instruction Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automation.html">Automatic Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automation.html#collecting-opcode-handlers">Collecting Opcode Handlers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation.html#re-creating-instruction-formats">Re-creating Instruction Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automation.html#following-states-until-tomorrow">Following States until tomorrow</a></li>
 </ul>
 </li>
 </ul>
@@ -469,6 +461,15 @@ in the repository.</p>
 <li class="toctree-l1"><a class="reference internal" href="pyapi/strings.html">String Decoding</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pyapi/strings.html#pairipcore.strings.ppdecode"><code class="docutils literal notranslate"><span class="pre">ppdecode()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyapi/strings.html#pairipcore.strings.pdecode"><code class="docutils literal notranslate"><span class="pre">pdecode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pyapi/decompiler.html">Decompiler Components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyapi/decompiler.html#pairipcore.decompiler._decompiler.decompiler_main"><code class="docutils literal notranslate"><span class="pre">decompiler_main()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyapi/decompiler.html#pairipcore.decompiler._decompiler.from_opcode_def"><code class="docutils literal notranslate"><span class="pre">from_opcode_def()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyapi/decompiler.html#module-pairipcore.cfg">CFG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyapi/decompiler.html#module-pairipcore.disassembler">Disassembler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyapi/decompiler.html#module-pairipcore.decompiler.code">Code Writer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyapi/decompiler.html#module-pairipcore.decompiler.utils">Utilities</a></li>
 </ul>
 </li>
 </ul>

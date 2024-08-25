@@ -49,7 +49,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Instruction Format Classes" href="insn.html" />
-    <link rel="prev" title="Instruction Format" href="../decompiler/insn_format.html" />
+    <link rel="prev" title="Automatic Analysis" href="../automation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -159,19 +159,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../cfg.html">Identifying the VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../strings.html">Strings</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building a Decompiler</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../decompiler/design.html">Design Guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../decompiler/insn_format.html">Instruction Format</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation.html">Automatic Analysis</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Virtual Machine Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="insn.html">Instruction Format Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="strings.html">String Decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decompiler.html">Decompiler Components</a></li>
 </ul>
 
     </div>
@@ -449,22 +444,18 @@ document.write(`
 <dt class="sig sig-object py" id="pairipcore.context.decode_address">
 <span class="sig-prename descclassname"><span class="pre">pairipcore.context.</span></span><span class="sig-name descname"><span class="pre">decode_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enc_address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">addr_t</span></span></span><a class="reference internal" href="../_modules/pairipcore/context.html#decode_address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.context.decode_address" title="Link to this definition">#</a></dt>
 <dd><p>Resolves an encoded address and returns the corresponding file offset.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>enc_address (int): The encoded address to be resolved.
-code_length (int): The length of the bytecode file.</p>
-</dd>
-<dt>Returns:</dt><dd><p>int: The decoded address as an absolute file offset.</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>enc_address</strong> (<em>int</em>)</p></li>
-<li><p><strong>code_length</strong> (<em>int</em>)</p></li>
+<li><p><strong>enc_address</strong> (<em>int</em>) – The encoded address to be resolved.</p></li>
+<li><p><strong>code_length</strong> (<em>int</em>) – The length of the bytecode file.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>addr_t</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The decoded address as an absolute file offset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -567,18 +558,15 @@ instruction position</p>
 <dd><p>Reads an unsigned 32bit integer.</p>
 <p>Reads the integer from the current program counter if address
 is -1.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>addr (int, optional): the target address. Defaults to -1.</p>
-</dd>
-<dt>Returns:</dt><dd><p>int: the parsed int</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>addr</strong> (<em>addr_t</em>)</p>
+<dd class="field-odd"><p><strong>addr</strong> (<em>int</em><em>, </em><em>optional</em>) – the target address. Defaults to -1.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the parsed int</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -589,18 +577,15 @@ is -1.</p>
 <dd><p>Reads a signed 32bit integer.</p>
 <p>Reads the integer from the current program counter if address
 is -1.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>addr (int, optional): the target address. Defaults to -1.</p>
-</dd>
-<dt>Returns:</dt><dd><p>int: the parsed int</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>addr</strong> (<em>addr_t</em>)</p>
+<dd class="field-odd"><p><strong>addr</strong> (<em>int</em><em>, </em><em>optional</em>) – the target address. Defaults to -1.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the parsed int</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -611,18 +596,15 @@ is -1.</p>
 <dd><p>Reads an unsigned 64bit integer.</p>
 <p>Reads the integer from the current program counter if address
 is -1.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>addr (int, optional): the target address. Defaults to -1.</p>
-</dd>
-<dt>Returns:</dt><dd><p>int: the parsed int</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>addr</strong> (<em>addr_t</em>)</p>
+<dd class="field-odd"><p><strong>addr</strong> (<em>int</em><em>, </em><em>optional</em>) – the target address. Defaults to -1.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the parsed int</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -633,18 +615,15 @@ is -1.</p>
 <dd><p>Reads a 64bit floating point value.</p>
 <p>Reads the value from the current program counter if address
 is -1.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>addr (int, optional): the target address. Defaults to -1.</p>
-</dd>
-<dt>Returns:</dt><dd><p>float: the parsed double</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>addr</strong> (<em>addr_t</em>)</p>
+<dd class="field-odd"><p><strong>addr</strong> (<em>int</em><em>, </em><em>optional</em>) – the target address. Defaults to -1.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>float</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the parsed double</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -655,18 +634,15 @@ is -1.</p>
 <dd><p>Reads an unsigned 16bit integer.</p>
 <p>Reads the integer from the current program counter if address
 is -1.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>addr (int, optional): the target address. Defaults to -1.</p>
-</dd>
-<dt>Returns:</dt><dd><p>int: the parsed int</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>addr</strong> (<em>addr_t</em>)</p>
+<dd class="field-odd"><p><strong>addr</strong> (<em>int</em><em>, </em><em>optional</em>) – the target address. Defaults to -1.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the parsed int</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -675,20 +651,19 @@ is -1.</p>
 <dt class="sig sig-object py" id="pairipcore.context.VMContext.addr">
 <span class="sig-name descname"><span class="pre">addr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">off</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">addr_t</span></span></span><a class="reference internal" href="../_modules/pairipcore/context.html#VMContext.addr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.context.VMContext.addr" title="Link to this definition">#</a></dt>
 <dd><p>Reads an encoded address relative to the current addres (default)</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>off (int): relative offset (absolute if rel=False)
-rel (bool, optional): whether off is relative. Defaults to True.
-decode (bool, optional): decodes the address after parsing. Defaults to True.</p>
-</dd>
-<dt>Returns:</dt><dd><p>int: the parsed address</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>off</strong> (<em>int</em>)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>off</strong> (<em>int</em>) – relative offset (absolute if rel=False)</p></li>
+<li><p><strong>rel</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether off is relative. Defaults to True.</p></li>
+<li><p><strong>decode</strong> (<em>bool</em><em>, </em><em>optional</em>) – decodes the address after parsing. Defaults to True.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>addr_t</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the parsed address</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -744,13 +719,9 @@ decode (bool, optional): decodes the address after parsing. Defaults to True.</p
 <dt class="sig sig-object py" id="pairipcore.context.VMState.psection">
 <span class="sig-name descname"><span class="pre">psection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">comments</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/context.html#VMState.psection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.context.VMState.psection" title="Link to this definition">#</a></dt>
 <dd><p>Writes a line to the terminal.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>name (str): the section name</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<em>str</em>)</p>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – the section name</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -762,13 +733,10 @@ decode (bool, optional): decodes the address after parsing. Defaults to True.</p
 <dt class="sig sig-object py" id="pairipcore.context.VMState.pinsn">
 <span class="sig-name descname"><span class="pre">pinsn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">insn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">comments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/context.html#VMState.pinsn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.context.VMState.pinsn" title="Link to this definition">#</a></dt>
 <dd><p>Writes an instruction to the terminal.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>name (str): the line to write</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – the line to write</p></li>
 <li><p><strong>insn</strong> (<em>str</em>)</p></li>
 <li><p><strong>args</strong> (<em>str</em>)</p></li>
 <li><p><strong>comments</strong> (<em>str</em>)</p></li>
@@ -785,13 +753,12 @@ decode (bool, optional): decodes the address after parsing. Defaults to True.</p
 <dt class="sig sig-object py" id="pairipcore.context.VMState.pline">
 <span class="sig-name descname"><span class="pre">pline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/context.html#VMState.pline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.context.VMState.pline" title="Link to this definition">#</a></dt>
 <dd><p>Writes a line to the terminal.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>name (str): the line to write</p>
-</dd>
-</dl>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – the line to write</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -812,12 +779,12 @@ decode (bool, optional): decodes the address after parsing. Defaults to True.</p
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../decompiler/insn_format.html"
+       href="../automation.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Instruction Format</p>
+        <p class="prev-next-title">Automatic Analysis</p>
       </div>
     </a>
     <a class="right-next"

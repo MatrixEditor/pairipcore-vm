@@ -158,19 +158,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../cfg.html">Identifying the VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../strings.html">Strings</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building a Decompiler</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../decompiler/design.html">Design Guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../decompiler/insn_format.html">Instruction Format</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../automation.html">Automatic Analysis</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../pyapi/context.html">Virtual Machine Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../pyapi/insn.html">Instruction Format Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../pyapi/strings.html">String Decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/decompiler.html">Decompiler Components</a></li>
 </ul>
 
     </div>
@@ -362,6 +357,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">__info_begin_</span> <span class="o">=</span> <span class="n">info_off</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__stack_</span> <span class="o">=</span> <span class="n">stack_vars</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__extra_</span> <span class="o">=</span> <span class="n">extra_vars</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__fmt_</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">stack_vars</span><span class="si">}{</span><span class="n">extra_vars</span><span class="si">}{</span><span class="p">(</span><span class="n">storage_var</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;X&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="n">name_idx</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">stack_vars</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">stack_vars</span><span class="p">):</span>
@@ -472,7 +468,10 @@ document.write(`
             <span class="nb">chr</span><span class="p">(</span><span class="mi">65</span> <span class="o">+</span> <span class="n">i</span><span class="p">):</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">65</span> <span class="o">+</span> <span class="n">i</span><span class="p">))</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__stack_</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__extra_</span><span class="p">)</span>
         <span class="p">}</span></div>
-</div>
+
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fmt_</span></div>
 
 
 
@@ -640,7 +639,7 @@ document.write(`
 <span class="c1"># data is stored in memory.</span>
 
 <span class="c1"># Dictionary that maps opcodes to their corresponding instruction formats.</span>
-<span class="n">FormatIDs</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">FormatIDs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">InsnFormat</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="c1"># Opcode IDs</span>
 <span class="c1"># Similar to format IDs, opcode IDs are defined by a certain naming scheme.</span>
@@ -648,7 +647,7 @@ document.write(`
 <span class="c1"># specifications (e.g., UInt, Byte), and finally the instruction format ID.</span>
 
 <span class="c1"># Dictionary that maps opcodes to their corresponding mnemonic names.</span>
-<span class="n">OpcodeIDs</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">OpcodeIDs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
 
 <div class="viewcode-block" id="O">
@@ -675,6 +674,7 @@ document.write(`
 
 
 
+<span class="c1"># TODO: shceduled for removal</span>
 <span class="c1"># fmt: off</span>
 <span class="c1">#           Name           |  Opcode     | human-oriented syntax</span>
 <span class="n">O</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>                      <span class="mh">0x00</span><span class="p">,</span> <span class="s2">&quot;13x&quot;</span><span class="p">)</span> <span class="c1">#</span>

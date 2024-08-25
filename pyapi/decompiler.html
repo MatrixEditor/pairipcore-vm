@@ -1,0 +1,1358 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Decompiler Components &#8212; pairipcore-vm</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pyapi/decompiler';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="String Decoding" href="strings.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pairipcore-vm</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reversing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cfg.html">Identifying the VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../instructions.html">Instruction Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../strings.html">Strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation.html">Automatic Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="context.html">Virtual Machine Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="insn.html">Instruction Format Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strings.html">String Decoding</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Decompiler Components</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/blob/master/pyapi/decompiler.rst?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/edit/master/pyapi/decompiler.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/issues/new?title=Issue%20on%20page%20%2Fpyapi/decompiler.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/pyapi/decompiler.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Decompiler Components</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler._decompiler.decompiler_main"><code class="docutils literal notranslate"><span class="pre">decompiler_main()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler._decompiler.from_opcode_def"><code class="docutils literal notranslate"><span class="pre">from_opcode_def()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-pairipcore.cfg">CFG</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB"><code class="docutils literal notranslate"><span class="pre">LocationDB</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.__ranges_"><code class="docutils literal notranslate"><span class="pre">LocationDB.__ranges_</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.__labels_"><code class="docutils literal notranslate"><span class="pre">LocationDB.__labels_</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.__init__"><code class="docutils literal notranslate"><span class="pre">LocationDB.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.add_insn"><code class="docutils literal notranslate"><span class="pre">LocationDB.add_insn()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.add_memory"><code class="docutils literal notranslate"><span class="pre">LocationDB.add_memory()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.add"><code class="docutils literal notranslate"><span class="pre">LocationDB.add()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.get_label"><code class="docutils literal notranslate"><span class="pre">LocationDB.get_label()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.has_label"><code class="docutils literal notranslate"><span class="pre">LocationDB.has_label()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.GraphDelegate"><code class="docutils literal notranslate"><span class="pre">GraphDelegate</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.GraphDelegate.graph"><code class="docutils literal notranslate"><span class="pre">GraphDelegate.graph</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.GraphDelegate.opcode_ids"><code class="docutils literal notranslate"><span class="pre">GraphDelegate.opcode_ids</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.GraphDelegate.__init__"><code class="docutils literal notranslate"><span class="pre">GraphDelegate.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.GraphDelegate.memory_node"><code class="docutils literal notranslate"><span class="pre">GraphDelegate.memory_node()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.GraphDelegate.leaf_insn_node"><code class="docutils literal notranslate"><span class="pre">GraphDelegate.leaf_insn_node()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.GraphDelegate.insn_node"><code class="docutils literal notranslate"><span class="pre">GraphDelegate.insn_node()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.instruction_handler"><code class="docutils literal notranslate"><span class="pre">instruction_handler()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.new_cfg"><code class="docutils literal notranslate"><span class="pre">new_cfg()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-pairipcore.disassembler">Disassembler</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.disassembler.VMOp_DisasmHandler"><code class="docutils literal notranslate"><span class="pre">VMOp_DisasmHandler</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.disassembler.VMOp_DisasmHandler.debug"><code class="docutils literal notranslate"><span class="pre">VMOp_DisasmHandler.debug()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.disassembler.as_disasm"><code class="docutils literal notranslate"><span class="pre">as_disasm()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-pairipcore.decompiler.code">Code Writer</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.LazyCodeStatement"><code class="docutils literal notranslate"><span class="pre">LazyCodeStatement</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.LazyCodeStatement.c_str"><code class="docutils literal notranslate"><span class="pre">LazyCodeStatement.c_str()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.AssignmentExpr"><code class="docutils literal notranslate"><span class="pre">AssignmentExpr</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.AssignmentExpr.c_str"><code class="docutils literal notranslate"><span class="pre">AssignmentExpr.c_str()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.AssignmentExpr.__init__"><code class="docutils literal notranslate"><span class="pre">AssignmentExpr.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Line"><code class="docutils literal notranslate"><span class="pre">Line</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Line.c_str"><code class="docutils literal notranslate"><span class="pre">Line.c_str()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Line.__init__"><code class="docutils literal notranslate"><span class="pre">Line.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Block"><code class="docutils literal notranslate"><span class="pre">Block</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Block.__init__"><code class="docutils literal notranslate"><span class="pre">Block.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Block.c_str"><code class="docutils literal notranslate"><span class="pre">Block.c_str()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Comment"><code class="docutils literal notranslate"><span class="pre">Comment</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Comment.c_str"><code class="docutils literal notranslate"><span class="pre">Comment.c_str()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Comment.__init__"><code class="docutils literal notranslate"><span class="pre">Comment.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.CallExpr"><code class="docutils literal notranslate"><span class="pre">CallExpr</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.CallExpr.c_str"><code class="docutils literal notranslate"><span class="pre">CallExpr.c_str()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.CallExpr.__init__"><code class="docutils literal notranslate"><span class="pre">CallExpr.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Code"><code class="docutils literal notranslate"><span class="pre">Code</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Code.__init__"><code class="docutils literal notranslate"><span class="pre">Code.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Code.lines"><code class="docutils literal notranslate"><span class="pre">Code.lines()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-pairipcore.decompiler.utils">Utilities</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.utils.VMJump"><code class="docutils literal notranslate"><span class="pre">VMJump()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.utils.VMDeref"><code class="docutils literal notranslate"><span class="pre">VMDeref()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.utils.VMNewGlobalVar"><code class="docutils literal notranslate"><span class="pre">VMNewGlobalVar()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.utils.VMGetGlobalVar"><code class="docutils literal notranslate"><span class="pre">VMGetGlobalVar()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.utils.VMGetOrCreateGlobalVar"><code class="docutils literal notranslate"><span class="pre">VMGetOrCreateGlobalVar()</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-pairipcore.decompiler._decompiler">
+<span id="decompiler-components"></span><span id="pyapi-decompiler"></span><h1>Decompiler Components<a class="headerlink" href="#module-pairipcore.decompiler._decompiler" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="pairipcore.decompiler._decompiler.decompiler_main">
+<span class="sig-prename descclassname"><span class="pre">pairipcore.decompiler._decompiler.</span></span><span class="sig-name descname"><span class="pre">decompiler_main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">VM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decompiler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pairipcore.decompiler.code.Code" title="pairipcore.decompiler.code.Code"><span class="pre">Code</span></a></span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/_decompiler.html#decompiler_main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler._decompiler.decompiler_main" title="Link to this definition">#</a></dt>
+<dd><p>Main function to decompile the VM bytecode, executing the appropriate
+handlers for each opcode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vm</strong> (<em>VM</em>) – The virtual machine instance.</p></li>
+<li><p><strong>decomp</strong> (<em>Decompiler</em>) – The decompiler instance with opcode handlers.</p></li>
+<li><p><strong>callback</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>VM</em><em>, </em><em>int</em><em>]</em><em>, </em><em>None</em><em>]</em><em>]</em>) – An optional callback function for handling unknown opcodes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated code as a <cite>Code</cite> object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pairipcore.decompiler.code.Code" title="pairipcore.decompiler.code.Code">Code</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pairipcore.decompiler._decompiler.from_opcode_def">
+<span class="sig-prename descclassname"><span class="pre">pairipcore.decompiler._decompiler.</span></span><span class="sig-name descname"><span class="pre">from_opcode_def</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opcode_def</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Decompiler</span></span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/_decompiler.html#from_opcode_def"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler._decompiler.from_opcode_def" title="Link to this definition">#</a></dt>
+<dd><p>Create a <cite>Decompiler</cite> instance from opcode definitions.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dec</span> <span class="o">=</span> <span class="n">pairipcore</span><span class="o">.</span><span class="n">decompiler</span><span class="o">.</span><span class="n">from_opcode_def</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">code</span> <span class="o">=</span> <span class="n">pairipcore</span><span class="o">.</span><span class="n">interpret</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">dec</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">code</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>opcode_def</strong> (<em>Dict</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>str</em><em>]</em><em>, </em><em>Union</em><em>[</em><em>str</em><em>, </em><em>dict</em><em>]</em><em>]</em>) – A dictionary where
+keys are opcodes and values are format IDs or dictionaries containing
+format IDs.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The initialized <cite>Decompiler</cite> instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Decompiler</p>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="module-pairipcore.cfg">
+<span id="cfg"></span><h2>CFG<a class="headerlink" href="#module-pairipcore.cfg" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pairipcore.cfg.LocationDB">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pairipcore.cfg.</span></span><span class="sig-name descname"><span class="pre">LocationDB</span></span><a class="reference internal" href="../_modules/pairipcore/cfg.html#LocationDB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.cfg.LocationDB" title="Link to this definition">#</a></dt>
+<dd><p>A database for managing address ranges and labels within a virtual machine.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.cfg.LocationDB.__ranges_">
+<span class="sig-name descname"><span class="pre">__ranges_</span></span><a class="headerlink" href="#pairipcore.cfg.LocationDB.__ranges_" title="Link to this definition">#</a></dt>
+<dd><p>List of address ranges.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[range]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.cfg.LocationDB.__labels_">
+<span class="sig-name descname"><span class="pre">__labels_</span></span><a class="headerlink" href="#pairipcore.cfg.LocationDB.__labels_" title="Link to this definition">#</a></dt>
+<dd><p>Dictionary of address labels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[addr_t, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.cfg.LocationDB.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/cfg.html#LocationDB.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.cfg.LocationDB.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.cfg.LocationDB.add_insn">
+<span class="sig-name descname"><span class="pre">add_insn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">insn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="insn.html#pairipcore.insn.Insn" title="pairipcore.insn.Insn"><span class="pre">Insn</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/cfg.html#LocationDB.add_insn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.cfg.LocationDB.add_insn" title="Link to this definition">#</a></dt>
+<dd><p>Add an instruction’s address range to the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>insn</strong> (<a class="reference internal" href="insn.html#pairipcore.insn.Insn" title="pairipcore.insn.Insn"><em>Insn</em></a>) – The instruction to add.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.cfg.LocationDB.add_memory">
+<span class="sig-name descname"><span class="pre">add_memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/cfg.html#LocationDB.add_memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.cfg.LocationDB.add_memory" title="Link to this definition">#</a></dt>
+<dd><p>Add a memory range to the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>addr_t</em>) – Starting address of the memory range.</p></li>
+<li><p><strong>length</strong> (<em>int</em>) – Length of the memory range.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.cfg.LocationDB.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/cfg.html#LocationDB.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.cfg.LocationDB.add" title="Link to this definition">#</a></dt>
+<dd><p>Add a custom address range to the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>addr_t</em>) – Starting address of the range.</p></li>
+<li><p><strong>end</strong> (<em>addr_t</em>) – Ending address of the range.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.cfg.LocationDB.get_label">
+<span class="sig-name descname"><span class="pre">get_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_mem</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/pairipcore/cfg.html#LocationDB.get_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.cfg.LocationDB.get_label" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve or generate a label for an address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>addr</strong> (<em>addr_t</em>) – The address to label.</p></li>
+<li><p><strong>is_mem</strong> (<em>bool</em>) – Whether the address is for memory or not.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The label for the address.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.cfg.LocationDB.has_label">
+<span class="sig-name descname"><span class="pre">has_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/pairipcore/cfg.html#LocationDB.has_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.cfg.LocationDB.has_label" title="Link to this definition">#</a></dt>
+<dd><p>Check if an address has an assigned label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>addr</strong> (<em>addr_t</em>) – The address to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the address has a label, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pairipcore.cfg.GraphDelegate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pairipcore.cfg.</span></span><span class="sig-name descname"><span class="pre">GraphDelegate</span></span><a class="reference internal" href="../_modules/pairipcore/cfg.html#GraphDelegate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.cfg.GraphDelegate" title="Link to this definition">#</a></dt>
+<dd><p>A delegate class for managing graph nodes and edges related to VM instructions and memory.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.cfg.GraphDelegate.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pairipcore.cfg.GraphDelegate.graph" title="Link to this definition">#</a></dt>
+<dd><p>The graph object for visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>graphviz.Digraph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pairipcore.cfg.GraphDelegate.opcode_ids">
+<span class="sig-name descname"><span class="pre">opcode_ids</span></span><a class="headerlink" href="#pairipcore.cfg.GraphDelegate.opcode_ids" title="Link to this definition">#</a></dt>
+<dd><p>Mapping of opcodes to human-readable names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[int, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>graphviz.Digraph</em>) – The graph object for visualization.</p></li>
+<li><p><strong>opcode_ids</strong> (<em>Dict</em><em>[</em><em>int</em><em>, </em><em>str</em><em>]</em>) – Mapping of opcodes to human-readable names.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.cfg.GraphDelegate.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opcode_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/cfg.html#GraphDelegate.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.cfg.GraphDelegate.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>opcode_ids</strong> (<em>dict</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.cfg.GraphDelegate.memory_node">
+<span class="sig-name descname"><span class="pre">memory_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mem_label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mem_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/cfg.html#GraphDelegate.memory_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.cfg.GraphDelegate.memory_node" title="Link to this definition">#</a></dt>
+<dd><p>Create a graph node for a memory location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mem_label</strong> (<em>str</em>) – The label for the memory node.</p></li>
+<li><p><strong>mem_addr</strong> (<em>addr_t</em>) – The memory address.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.cfg.GraphDelegate.leaf_insn_node">
+<span class="sig-name descname"><span class="pre">leaf_insn_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opcode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/cfg.html#GraphDelegate.leaf_insn_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.cfg.GraphDelegate.leaf_insn_node" title="Link to this definition">#</a></dt>
+<dd><p>Create a graph node for a leaf instruction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>label</strong> (<em>str</em>) – The label for the instruction node.</p></li>
+<li><p><strong>opcode</strong> (<em>int</em>) – The opcode of the instruction.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.cfg.GraphDelegate.insn_node">
+<span class="sig-name descname"><span class="pre">insn_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opcode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="insn.html#pairipcore.insn.Insn" title="pairipcore.insn.Insn"><span class="pre">Insn</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc_db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pairipcore.cfg.LocationDB" title="pairipcore.cfg.LocationDB"><span class="pre">LocationDB</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/cfg.html#GraphDelegate.insn_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.cfg.GraphDelegate.insn_node" title="Link to this definition">#</a></dt>
+<dd><p>Create a graph node for an instruction, including its memory accesses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>label</strong> (<em>str</em>) – The label for the instruction node.</p></li>
+<li><p><strong>opcode</strong> (<em>int</em>) – The opcode of the instruction.</p></li>
+<li><p><strong>insn</strong> (<a class="reference internal" href="insn.html#pairipcore.insn.Insn" title="pairipcore.insn.Insn"><em>Insn</em></a>) – The instruction object.</p></li>
+<li><p><strong>loc_db</strong> (<a class="reference internal" href="#pairipcore.cfg.LocationDB" title="pairipcore.cfg.LocationDB"><em>LocationDB</em></a>) – The location database for memory and label management.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pairipcore.cfg.instruction_handler">
+<span class="sig-prename descclassname"><span class="pre">pairipcore.cfg.</span></span><span class="sig-name descname"><span class="pre">instruction_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">VM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/cfg.html#instruction_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.cfg.instruction_handler" title="Link to this definition">#</a></dt>
+<dd><p>Recursively handle and visualize instructions in the VM’s memory, updating
+the location database and graph delegate with instruction details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vm</strong> (<em>VM</em>) – The virtual machine instance.</p></li>
+<li><p><strong>depth</strong> (<em>int</em>) – The current depth of recursion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pairipcore.cfg.new_cfg">
+<span class="sig-prename descclassname"><span class="pre">pairipcore.cfg.</span></span><span class="sig-name descname"><span class="pre">new_cfg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">VM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opcode_def</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc_db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Digraph</span></span></span><a class="reference internal" href="../_modules/pairipcore/cfg.html#new_cfg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.cfg.new_cfg" title="Link to this definition">#</a></dt>
+<dd><p>Generates a control flow graph (CFG) for a VM’s instructions.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vm</span> <span class="o">=</span> <span class="n">VM</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span> <span class="o">=</span> <span class="n">pairipcore</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">new_cfg</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">opcode_def</span><span class="o">=</span><span class="p">{</span><span class="o">...</span><span class="p">},</span> <span class="n">depth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;cfg.dot&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">cfg</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vm</strong> (<em>VM</em>) – The virtual machine instance.</p></li>
+<li><p><strong>opcode_def</strong> (<em>dict</em>) – Definitions of opcodes, including format IDs.</p></li>
+<li><p><strong>loc_db</strong> (<a class="reference internal" href="#pairipcore.cfg.LocationDB" title="pairipcore.cfg.LocationDB"><em>LocationDB</em></a><em>, </em><em>optional</em>) – Pre-existing location database. If None, a new one will be created.</p></li>
+<li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum depth for recursion in CFG generation.</p></li>
+<li><p><strong>path</strong> (<em>list</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – Specific opcode path to follow in the CFG.</p></li>
+<li><p><strong>layout</strong> (<em>str</em><em>, </em><em>optional</em>) – Graphviz layout direction (e.g., ‘TB’ for top-to-bottom).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated control flow graph.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>graphviz.Digraph</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pairipcore.disassembler">
+<span id="disassembler"></span><h2>Disassembler<a class="headerlink" href="#module-pairipcore.disassembler" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pairipcore.disassembler.VMOp_DisasmHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pairipcore.disassembler.</span></span><span class="sig-name descname"><span class="pre">VMOp_DisasmHandler</span></span><a class="reference internal" href="../_modules/pairipcore/disassembler.html#VMOp_DisasmHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.disassembler.VMOp_DisasmHandler" title="Link to this definition">#</a></dt>
+<dd><p>Handler class for disassembling VM operations with detailed debugging output.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.disassembler.VMOp_DisasmHandler.debug">
+<span class="sig-name descname"><span class="pre">debug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">VM</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/disassembler.html#VMOp_DisasmHandler.debug"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.disassembler.VMOp_DisasmHandler.debug" title="Link to this definition">#</a></dt>
+<dd><p>Output debugging information about the opcode execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>vm</strong> (<em>VM</em>) – The virtual machine instance.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pairipcore.disassembler.as_disasm">
+<span class="sig-prename descclassname"><span class="pre">pairipcore.disassembler.</span></span><span class="sig-name descname"><span class="pre">as_disasm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decompiler</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Decompiler</span></span></span><a class="reference internal" href="../_modules/pairipcore/disassembler.html#as_disasm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.disassembler.as_disasm" title="Link to this definition">#</a></dt>
+<dd><p>Configure the decompiler to use disassembly handlers for debugging.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dec</span> <span class="o">=</span> <span class="n">pairipcore</span><span class="o">.</span><span class="n">decompiler</span><span class="o">.</span><span class="n">from_opcode_def</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dis</span> <span class="o">=</span> <span class="n">pairipcore</span><span class="o">.</span><span class="n">disassembler</span><span class="o">.</span><span class="n">as_disasm</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">code</span> <span class="o">=</span> <span class="n">pairipcore</span><span class="o">.</span><span class="n">interpret</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">dis</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">code</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decompiler</strong> (<em>Decompiler</em>) – The decompiler instance to configure.</p></li>
+<li><p><strong>dec</strong> (<em>Decompiler</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The configured decompiler instance with disassembly handlers.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Decompiler</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pairipcore.decompiler.code">
+<span id="code-writer"></span><h2>Code Writer<a class="headerlink" href="#module-pairipcore.decompiler.code" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.LazyCodeStatement">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pairipcore.decompiler.code.</span></span><span class="sig-name descname"><span class="pre">LazyCodeStatement</span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#LazyCodeStatement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.LazyCodeStatement" title="Link to this definition">#</a></dt>
+<dd><p>A base class representing a lazy code statement that will be converted to a string representation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.LazyCodeStatement.c_str">
+<span class="sig-name descname"><span class="pre">c_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#LazyCodeStatement.c_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.LazyCodeStatement.c_str" title="Link to this definition">#</a></dt>
+<dd><p>Convert the lazy code statement to a C-style string representation.
+This method should be implemented by subclasses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.AssignmentExpr">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pairipcore.decompiler.code.</span></span><span class="sig-name descname"><span class="pre">AssignmentExpr</span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#AssignmentExpr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.AssignmentExpr" title="Link to this definition">#</a></dt>
+<dd><p>A class representing an assignment expression in code.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.AssignmentExpr.c_str">
+<span class="sig-name descname"><span class="pre">c_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#AssignmentExpr.c_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.AssignmentExpr.c_str" title="Link to this definition">#</a></dt>
+<dd><p>Convert the assignment expression to a C-style string representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.AssignmentExpr.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">VMVariable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#pairipcore.decompiler.code.LazyCodeStatement" title="pairipcore.decompiler.code.LazyCodeStatement"><span class="pre">LazyCodeStatement</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">VMVariable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#pairipcore.decompiler.code.LazyCodeStatement" title="pairipcore.decompiler.code.LazyCodeStatement"><span class="pre">LazyCodeStatement</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pairipcore.decompiler.code.AssignmentExpr.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>left</strong> (<em>VMVariable</em><em> | </em><em>str</em><em> | </em><a class="reference internal" href="#pairipcore.decompiler.code.LazyCodeStatement" title="pairipcore.decompiler.code.LazyCodeStatement"><em>LazyCodeStatement</em></a>)</p></li>
+<li><p><strong>right</strong> (<em>VMVariable</em><em> | </em><em>str</em><em> | </em><a class="reference internal" href="#pairipcore.decompiler.code.LazyCodeStatement" title="pairipcore.decompiler.code.LazyCodeStatement"><em>LazyCodeStatement</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.Line">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pairipcore.decompiler.code.</span></span><span class="sig-name descname"><span class="pre">Line</span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#Line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.Line" title="Link to this definition">#</a></dt>
+<dd><p>A class representing a single line of code.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.Line.c_str">
+<span class="sig-name descname"><span class="pre">c_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#Line.c_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.Line.c_str" title="Link to this definition">#</a></dt>
+<dd><p>Convert the lazy code statement to a C-style string representation.
+This method should be implemented by subclasses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.Line.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pairipcore.decompiler.code.Line.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.Block">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pairipcore.decompiler.code.</span></span><span class="sig-name descname"><span class="pre">Block</span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#Block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.Block" title="Link to this definition">#</a></dt>
+<dd><p>A class representing a block of code, which consists of multiple statements.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.Block.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">statements</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#Block.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.Block.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.Block.c_str">
+<span class="sig-name descname"><span class="pre">c_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#Block.c_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.Block.c_str" title="Link to this definition">#</a></dt>
+<dd><p>Convert the lazy code statement to a C-style string representation.
+This method should be implemented by subclasses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.Comment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pairipcore.decompiler.code.</span></span><span class="sig-name descname"><span class="pre">Comment</span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#Comment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.Comment" title="Link to this definition">#</a></dt>
+<dd><p>A class representing a comment in code.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.Comment.c_str">
+<span class="sig-name descname"><span class="pre">c_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#Comment.c_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.Comment.c_str" title="Link to this definition">#</a></dt>
+<dd><p>Convert the lazy code statement to a C-style string representation.
+This method should be implemented by subclasses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.Comment.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pairipcore.decompiler.code.LazyCodeStatement" title="pairipcore.decompiler.code.LazyCodeStatement"><span class="pre">LazyCodeStatement</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pairipcore.decompiler.code.Comment.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>)</p></li>
+<li><p><strong>other</strong> (<a class="reference internal" href="#pairipcore.decompiler.code.LazyCodeStatement" title="pairipcore.decompiler.code.LazyCodeStatement"><em>LazyCodeStatement</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.CallExpr">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pairipcore.decompiler.code.</span></span><span class="sig-name descname"><span class="pre">CallExpr</span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#CallExpr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.CallExpr" title="Link to this definition">#</a></dt>
+<dd><p>A class representing a function or method call expression.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.CallExpr.c_str">
+<span class="sig-name descname"><span class="pre">c_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#CallExpr.c_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.CallExpr.c_str" title="Link to this definition">#</a></dt>
+<dd><p>Return the function call expression in C-style syntax.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.CallExpr.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">VMVariable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">VMVariable</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_ptr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pairipcore.decompiler.code.CallExpr.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<em>str</em><em> | </em><em>VMVariable</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>func</strong> (<em>str</em>)</p></li>
+<li><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em> | </em><em>VMVariable</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>is_ptr</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.Code">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pairipcore.decompiler.code.</span></span><span class="sig-name descname"><span class="pre">Code</span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#Code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.Code" title="Link to this definition">#</a></dt>
+<dd><p>A class representing a collection of code statements and variable declarations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>vm</strong> (<em>VM</em>) – The virtual machine containing variable information.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.Code.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">VM</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#Code.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.Code.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>vm</strong> (<em>VM</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pairipcore.decompiler.code.Code.lines">
+<span class="sig-name descname"><span class="pre">lines</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pairipcore/decompiler/code.html#Code.lines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.code.Code.lines" title="Link to this definition">#</a></dt>
+<dd><p>Generate lines of code including variable declarations and statements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>str</em> – The lines of code, including variable declarations and statements.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-pairipcore.decompiler.utils">
+<span id="utilities"></span><h2>Utilities<a class="headerlink" href="#module-pairipcore.decompiler.utils" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pairipcore.decompiler.utils.VMJump">
+<span class="sig-prename descclassname"><span class="pre">pairipcore.decompiler.utils.</span></span><span class="sig-name descname"><span class="pre">VMJump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">VM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="insn.html#pairipcore.insn.Insn" title="pairipcore.insn.Insn"><span class="pre">Insn</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">verify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/utils.html#VMJump"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.utils.VMJump" title="Link to this definition">#</a></dt>
+<dd><p>Set the program counter (PC) to the next instruction address based on the
+instruction’s hash verification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vm</strong> (<em>VM</em>) – The virtual machine instance.</p></li>
+<li><p><strong>insn</strong> (<a class="reference internal" href="insn.html#pairipcore.insn.Insn" title="pairipcore.insn.Insn"><em>Insn</em></a>) – The instruction containing the jump information.</p></li>
+<li><p><strong>verify</strong> (<em>bool</em>) – Whether to perform hash verification before jumping.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pairipcore.decompiler.utils.VMDeref">
+<span class="sig-prename descclassname"><span class="pre">pairipcore.decompiler.utils.</span></span><span class="sig-name descname"><span class="pre">VMDeref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">VM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pairipcore/decompiler/utils.html#VMDeref"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.utils.VMDeref" title="Link to this definition">#</a></dt>
+<dd><p>Dereference a memory address to retrieve the stored value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vm</strong> (<em>VM</em>) – The virtual machine instance.</p></li>
+<li><p><strong>addr</strong> (<em>addr_t</em>) – The address to dereference.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value stored at the given address.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pairipcore.decompiler.utils.VMNewGlobalVar">
+<span class="sig-prename descclassname"><span class="pre">pairipcore.decompiler.utils.</span></span><span class="sig-name descname"><span class="pre">VMNewGlobalVar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">VM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">VMVariable</span></span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/utils.html#VMNewGlobalVar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.utils.VMNewGlobalVar" title="Link to this definition">#</a></dt>
+<dd><p>Create a new global variable and add it to the VM’s memory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vm</strong> (<em>VM</em>) – The virtual machine instance.</p></li>
+<li><p><strong>addr</strong> (<em>addr_t</em>) – The address for the new global variable.</p></li>
+<li><p><strong>type</strong> (<em>str</em>) – The type of the variable.</p></li>
+<li><p><strong>value</strong> (<em>Optional</em><em>[</em><em>Any</em><em>]</em>) – The initial value of the variable, if any.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The newly created global variable.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>VMVariable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pairipcore.decompiler.utils.VMGetGlobalVar">
+<span class="sig-prename descclassname"><span class="pre">pairipcore.decompiler.utils.</span></span><span class="sig-name descname"><span class="pre">VMGetGlobalVar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">VM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">VMVariable</span></span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/utils.html#VMGetGlobalVar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.utils.VMGetGlobalVar" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve an existing global variable by its address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vm</strong> (<em>VM</em>) – The virtual machine instance.</p></li>
+<li><p><strong>addr</strong> (<em>addr_t</em>) – The address of the global variable.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The global variable at the given address.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>VMVariable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pairipcore.decompiler.utils.VMGetOrCreateGlobalVar">
+<span class="sig-prename descclassname"><span class="pre">pairipcore.decompiler.utils.</span></span><span class="sig-name descname"><span class="pre">VMGetOrCreateGlobalVar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">VM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">VMVariable</span></span></span><a class="reference internal" href="../_modules/pairipcore/decompiler/utils.html#VMGetOrCreateGlobalVar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.decompiler.utils.VMGetOrCreateGlobalVar" title="Link to this definition">#</a></dt>
+<dd><p>Get an existing global variable or create a new one if it doesn’t exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vm</strong> (<em>VM</em>) – The virtual machine instance.</p></li>
+<li><p><strong>addr</strong> (<em>addr_t</em>) – The address of the global variable.</p></li>
+<li><p><strong>type</strong> (<em>str</em>) – The type of the variable.</p></li>
+<li><p><strong>value</strong> (<em>Optional</em><em>[</em><em>Any</em><em>]</em>) – The value to set for the variable if created.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The global variable at the given address, either newly created or existing.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>VMVariable</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="strings.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">String Decoding</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler._decompiler.decompiler_main"><code class="docutils literal notranslate"><span class="pre">decompiler_main()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler._decompiler.from_opcode_def"><code class="docutils literal notranslate"><span class="pre">from_opcode_def()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-pairipcore.cfg">CFG</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB"><code class="docutils literal notranslate"><span class="pre">LocationDB</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.__ranges_"><code class="docutils literal notranslate"><span class="pre">LocationDB.__ranges_</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.__labels_"><code class="docutils literal notranslate"><span class="pre">LocationDB.__labels_</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.__init__"><code class="docutils literal notranslate"><span class="pre">LocationDB.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.add_insn"><code class="docutils literal notranslate"><span class="pre">LocationDB.add_insn()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.add_memory"><code class="docutils literal notranslate"><span class="pre">LocationDB.add_memory()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.add"><code class="docutils literal notranslate"><span class="pre">LocationDB.add()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.get_label"><code class="docutils literal notranslate"><span class="pre">LocationDB.get_label()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.LocationDB.has_label"><code class="docutils literal notranslate"><span class="pre">LocationDB.has_label()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.GraphDelegate"><code class="docutils literal notranslate"><span class="pre">GraphDelegate</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.GraphDelegate.graph"><code class="docutils literal notranslate"><span class="pre">GraphDelegate.graph</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.GraphDelegate.opcode_ids"><code class="docutils literal notranslate"><span class="pre">GraphDelegate.opcode_ids</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.GraphDelegate.__init__"><code class="docutils literal notranslate"><span class="pre">GraphDelegate.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.GraphDelegate.memory_node"><code class="docutils literal notranslate"><span class="pre">GraphDelegate.memory_node()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.GraphDelegate.leaf_insn_node"><code class="docutils literal notranslate"><span class="pre">GraphDelegate.leaf_insn_node()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.GraphDelegate.insn_node"><code class="docutils literal notranslate"><span class="pre">GraphDelegate.insn_node()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.instruction_handler"><code class="docutils literal notranslate"><span class="pre">instruction_handler()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.cfg.new_cfg"><code class="docutils literal notranslate"><span class="pre">new_cfg()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-pairipcore.disassembler">Disassembler</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.disassembler.VMOp_DisasmHandler"><code class="docutils literal notranslate"><span class="pre">VMOp_DisasmHandler</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.disassembler.VMOp_DisasmHandler.debug"><code class="docutils literal notranslate"><span class="pre">VMOp_DisasmHandler.debug()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.disassembler.as_disasm"><code class="docutils literal notranslate"><span class="pre">as_disasm()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-pairipcore.decompiler.code">Code Writer</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.LazyCodeStatement"><code class="docutils literal notranslate"><span class="pre">LazyCodeStatement</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.LazyCodeStatement.c_str"><code class="docutils literal notranslate"><span class="pre">LazyCodeStatement.c_str()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.AssignmentExpr"><code class="docutils literal notranslate"><span class="pre">AssignmentExpr</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.AssignmentExpr.c_str"><code class="docutils literal notranslate"><span class="pre">AssignmentExpr.c_str()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.AssignmentExpr.__init__"><code class="docutils literal notranslate"><span class="pre">AssignmentExpr.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Line"><code class="docutils literal notranslate"><span class="pre">Line</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Line.c_str"><code class="docutils literal notranslate"><span class="pre">Line.c_str()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Line.__init__"><code class="docutils literal notranslate"><span class="pre">Line.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Block"><code class="docutils literal notranslate"><span class="pre">Block</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Block.__init__"><code class="docutils literal notranslate"><span class="pre">Block.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Block.c_str"><code class="docutils literal notranslate"><span class="pre">Block.c_str()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Comment"><code class="docutils literal notranslate"><span class="pre">Comment</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Comment.c_str"><code class="docutils literal notranslate"><span class="pre">Comment.c_str()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Comment.__init__"><code class="docutils literal notranslate"><span class="pre">Comment.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.CallExpr"><code class="docutils literal notranslate"><span class="pre">CallExpr</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.CallExpr.c_str"><code class="docutils literal notranslate"><span class="pre">CallExpr.c_str()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.CallExpr.__init__"><code class="docutils literal notranslate"><span class="pre">CallExpr.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Code"><code class="docutils literal notranslate"><span class="pre">Code</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Code.__init__"><code class="docutils literal notranslate"><span class="pre">Code.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.code.Code.lines"><code class="docutils literal notranslate"><span class="pre">Code.lines()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-pairipcore.decompiler.utils">Utilities</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.utils.VMJump"><code class="docutils literal notranslate"><span class="pre">VMJump()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.utils.VMDeref"><code class="docutils literal notranslate"><span class="pre">VMDeref()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.utils.VMNewGlobalVar"><code class="docutils literal notranslate"><span class="pre">VMNewGlobalVar()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.utils.VMGetGlobalVar"><code class="docutils literal notranslate"><span class="pre">VMGetGlobalVar()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.decompiler.utils.VMGetOrCreateGlobalVar"><code class="docutils literal notranslate"><span class="pre">VMGetOrCreateGlobalVar()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By MatrixEditor
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, MatrixEditor.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

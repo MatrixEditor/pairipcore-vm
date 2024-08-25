@@ -158,19 +158,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../cfg.html">Identifying the VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../strings.html">Strings</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building a Decompiler</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../decompiler/design.html">Design Guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../decompiler/insn_format.html">Instruction Format</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../automation.html">Automatic Analysis</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../pyapi/context.html">Virtual Machine Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../pyapi/insn.html">Instruction Format Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../pyapi/strings.html">String Decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pyapi/decompiler.html">Decompiler Components</a></li>
 </ul>
 
     </div>
@@ -321,15 +316,21 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for pairipcore.context</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Type</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Callable</span>
 
 <span class="kn">from</span> <span class="nn">caterpillar.shortcuts</span> <span class="kn">import</span> <span class="n">unpack</span><span class="p">,</span> <span class="n">LittleEndian</span> <span class="k">as</span> <span class="n">le</span><span class="p">,</span> <span class="n">pack</span>
 <span class="kn">from</span> <span class="nn">caterpillar.fields</span> <span class="kn">import</span> <span class="n">uint16</span><span class="p">,</span> <span class="n">uint32</span><span class="p">,</span> <span class="n">uint64</span><span class="p">,</span> <span class="n">double</span><span class="p">,</span> <span class="n">int32</span><span class="p">,</span> <span class="n">Field</span>
 
-<span class="kn">from</span> <span class="nn">.opcode</span> <span class="kn">import</span> <span class="n">decode_opcode</span>
-<span class="kn">from</span> <span class="nn">._types</span> <span class="kn">import</span> <span class="n">ptr_t</span><span class="p">,</span> <span class="n">addr_t</span>
+<span class="kn">from</span> <span class="nn">._types</span> <span class="kn">import</span> <span class="n">ptr_t</span><span class="p">,</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">opcode_t</span>
 
 
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Typing functions</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="n">AddressDecoderFn</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">addr_t</span><span class="p">]</span>
+<span class="n">OpcodeDecoderFn</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="n">opcode_t</span><span class="p">]</span>
+<span class="n">EntryPointDecoderFn</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="s2">&quot;VM&quot;</span><span class="p">],</span> <span class="n">addr_t</span><span class="p">]</span>
+<span class="n">HashVerifierFn</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">addr_t</span><span class="p">,</span> <span class="s2">&quot;VM&quot;</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span>
 <span class="c1"># -----------------------------------------------------------------------------</span>
 <span class="c1"># FNV-1 Hash</span>
 <span class="c1"># -----------------------------------------------------------------------------</span>
@@ -342,6 +343,20 @@ document.write(`
         <span class="n">hval</span> <span class="o">=</span> <span class="p">(</span><span class="n">hval</span> <span class="o">*</span> <span class="n">FNV_prime</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span><span class="o">**</span><span class="mi">64</span>
         <span class="n">hval</span> <span class="o">^=</span> <span class="n">byte</span>
     <span class="k">return</span> <span class="n">hval</span>
+
+
+<span class="k">def</span> <span class="nf">verify_fnv</span><span class="p">(</span><span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">vm</span><span class="p">:</span> <span class="s2">&quot;VM&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">addr</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">addr</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pc</span>
+
+    <span class="n">xor_value</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u32</span><span class="p">(</span><span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">rel</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span> <span class="o">^</span> <span class="mh">0xFFFFFFFF00000000</span>
+    <span class="n">hash_value</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u64</span><span class="p">(</span><span class="n">addr</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">hash_address</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">addr</span> <span class="o">+</span> <span class="mi">12</span><span class="p">,</span> <span class="n">rel</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">hash_length</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">(</span><span class="n">addr</span> <span class="o">+</span> <span class="mi">16</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="n">hash_address</span> <span class="p">:</span> <span class="n">hash_address</span> <span class="o">+</span> <span class="n">hash_length</span><span class="p">]</span>
+    <span class="n">hash_value2</span> <span class="o">=</span> <span class="n">fnv</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">xor_value</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFFFFFFFFFF</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">hash_value2</span> <span class="o">==</span> <span class="n">hash_value</span>
 
 
 <span class="c1"># -----------------------------------------------------------------------------</span>
@@ -362,6 +377,21 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">((</span><span class="n">enc_address</span> <span class="o">^</span> <span class="o">~</span><span class="n">code_length</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">)</span> <span class="o">%</span> <span class="n">code_length</span></div>
 
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Entry point decoding</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="k">def</span> <span class="nf">decode_entry_point_v0</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="s2">&quot;VM&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u32</span><span class="p">(</span><span class="n">addr</span><span class="o">=</span><span class="mh">0x04</span><span class="p">)</span>
+    <span class="n">b01</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">a</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFF8E</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">3</span> <span class="o">+</span> <span class="p">(</span><span class="o">~</span><span class="n">a</span> <span class="o">|</span> <span class="mh">0xFFFFFF8E</span><span class="p">)</span>
+    <span class="n">b02</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">^</span> <span class="mh">0xFFFFFF1C</span>
+    <span class="k">return</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">((</span><span class="n">b01</span> <span class="o">+</span> <span class="n">b02</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">,</span> <span class="n">rel</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">decode_entry_point_v1</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="s2">&quot;VM&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u32</span><span class="p">(</span><span class="n">addr</span><span class="o">=</span><span class="mh">0x04</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">((</span><span class="n">a</span> <span class="o">^</span> <span class="mh">0x44</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x88</span><span class="p">),</span> <span class="n">rel</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 
 <span class="c1"># -----------------------------------------------------------------------------</span>
@@ -388,9 +418,7 @@ document.write(`
     <span class="c1">#: the position of this variable in memory (file offset)</span>
     <span class="n">__address_</span><span class="p">:</span> <span class="n">addr_t</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">ty</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">ty</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__address_</span> <span class="o">=</span> <span class="n">addr</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">ty</span>
@@ -697,9 +725,7 @@ document.write(`
 
 <div class="viewcode-block" id="VMState.pinsn">
 <a class="viewcode-back" href="../../pyapi/context.html#pairipcore.context.VMState.pinsn">[docs]</a>
-    <span class="k">def</span> <span class="nf">pinsn</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">insn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">comments</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">indent</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">pinsn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">insn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">comments</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">indent</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Writes an instruction to the terminal.</span>
 
 <span class="sd">        Args:</span>
@@ -742,17 +768,23 @@ document.write(`
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">bytecode</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span>
+        <span class="n">opcode_decoder_fn</span><span class="p">:</span> <span class="n">OpcodeDecoderFn</span><span class="p">,</span>
+        <span class="n">entry_point_decode_fn</span><span class="p">:</span> <span class="n">EntryPointDecoderFn</span><span class="p">,</span>
+        <span class="n">address_decoder_fn</span><span class="p">:</span> <span class="n">AddressDecoderFn</span> <span class="o">=</span> <span class="n">decode_address</span><span class="p">,</span>
+        <span class="n">hash_verifier_fn</span><span class="p">:</span> <span class="n">HashVerifierFn</span> <span class="o">=</span> <span class="n">verify_fnv</span><span class="p">,</span>
         <span class="n">pc</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">mem_base_addr</span><span class="p">:</span> <span class="n">ptr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">writer</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">print</span><span class="p">,</span>
         <span class="o">**</span><span class="n">env</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mem</span> <span class="o">=</span> <span class="n">VMMemory</span><span class="p">(</span>
-            <span class="n">mem_base_addr</span> <span class="k">if</span> <span class="n">mem_base_addr</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mh">0xDEAD00000000</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mem</span> <span class="o">=</span> <span class="n">VMMemory</span><span class="p">(</span><span class="n">mem_base_addr</span> <span class="k">if</span> <span class="n">mem_base_addr</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mh">0xDEAD00000000</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">VMContext</span><span class="p">(</span><span class="n">bytecode</span><span class="p">,</span> <span class="n">pc</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">VMState</span><span class="p">(</span><span class="n">verbose</span><span class="p">,</span> <span class="n">writer</span><span class="p">,</span> <span class="o">**</span><span class="n">env</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_entry_point_decoder</span> <span class="o">=</span> <span class="n">entry_point_decode_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_address_decoder</span> <span class="o">=</span> <span class="n">address_decoder_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_decoder</span> <span class="o">=</span> <span class="n">opcode_decoder_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hash_verifier</span> <span class="o">=</span> <span class="n">hash_verifier_fn</span>
 
     <span class="k">def</span> <span class="nf">entry_point</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the entry point for the current program</span>
@@ -760,10 +792,10 @@ document.write(`
 <span class="sd">        Returns:</span>
 <span class="sd">            int: the entry point address (file offset)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u32</span><span class="p">(</span><span class="n">addr</span><span class="o">=</span><span class="mh">0x04</span><span class="p">)</span>
-        <span class="n">b01</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">a</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFF8E</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">3</span> <span class="o">+</span> <span class="p">(</span><span class="o">~</span><span class="n">a</span> <span class="o">|</span> <span class="mh">0xFFFFFF8E</span><span class="p">)</span>
-        <span class="n">b02</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">^</span> <span class="mh">0xFFFFFF1C</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">((</span><span class="n">b01</span> <span class="o">+</span> <span class="n">b02</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">,</span> <span class="n">rel</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entry_point_decoder</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> can&#39;t resolve entry point!&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entry_point_decoder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">current_opcode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the decoded opcode for the current pc.</span>
@@ -771,7 +803,13 @@ document.write(`
 <span class="sd">        Returns:</span>
 <span class="sd">            int: the decoded opcode</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">decode_opcode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">())</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_decoder</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> does not support decoding opcodes!&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_decoder</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">())</span>
+        <span class="c1"># return decode_opcode(self.context.u16()) &amp; 0xFFFF</span>
 
     <span class="k">def</span> <span class="nf">verify_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -784,20 +822,12 @@ document.write(`
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: True if the hash verification is successful, False otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">addr</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">addr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pc</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash_verifier</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> does not implement hash verification!&quot;</span>
+            <span class="p">)</span>
 
-        <span class="n">xor_value</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u32</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">rel</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-            <span class="o">^</span> <span class="mh">0xFFFFFFFF00000000</span>
-        <span class="p">)</span>
-        <span class="n">hash_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u64</span><span class="p">(</span><span class="n">addr</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
-        <span class="n">hash_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">addr</span> <span class="o">+</span> <span class="mi">12</span><span class="p">,</span> <span class="n">rel</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">hash_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">(</span><span class="n">addr</span> <span class="o">+</span> <span class="mi">16</span><span class="p">)</span>
-
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="n">hash_address</span> <span class="p">:</span> <span class="n">hash_address</span> <span class="o">+</span> <span class="n">hash_length</span><span class="p">]</span>
-        <span class="n">hash_value2</span> <span class="o">=</span> <span class="n">fnv</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">xor_value</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFFFFFFFFFF</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">hash_value2</span> <span class="o">==</span> <span class="n">hash_value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash_verifier</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 </pre></div>
 
                 </article>

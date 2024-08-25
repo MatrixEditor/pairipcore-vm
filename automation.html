@@ -1,0 +1,775 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Automatic Analysis &#8212; pairipcore-vm</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'automation';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Virtual Machine Context" href="pyapi/context.html" />
+    <link rel="prev" title="Strings" href="strings.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pairipcore-vm</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reversing</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cfg.html">Identifying the VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instructions.html">Instruction Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strings.html">Strings</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Automatic Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pyapi/context.html">Virtual Machine Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyapi/insn.html">Instruction Format Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyapi/strings.html">String Decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyapi/decompiler.html">Decompiler Components</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/blob/master/automation.md?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/edit/master/automation.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/issues/new?title=Issue%20on%20page%20%2Fautomation.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/automation.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Automatic Analysis</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collecting-opcode-handlers">Collecting Opcode Handlers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-creating-instruction-formats">Re-creating Instruction Formats</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-deal-with-this">How do we deal with this?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#following-states-until-tomorrow">Following States until tomorrow</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="automatic-analysis">
+<h1>Automatic Analysis<a class="headerlink" href="#automatic-analysis" title="Link to this heading">#</a></h1>
+<p>Building on previous research, we can identify consistent features present in every
+analysis, allowing us to create an automated tool for decoding all instructions.
+These key features include:</p>
+<ul class="simple">
+<li><p>Three Dispatcher Functions:
+These include two switch statements and one highly obfuscated function, all of which are crucial for identifying opcode handling.</p></li>
+<li><p>Data Reading Pattern:
+Before any instruction handler executes its logic, all necessary data is read first. This
+means that by identifying where specific fields, such as the hash value or hash data length,
+are located, we can recreate the instruction format ID. For example, if the hash value is
+read from offset <code class="docutils literal notranslate"><span class="pre">0x08</span></code>, we can infer that one variable is taken from the stack (since <code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">+</span> <span class="pre">4</span> <span class="pre">=</span> <span class="pre">0x08</span></code>).
+The full structure of the instruction format is outlined in the previous section.</p></li>
+<li><p>Entry Point and Opcode Encoding: These differ across versions, adding another layer of
+complexity to the analysis.</p></li>
+</ul>
+<p>Using these characteristics, we can attempt to create a system capable of decoding
+instructions across different versions of pairipcore. The first and most crucial
+abstraction involves the opcode and entry point encoding. The Python package for
+this project defines two function types specifically for these purposes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">OpcodeDecoderFn</span>     <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="n">opcode_t</span><span class="p">]</span> <span class="c1"># fn(int) -&gt; opcode_t</span>
+<span class="n">EntryPointDecoderFn</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">VM</span><span class="p">],</span> <span class="n">addr_t</span><span class="p">]</span>    <span class="c1"># fn(VM) -&gt; addr_t</span>
+</pre></div>
+</div>
+<p>These functions must be provided when creating the interpreter for the current
+instruction set:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pairipcore</span> <span class="kn">import</span> <span class="n">VM</span><span class="p">,</span> <span class="n">decode_opcode_v0</span><span class="p">,</span> <span class="n">decode_entry_point_v0</span>
+
+<span class="n">code</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">vm</span> <span class="o">=</span> <span class="n">VM</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">decode_opcode_v0</span><span class="p">,</span> <span class="n">decode_entry_point_v0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It’s important to note that there won’t be an all-in-one Python script available for
+download at the end of this chapter. The results discussed here are still in development
+and are not yet ready for public release.</p>
+<section id="collecting-opcode-handlers">
+<h2>Collecting Opcode Handlers<a class="headerlink" href="#collecting-opcode-handlers" title="Link to this heading">#</a></h2>
+<p>Since most of the opcode handlers are implemented via switch statements, we can leverage
+Ghidra’s API to enumerate them. In Ghidra, all children of a switch statement are
+represented as symbols, so we can directly identify the code address of each handler function.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Using Ghidra’s API to collect all opcode handlers</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_defaul_cases</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">_case_addresses</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span>
+<span class="k">for</span> <span class="n">case_symbol_id</span> <span class="ow">in</span> <span class="n">switch_cases</span><span class="p">:</span>
+  <span class="c1"># get symbol from Ghidra&#39;s SymbolTable</span>
+  <span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol_table</span><span class="o">.</span><span class="n">getSymbol</span><span class="p">(</span><span class="n">case_symbol_id</span><span class="p">)</span>
+
+  <span class="c1"># we also know that there are default cases in both switch statements,</span>
+  <span class="c1"># so we have to keep track of all cases to distinguish them. Default</span>
+  <span class="c1"># cases will be present more than one time in _case_addresses</span>
+  <span class="n">addr</span> <span class="o">=</span> <span class="n">symbol</span><span class="o">.</span><span class="n">getAddress</span><span class="p">()</span>
+  <span class="n">addr__int</span> <span class="o">=</span> <span class="n">Address_ToInt</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">addr__int</span> <span class="ow">in</span> <span class="n">_case_addresses</span><span class="p">:</span>
+    <span class="n">_default_cases</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">addr__int</span><span class="p">)</span>
+
+  <span class="c1"># opcode number can be extracted from symbol name</span>
+  <span class="n">opcode</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">symbol</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;caseD_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"><strong>Resolving Dispatcher Functions</strong></p>
+<p>Again, Ghidra’s API lets us resolve any function by providing an address within that function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="o">=</span> <span class="n">flatapi</span><span class="o">.</span><span class="n">getFunctionContaining</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+</pre></div>
+</div>
+</aside>
+<p>After collecting the addresses of all opcode handlers, we can deduce that the first switch
+statement corresponds to the first dispatcher function, referred to as <em>vm_dispatch_0</em>, and
+the second switch statement is associated with <em>vm_dispatch_2</em>.</p>
+</section>
+<section id="re-creating-instruction-formats">
+<h2>Re-creating Instruction Formats<a class="headerlink" href="#re-creating-instruction-formats" title="Link to this heading">#</a></h2>
+<p>To accurately reverse-engineer instruction formats, we can leverage the repetitive structure
+found in each instruction handler. Typically, these handlers perform a sequence of operations,
+such as:</p>
+<ol class="arabic simple">
+<li><p>Loading the VMContext into a register.</p></li>
+<li><p>Loading the program counter (<code class="docutils literal notranslate"><span class="pre">pc</span></code>) into a register.</p></li>
+<li><p>Reading all instructino variables</p></li>
+</ol>
+<p>Instead of manually tracking every access to <code class="docutils literal notranslate"><span class="pre">vm_context-&gt;vmCode</span></code>, we focus on inspecting
+each integer addition to the <code class="docutils literal notranslate"><span class="pre">pc</span></code>. These additions often contain the offsets that reveal
+how the instruction reads from the compiled stack or memory.</p>
+<p>To gather all the necessary offset positions within instructions, we can utilize Ghidra’s
+Pcode representation. Pcode is an intermediate representation that can help in understanding
+the low-level operations being performed. By analyzing the Pcode for each instruction handler,
+we can extract the offsets involved in operations such as loading and storing variables.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">decomp_result</span><span class="o">.</span><span class="n">getHighFunction</span><span class="p">()</span><span class="o">.</span><span class="n">getPcodeOps</span><span class="p">():</span>
+  <span class="n">mnemonic</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">getMnemonic</span><span class="p">()</span>
+  <span class="k">match</span> <span class="n">mnemonic</span><span class="p">:</span>
+    <span class="k">case</span> <span class="s2">&quot;BRANCH&quot;</span><span class="p">:</span>
+      <span class="c1"># Stop after first brach expression as we know there won&#39;t be any variables</span>
+      <span class="c1"># read from the stream afterwards</span>
+      <span class="k">break</span>
+    <span class="k">case</span> <span class="s2">&quot;INT_ADD&quot;</span><span class="p">:</span>
+      <span class="c1"># output must be a register and inputs[1] must be the offset</span>
+      <span class="n">inputs</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">getInputs</span><span class="p">()</span>
+      <span class="n">output</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">getOutput</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isConstant</span><span class="p">()</span> <span class="ow">and</span> <span class="n">output</span><span class="o">.</span><span class="n">isRegister</span><span class="p">():</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getAddress</span><span class="p">()</span><span class="o">.</span><span class="n">getOffset</span><span class="p">()</span>
+        <span class="c1"># we can infer the offset position of the instruction info as</span>
+        <span class="c1"># soon as we detect the hash value</span>
+        <span class="k">if</span> <span class="n">offset</span> <span class="o">-</span> <span class="n">_prev_offset</span> <span class="o">==</span> <span class="mh">0x08</span><span class="p">:</span>
+          <span class="n">_info_begin</span> <span class="o">=</span> <span class="n">_prev_offset</span>
+
+        <span class="n">_prev_offset</span> <span class="o">=</span> <span class="n">offset</span>
+        <span class="n">struct_offsets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once we have identified the offsets, we can calculate:</p>
+<ul class="simple">
+<li><p>The number of variables taken from the compiled stack.</p></li>
+<li><p>The number of extra variables loaded by the instruction.</p></li>
+</ul>
+<p>Unfortunately, certain details, like the exact store variable or the specific operation
+being performed, may remain unknown without deeper analysis or additional context. This
+limitation means that while we can identify many aspects of the instruction format, some
+elements might still require further investigation or heuristics to determine accurately.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stack_vars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">_info_begin</span><span class="p">,</span> <span class="n">struct_offsets</span><span class="p">)))</span>
+<span class="n">extra_vars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">_info_begin</span> <span class="o">+</span> <span class="mi">26</span><span class="p">,</span> <span class="n">struct_offsets</span><span class="p">)))</span>
+
+<span class="c1"># Use &#39;x&#39; to mark the format id with an unknown result variable</span>
+<span class="n">format_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">stack_vars</span><span class="si">}{</span><span class="n">extra_vars</span><span class="si">}</span><span class="s2">x&quot;</span>
+</pre></div>
+</div>
+<p>By utilizing the techniques discussed so far, we can successfully collect and re-create
+approximately 90 out of the 159 (<code class="docutils literal notranslate"><span class="pre">0x9F</span></code> possible) opcodes. However, there remains a
+challenge: the remaining handlers are stored within a function called <em>vm_dispatch_1</em>,
+which is heavily obfuscated.</p>
+<figure class="align-default" id="id3">
+<img alt="_images/ida_vm_dispatch_1.png" src="_images/ida_vm_dispatch_1.png" />
+<figcaption>
+<p><span class="caption-text">Function graph of <em>vm_dispatch_1</em> using IDA (<strong>Free</strong> of course).</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="how-do-we-deal-with-this">
+<h3>How do we deal with this?<a class="headerlink" href="#how-do-we-deal-with-this" title="Link to this heading">#</a></h3>
+<p>The obfuscation present in <em>vm_dispatch_1</em> significantly complicates analysis. This function
+likely employs various control flow flattening and data encoding techniques, making it
+difficult to understand and reverse-engineer directly. To tackle this:</p>
+</section>
+</section>
+<section id="following-states-until-tomorrow">
+<h2>Following States until tomorrow<a class="headerlink" href="#following-states-until-tomorrow" title="Link to this heading">#</a></h2>
+<p>Several recent articles have explored methods for analyzing and de-obfuscating
+functions that employ a dispatcher pattern, similar to what is used here. Notable
+examples include works by <a class="reference external" href="https://blog.quarkslab.com/deobfuscation-recovering-an-ollvm-protected-program.html">Quarkslab</a>,
+<a class="reference external" href="https://mrt4ntr4.github.io/MODeflattener/">MODeflattener</a>, and many more.</p>
+<p>After experimenting with <a class="github reference external" href="https://github.com/cea-sec/miasm">cea-sec/miasm</a>
+for symbolic execution to trace the state machine within the function, it became
+apparent that the function was too large to be quickly analyzed this way.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The following section discusses a workaround that is not entirely stable and
+should be considered a somewhat crude method for retrieving some handlers.</p>
+</div>
+<p>nstead of relying on symbolic execution to trace the states within the function,
+the quickest workaround was to use <a class="github reference external" href="https://github.com/tree-sitter/tree-sitter">tree-sitter/tree-sitter</a>
+alongside the function’s source code (which spans roughly 16,000 lines each time).<label for='marginnote-role-1' class='margin-toggle marginnote-label'></label><input type='checkbox' id='marginnote-role-1' name='marginnote-role-1' class='margin-toggle'><span class="marginnote"> This approach is not bulletproof; it is merely intended to identify some of the missing handlers.</span>.</p>
+<p>By leveraging tree-sitter’s querying capabilities, we can search for all state
+assignments and collect potential state variables. We know that these assignments
+appear as simple if-statements in Ghidra, which allows us to locate them efficiently:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tsq_state_assignment</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">(assignment_expression</span>
+<span class="s2">    left: (identifier)</span>
+<span class="s2">    right: (number_literal)</span>
+<span class="s2">) @assign</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">match_data</span> <span class="ow">in</span> <span class="n">tsq_state_assignment</span><span class="o">.</span><span class="n">matches</span><span class="p">(</span><span class="n">body</span><span class="p">):</span>
+  <span class="n">node</span> <span class="o">=</span> <span class="n">match_data</span><span class="p">[</span><span class="s2">&quot;assign&quot;</span><span class="p">]</span>
+  <span class="c1"># the first state:</span>
+  <span class="n">condition_state_1</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">child_by_field_name</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+
+  <span class="c1"># We know the next (named) node must be an if-statement according</span>
+  <span class="c1"># to Ghidra&#39;s C representation.</span>
+  <span class="n">if_statement</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">next_named_sibling</span>
+  <span class="c1"># --- additional checks excluded here ---</span>
+
+  <span class="n">condition</span> <span class="o">=</span> <span class="n">if_statement</span><span class="o">.</span><span class="n">child_by_field_name</span><span class="p">(</span><span class="s2">&quot;condition&quot;</span><span class="p">)</span>
+  <span class="c1"># The condition contains the opcode we are loooking for and the</span>
+  <span class="c1"># operation (one of &#39;!=&#39; and &#39;&lt;&#39;)</span>
+  <span class="n">opcode</span> <span class="o">=</span> <span class="o">...</span>
+  <span class="n">operation</span> <span class="o">=</span> <span class="o">...</span>
+  <span class="c1"># the &#39;consequence&#39; of the if-statement includes the other state</span>
+  <span class="c1"># variable assignment</span>
+</pre></div>
+</div>
+<p>Using the scheme outlined earlier, we can extract opcodes and their potential
+handler state variables into a mapping between opcode and state variable. This
+mapping can then be used to identify the if-statement that corresponds to each
+opcode’s state variable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">state__if_query</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">(</span>
+<span class="s2">    (if_statement</span>
+<span class="s2">        condition: (parenthesized_expression</span>
+<span class="s2">            (binary_expression</span>
+<span class="s2">                left: (identifier)</span>
+<span class="s2">                right: (number_literal) @state-var))) @if</span>
+<span class="s2">    (#eq? @state-var &quot;</span><span class="si">{</span><span class="n">potential_state_var</span><span class="si">}</span><span class="s2">&quot;)</span>
+<span class="s2">)</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If the matched if-statement includes an assignment in the following line,
+we can naively assume that a handler is located within the body of that
+if-statement. To accurately detect the offsets of each instruction format,
+we focus on the constant expressions found in each handler, particularly
+the pointer dereferences that Ghidra automatically generates.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tsq_insn_field</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">(assignment_expression</span>
+<span class="s2">left: (identifier)</span>
+<span class="s2">right: (pointer_expression)</span>
+<span class="s2">) @pc</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">tsq_insn_field</span><span class="o">.</span><span class="n">matches</span><span class="p">(</span><span class="n">if_statement_body</span><span class="p">):</span>
+  <span class="c1"># The linw will take the following form:</span>
+  <span class="c1">#   &lt;variable&gt; = *(&lt;type&gt; *)(...);</span>
+  <span class="c1"># We only need the type to calculate the offset position</span>
+  <span class="n">line</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;pc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+  <span class="k">match</span> <span class="n">extract_type</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+    <span class="k">case</span> <span class="s2">&quot;uint&quot;</span> <span class="o">|</span> <span class="s2">&quot;int&quot;</span> <span class="o">|</span> <span class="s2">&quot;undefined4&quot;</span><span class="p">:</span>
+      <span class="n">struct_offsets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+      <span class="n">offset</span> <span class="o">+=</span> <span class="mi">4</span>
+    <span class="k">case</span> <span class="s2">&quot;ushort&quot;</span> <span class="o">|</span> <span class="s2">&quot;short&quot;</span> <span class="o">|</span> <span class="s2">&quot;undefined2&quot;</span><span class="p">:</span>
+      <span class="n">struct_offsets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+      <span class="n">offset</span> <span class="o">+=</span> <span class="mi">4</span>
+      <span class="c1"># Start can be calculated now</span>
+      <span class="n">_info_begin</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">-</span> <span class="mh">0x0C</span>
+    <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+      <span class="c1"># all other variables must be treated as &quot;long&quot; (hash_value)</span>
+      <span class="n">_struct_offsets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_offset</span><span class="p">)</span>
+      <span class="n">_offset</span> <span class="o">+=</span> <span class="mi">8</span>
+</pre></div>
+</div>
+<p>Of course, the code provided here is a simplified version and lacks certain
+checks, but it illustrates the general approach for extracting potential
+handler cases by tracking state variables. With this foundational understanding,
+we can develop an analysis script capable of automatically extracting all
+opcode format IDs.</p>
+<p>Combining these techniques, we have successfully identified 134 out of 155
+instruction format IDs, which accounts for approximately 86% coverage.
+Furthermore, we have determined the addresses of all handler functions (or their
+corresponding lines in the case of <em>vm_dispatch_1</em>), allowing for more detailed
+subsequent analysis.</p>
+</section>
+</section>
+<hr class="footnotes docutils" />
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="strings.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Strings</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pyapi/context.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Virtual Machine Context</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collecting-opcode-handlers">Collecting Opcode Handlers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-creating-instruction-formats">Re-creating Instruction Formats</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-deal-with-this">How do we deal with this?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#following-states-until-tomorrow">Following States until tomorrow</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By MatrixEditor
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, MatrixEditor.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

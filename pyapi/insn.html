@@ -159,19 +159,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../cfg.html">Identifying the VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../strings.html">Strings</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building a Decompiler</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../decompiler/design.html">Design Guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../decompiler/insn_format.html">Instruction Format</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../automation.html">Automatic Analysis</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="context.html">Virtual Machine Context</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Instruction Format Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="strings.html">String Decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decompiler.html">Decompiler Components</a></li>
 </ul>
 
     </div>
@@ -507,20 +502,18 @@ document.write(`
 <dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.parse">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pairipcore.insn.InsnFormat" title="pairipcore.insn.InsnFormat"><span class="pre">InsnFormat</span></a></span></span><a class="reference internal" href="../_modules/pairipcore/insn.html#InsnFormat.parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.insn.InsnFormat.parse" title="Link to this definition">#</a></dt>
 <dd><p>Parses a format ID string to create an InsnFormat object.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>format_id (str): A string representing the instruction format.</p>
-</dd>
-<dt>Returns:</dt><dd><p>InsnFormat: The corresponding InsnFormat object.</p>
-</dd>
-<dt>Raises:</dt><dd><p>ValueError: If the format ID is empty.</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>format_id</strong> (<em>str</em>)</p>
+<dd class="field-odd"><p><strong>format_id</strong> (<em>str</em>) – A string representing the instruction format.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#pairipcore.insn.InsnFormat" title="pairipcore.insn.InsnFormat"><em>InsnFormat</em></a></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The corresponding InsnFormat object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pairipcore.insn.InsnFormat" title="pairipcore.insn.InsnFormat">InsnFormat</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the format ID is empty.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -559,8 +552,12 @@ document.write(`
 <dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.hash_data_length_off">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hash_data_length_off</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.hash_data_length_off" title="Link to this definition">#</a></dt>
 <dd><p>Calculates the offset for the length of the hash data.</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>int: The offset for the length of the hash data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The offset for the length of the hash data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -569,8 +566,12 @@ document.write(`
 <dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.store_var_off">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">store_var_off</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.store_var_off" title="Link to this definition">#</a></dt>
 <dd><p>Returns the offset of the storage variable.</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>int: The offset of the storage variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The offset of the storage variable.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -579,13 +580,12 @@ document.write(`
 <dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.vars">
 <span class="sig-name descname"><span class="pre">vars</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pairipcore/insn.html#InsnFormat.vars"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.insn.InsnFormat.vars" title="Link to this definition">#</a></dt>
 <dd><p>Returns the offsets of each stack variable.</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>dict[str, int]: A dictionary mapping variable names (A, B, C, etc.) to their offsets.</p>
-</dd>
-</dl>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict[str, int]</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary mapping variable names (A, B, C, etc.) to their offsets.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, int]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -736,24 +736,19 @@ and associated metadata.</p>
 <p>This function associates an opcode with a specific instruction format (represented
 by the format ID) and a mnemonic name. The format and name are stored in the
 <code class="code docutils literal notranslate"><span class="pre">FormatIDs</span></code> and <code class="code docutils literal notranslate"><span class="pre">OpcodeIDs</span></code> dictionaries, respectively.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>name (str): The mnemonic name of the opcode. If the name is <code class="code docutils literal notranslate"><span class="pre">&quot;_&quot;</span></code>, it will be auto-generated based on the format ID.
-opcode (int): The numeric opcode to be registered.
-format_id (str): The format ID string that describes the structure of the instruction.</p>
-</dd>
-<dt>Returns:</dt><dd><p>int: The opcode that was registered.</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>str</em>)</p></li>
-<li><p><strong>opcode</strong> (<em>int</em>)</p></li>
-<li><p><strong>format_id</strong> (<em>str</em>)</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – The mnemonic name of the opcode. If the name is <code class="code docutils literal notranslate"><span class="pre">&quot;_&quot;</span></code>, it will be auto-generated based on the format ID.</p></li>
+<li><p><strong>opcode</strong> (<em>int</em>) – The numeric opcode to be registered.</p></li>
+<li><p><strong>format_id</strong> (<em>str</em>) – The format ID string that describes the structure of the instruction.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The opcode that was registered.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>

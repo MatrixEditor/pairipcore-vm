@@ -158,19 +158,14 @@
 <li class="toctree-l1"><a class="reference internal" href="cfg.html">Identifying the VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="strings.html">Strings</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building a Decompiler</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="decompiler/design.html">Design Guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="decompiler/insn_format.html">Instruction Format</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="automation.html">Automatic Analysis</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pyapi/context.html">Virtual Machine Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyapi/insn.html">Instruction Format Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyapi/strings.html">String Decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyapi/decompiler.html">Decompiler Components</a></li>
 </ul>
 
     </div>
@@ -331,8 +326,10 @@ document.write(`
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
+ | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
@@ -348,12 +345,28 @@ document.write(`
 <h2 id="_">_</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pyapi/context.html#pairipcore.context.VMContext.__init__">__init__() (pairipcore.context.VMContext method)</a>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.__init__">__init__() (pairipcore.cfg.GraphDelegate method)</a>
 
       <ul>
+        <li><a href="pyapi/decompiler.html#pairipcore.cfg.LocationDB.__init__">(pairipcore.cfg.LocationDB method)</a>
+</li>
+        <li><a href="pyapi/context.html#pairipcore.context.VMContext.__init__">(pairipcore.context.VMContext method)</a>
+</li>
         <li><a href="pyapi/context.html#pairipcore.context.VMMemory.__init__">(pairipcore.context.VMMemory method)</a>
 </li>
         <li><a href="pyapi/context.html#pairipcore.context.VMState.__init__">(pairipcore.context.VMState method)</a>
+</li>
+        <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.AssignmentExpr.__init__">(pairipcore.decompiler.code.AssignmentExpr method)</a>
+</li>
+        <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.Block.__init__">(pairipcore.decompiler.code.Block method)</a>
+</li>
+        <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.CallExpr.__init__">(pairipcore.decompiler.code.CallExpr method)</a>
+</li>
+        <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.Code.__init__">(pairipcore.decompiler.code.Code method)</a>
+</li>
+        <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.Comment.__init__">(pairipcore.decompiler.code.Comment method)</a>
+</li>
+        <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.Line.__init__">(pairipcore.decompiler.code.Line method)</a>
 </li>
         <li><a href="pyapi/insn.html#pairipcore.insn.Insn.__init__">(pairipcore.insn.Insn method)</a>
 </li>
@@ -362,6 +375,12 @@ document.write(`
         <li><a href="pyapi/insn.html#pairipcore.insn.InsnInfo.__init__">(pairipcore.insn.InsnInfo method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.LocationDB.__labels_">__labels_ (pairipcore.cfg.LocationDB attribute)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.LocationDB.__ranges_">__ranges_ (pairipcore.cfg.LocationDB attribute)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -374,6 +393,12 @@ document.write(`
         <li><a href="pyapi/insn.html#pairipcore.insn.InsnFormat.A">(pairipcore.insn.InsnFormat attribute)</a>
 </li>
       </ul></li>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.LocationDB.add">add() (pairipcore.cfg.LocationDB method)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.LocationDB.add_insn">add_insn() (pairipcore.cfg.LocationDB method)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.LocationDB.add_memory">add_memory() (pairipcore.cfg.LocationDB method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/context.html#pairipcore.context.VMContext.addr">addr() (pairipcore.context.VMContext method)</a>
@@ -381,6 +406,10 @@ document.write(`
       <li><a href="pyapi/insn.html#pairipcore.insn.Insn.address">address (pairipcore.insn.Insn property)</a>
 </li>
       <li><a href="pyapi/context.html#pairipcore.context.VMMemory.alloc">alloc() (pairipcore.context.VMMemory method)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.disassembler.as_disasm">as_disasm() (in module pairipcore.disassembler)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.AssignmentExpr">AssignmentExpr (class in pairipcore.decompiler.code)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -398,6 +427,8 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/context.html#pairipcore.context.VMMemory.base_address">base_address (pairipcore.context.VMMemory attribute)</a>
 </li>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.Block">Block (class in pairipcore.decompiler.code)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -410,8 +441,28 @@ document.write(`
         <li><a href="pyapi/insn.html#pairipcore.insn.InsnFormat.C">(pairipcore.insn.InsnFormat attribute)</a>
 </li>
       </ul></li>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.AssignmentExpr.c_str">c_str() (pairipcore.decompiler.code.AssignmentExpr method)</a>
+
+      <ul>
+        <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.Block.c_str">(pairipcore.decompiler.code.Block method)</a>
+</li>
+        <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.CallExpr.c_str">(pairipcore.decompiler.code.CallExpr method)</a>
+</li>
+        <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.Comment.c_str">(pairipcore.decompiler.code.Comment method)</a>
+</li>
+        <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.LazyCodeStatement.c_str">(pairipcore.decompiler.code.LazyCodeStatement method)</a>
+</li>
+        <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.Line.c_str">(pairipcore.decompiler.code.Line method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.CallExpr">CallExpr (class in pairipcore.decompiler.code)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.Code">Code (class in pairipcore.decompiler.code)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.Comment">Comment (class in pairipcore.decompiler.code)</a>
+</li>
       <li><a href="pyapi/context.html#pairipcore.context.VMState.comment">comment (pairipcore.context.VMState attribute)</a>
 </li>
   </ul></td>
@@ -426,9 +477,13 @@ document.write(`
         <li><a href="pyapi/insn.html#pairipcore.insn.InsnFormat.D">(pairipcore.insn.InsnFormat attribute)</a>
 </li>
       </ul></li>
+      <li><a href="pyapi/decompiler.html#pairipcore.disassembler.VMOp_DisasmHandler.debug">debug() (pairipcore.disassembler.VMOp_DisasmHandler method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/context.html#pairipcore.context.decode_address">decode_address() (in module pairipcore.context)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler._decompiler.decompiler_main">decompiler_main() (in module pairipcore.decompiler._decompiler)</a>
 </li>
       <li><a href="pyapi/context.html#pairipcore.context.VMContext.double">double() (pairipcore.context.VMContext method)</a>
 </li>
@@ -456,12 +511,30 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/insn.html#pairipcore.insn.InsnFormat.fallback_addr_off">fallback_addr_off (pairipcore.insn.InsnFormat property)</a>
 </li>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler._decompiler.from_opcode_def">from_opcode_def() (in module pairipcore.decompiler._decompiler)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.LocationDB.get_label">get_label() (pairipcore.cfg.LocationDB method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.graph">graph (pairipcore.cfg.GraphDelegate attribute)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.GraphDelegate">GraphDelegate (class in pairipcore.cfg)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.LocationDB.has_label">has_label() (pairipcore.cfg.LocationDB method)</a>
+</li>
       <li><a href="pyapi/insn.html#pairipcore.insn.InsnInfo.hash">hash (pairipcore.insn.InsnInfo property)</a>
 </li>
       <li><a href="pyapi/insn.html#pairipcore.insn.InsnInfo.hash_data_addr">hash_data_addr (pairipcore.insn.InsnInfo property)</a>
@@ -490,13 +563,35 @@ document.write(`
 </li>
       <li><a href="pyapi/insn.html#pairipcore.insn.Insn">Insn (class in pairipcore.insn)</a>
 </li>
+      <li><a href="pyapi/insn.html#pairipcore.insn.Insn.insn_format">insn_format (pairipcore.insn.Insn property)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pyapi/insn.html#pairipcore.insn.Insn.insn_format">insn_format (pairipcore.insn.Insn property)</a>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.insn_node">insn_node() (pairipcore.cfg.GraphDelegate method)</a>
 </li>
       <li><a href="pyapi/insn.html#pairipcore.insn.InsnFormat">InsnFormat (class in pairipcore.insn)</a>
 </li>
       <li><a href="pyapi/insn.html#pairipcore.insn.InsnInfo">InsnInfo (class in pairipcore.insn)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.instruction_handler">instruction_handler() (in module pairipcore.cfg)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.LazyCodeStatement">LazyCodeStatement (class in pairipcore.decompiler.code)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.leaf_insn_node">leaf_insn_node() (pairipcore.cfg.GraphDelegate method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.Line">Line (class in pairipcore.decompiler.code)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.Code.lines">lines() (pairipcore.decompiler.code.Code method)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.LocationDB">LocationDB (class in pairipcore.cfg)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -506,11 +601,23 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/context.html#pairipcore.context.VMMemory.malloc">malloc() (pairipcore.context.VMMemory method)</a>
 </li>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.memory_node">memory_node() (pairipcore.cfg.GraphDelegate method)</a>
+</li>
       <li>
     module
 
       <ul>
+        <li><a href="pyapi/decompiler.html#module-pairipcore.cfg">pairipcore.cfg</a>
+</li>
         <li><a href="pyapi/context.html#module-pairipcore.context">pairipcore.context</a>
+</li>
+        <li><a href="pyapi/decompiler.html#module-pairipcore.decompiler._decompiler">pairipcore.decompiler._decompiler</a>
+</li>
+        <li><a href="pyapi/decompiler.html#module-pairipcore.decompiler.code">pairipcore.decompiler.code</a>
+</li>
+        <li><a href="pyapi/decompiler.html#module-pairipcore.decompiler.utils">pairipcore.decompiler.utils</a>
+</li>
+        <li><a href="pyapi/decompiler.html#module-pairipcore.disassembler">pairipcore.disassembler</a>
 </li>
         <li><a href="pyapi/insn.html#module-pairipcore.insn">pairipcore.insn</a>
 </li>
@@ -523,10 +630,12 @@ document.write(`
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pyapi/insn.html#pairipcore.insn.InsnInfo.next">next (pairipcore.insn.InsnInfo property)</a>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.new_cfg">new_cfg() (in module pairipcore.cfg)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyapi/insn.html#pairipcore.insn.InsnInfo.next">next (pairipcore.insn.InsnInfo property)</a>
+</li>
       <li><a href="pyapi/insn.html#pairipcore.insn.InsnFormat.next_addr_off">next_addr_off (pairipcore.insn.InsnFormat property)</a>
 </li>
   </ul></td>
@@ -537,11 +646,13 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/insn.html#pairipcore.insn.O">O() (in module pairipcore.insn)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/context.html#pairipcore.context.VMMemory.objects">objects (pairipcore.context.VMMemory attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/insn.html#pairipcore.insn.Insn.opcode_address">opcode_address (pairipcore.insn.Insn property)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.opcode_ids">opcode_ids (pairipcore.cfg.GraphDelegate attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -550,12 +661,49 @@ document.write(`
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
+    pairipcore.cfg
+
+      <ul>
+        <li><a href="pyapi/decompiler.html#module-pairipcore.cfg">module</a>
+</li>
+      </ul></li>
+      <li>
     pairipcore.context
 
       <ul>
         <li><a href="pyapi/context.html#module-pairipcore.context">module</a>
 </li>
       </ul></li>
+      <li>
+    pairipcore.decompiler._decompiler
+
+      <ul>
+        <li><a href="pyapi/decompiler.html#module-pairipcore.decompiler._decompiler">module</a>
+</li>
+      </ul></li>
+      <li>
+    pairipcore.decompiler.code
+
+      <ul>
+        <li><a href="pyapi/decompiler.html#module-pairipcore.decompiler.code">module</a>
+</li>
+      </ul></li>
+      <li>
+    pairipcore.decompiler.utils
+
+      <ul>
+        <li><a href="pyapi/decompiler.html#module-pairipcore.decompiler.utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    pairipcore.disassembler
+
+      <ul>
+        <li><a href="pyapi/decompiler.html#module-pairipcore.disassembler">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     pairipcore.insn
 
@@ -570,8 +718,6 @@ document.write(`
         <li><a href="pyapi/strings.html#module-pairipcore.strings">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/insn.html#pairipcore.insn.InsnFormat.parse">parse() (pairipcore.insn.InsnFormat static method)</a>
 </li>
       <li><a href="pyapi/strings.html#pairipcore.strings.pdecode">pdecode() (in module pairipcore.strings)</a>
@@ -630,11 +776,23 @@ document.write(`
 </li>
       <li><a href="pyapi/context.html#pairipcore.context.VMState.verbose">verbose (pairipcore.context.VMState attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/context.html#pairipcore.context.VMContext">VMContext (class in pairipcore.context)</a>
 </li>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler.utils.VMDeref">VMDeref() (in module pairipcore.decompiler.utils)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler.utils.VMGetGlobalVar">VMGetGlobalVar() (in module pairipcore.decompiler.utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler.utils.VMGetOrCreateGlobalVar">VMGetOrCreateGlobalVar() (in module pairipcore.decompiler.utils)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler.utils.VMJump">VMJump() (in module pairipcore.decompiler.utils)</a>
+</li>
       <li><a href="pyapi/context.html#pairipcore.context.VMMemory">VMMemory (class in pairipcore.context)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.decompiler.utils.VMNewGlobalVar">VMNewGlobalVar() (in module pairipcore.decompiler.utils)</a>
+</li>
+      <li><a href="pyapi/decompiler.html#pairipcore.disassembler.VMOp_DisasmHandler">VMOp_DisasmHandler (class in pairipcore.disassembler)</a>
 </li>
       <li><a href="pyapi/context.html#pairipcore.context.VMState">VMState (class in pairipcore.context)</a>
 </li>
