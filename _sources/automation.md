@@ -137,7 +137,7 @@ extra_vars = len(list(filter(lambda x: x >= _info_begin + 26, struct_offsets)))
 format_id = f"{stack_vars}{extra_vars}x"
 ```
 
-By utilizing the techniques discussed so far, we can successfully collect and re-create
+By utilizing the techniques discussed so far, the script can successfully collect and re-create
 approximately 90 out of the 159 (`0x9F` possible) opcodes. However, there remains a
 challenge: the remaining handlers are stored within a function called _vm_dispatch_1_,
 which is heavily obfuscated.
@@ -264,8 +264,124 @@ handler cases by tracking state variables. With this foundational understanding,
 we can develop an analysis script capable of automatically extracting all
 opcode format IDs.
 
-Combining these techniques, we have successfully identified 134 out of 155
+Combining these techniques, the script successfully identifies 134 out of 155
 instruction format IDs, which accounts for approximately 86% coverage.
-Furthermore, we have determined the addresses of all handler functions (or their
-corresponding lines in the case of _vm_dispatch_1_), allowing for more detailed
-subsequent analysis.
+Furthermore, the addresses of all handler functions (or their
+corresponding lines in the case of _vm_dispatch_1_) are collected alongside the format IDs,
+allowing for more detailed subsequent analysis.
+
+But is there any way to enhance this approach even further to identify **all** opcode
+handlers?
+
+## Bottom-Up: From Handlers to their States
+
+Identifying opcode handlers directly within the source code is significantly more
+straightforward when using Tree-Sitter, compared to the process of tracking each
+state. Therefore, an alternative approach is to first collect all potential handlers
+and then map them to their corresponding states.
+
+Instead of relying on state tracing, we can efficiently locate all handlers by
+querying for pointer assignments where the first function parameter is used in
+the pointer expression. This allows us to gather all the relevant handler functions
+in one step.
+
+```{code-block} python
+tsq_handler_query = C.query("""\
+(assignment_expression
+    left: (identifier)
+    right: (pointer_expression)) @handler
+""")
+```
+
+After identifying the handler, the next step involves retrieving the associated code
+variable, typically loaded in the subsequent lines of the handler function. By
+leveraging this characteristic, we can pinpoint the code variable’s name and use
+it to build the format ID.
+
+```{code-block} python
+handler_node: Node = ...
+context_var_name   = ts_assign_expr_left(handler_node)
+code_var_node      = ts_get_code_var(handler_node, context_var_name)
+
+# Finally, build the format ID by querying for assignment expressions
+# The .parent attributes navigate out of the expression statement
+# and into the compound statement containing the handler
+tsq_assignment_query = C.query("""\
+(assignment_expression
+    left: (identifier)) @handler
+""")
+format_id = ts_build_format_id(
+    tsq_assignment_query.matches(handler_node.parent.parent),
+    code_var_node.starting_point[0], # get starting point
+    code_var,
+)
+```
+
+To retrieve the state variable, we analyze the enclosing if statement within
+the code. By applying this technique, the modified script successfully identifies
+**all** opcode handlers and assigns the corresponding format IDs to them.
+
+A successful script execution should produce output resembling the following:
+
+```{code-block} text
+:caption: Output of the script combining all techniques (not public yet)
+
+Starting Ghidra (Headless)...
+Finished starting Ghidra
+Importing on program at './libpairipcore.so'...
+Finished analysis
+Starting switch namespace lookup...
+Finished namespace analysis:
+  Found 0x9a switch cases with 2 default cases!
+  > vm_dispatch_0 is at 0x00144e1f
+  > vm_dispatch_1 is at 0x00129aa0
+  > vm_dispatch_2 is at 0x0014d370
+Decompiling GVM::VMDispatch1...
+Finished decompiling
+Opcode 0x02 at [00144f21, 0015ecfe] default=['0x144e1f', '0x15ecfe'] formatid='03x'
+Opcode 0x05 at [001470bd, 0015ecfe] default=['0x144e1f', '0x15ecfe'] formatid='12x'
+# -- snip --
+Decompiling GVM::VMDispatch2...
+Finished decompiling
+Opcode 0x01 at [0014d3b9] default=['0x144e1f', '0x15ecfe'] formatid='02x'
+# -- snip --
+Analyzing case addresses...
+Resolved 92 out of 154 opcodes so far!
+Missing 62 out of 154 opcodes
+Decompiling GVM::Dispatch1...
+Finished decompilation
+Analyzing ast source of GVM::Dispatch1...
+Discovered 160 possible opcode handlers with 1 bogus state(s)!
+Collected 60 additional opcode handlers!
+Finished analysis:
+  > Total   opcodes: 0x98
+  > Missing opcodes: 0x0
+```
+
+The generated JSON file with all opcode definitions should look like this:
+
+```{code-block} python
+{
+  "vm_dispatch_0": 282143, # absolute file offset to function start
+  "vm_dispatch_1": 170656,
+  "vm_dispatch_2": 316272,
+  "opcodes": {
+    "2": {
+      "opcode": 2,
+      "format_id": "03x",
+      "addresses": [282401, 388350], # absolute file offset
+      "code_line": null,             # only used in vm_dispatch_1
+      "code_file": "vm_dispatch_0"
+    },
+    "5": {
+      "opcode": 5,
+      "format_id": "12x",
+      "addresses": [291005, 388350],
+      "code_line": null,
+      "code_file": "vm_dispatch_0"
+    },
+    ...
+  },
+  "default_cases": [282143, 388350]
+}
+```
