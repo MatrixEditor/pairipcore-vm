@@ -144,6 +144,14 @@ class InsnFormat:
     def __str__(self) -> str:
         return self.__fmt_
 
+    @property
+    def stack_vars(self) -> int:
+        return self.__stack_
+
+    @property
+    def extra_vars(self) -> int:
+        return self.__extra_
+
 
 # -----------------------------------------------------------------------------
 # instructions
@@ -174,9 +182,11 @@ class InsnInfo:
 
     def __init__(self, vm: VM, insn_format: InsnFormat) -> None:
         self.__hash_xor_value_ = vm.context.addr(insn_format.hash_xor_value_off)
-        self.__hash_ = vm.context.u64(insn_format.hash_off)
+        self.__hash_ = vm.context.u64(vm.context.pc + insn_format.hash_off)
         self.__hash_data_ = vm.context.addr(insn_format.hash_data_off)
-        self.__hash_data_len_ = vm.context.u16(insn_format.hash_data_length_off)
+        self.__hash_data_len_ = vm.context.u16(
+            vm.context.pc + insn_format.hash_data_length_off
+        )
         self.__fallback_ = vm.context.addr(insn_format.fallback_addr_off)
         self.__next_ = vm.context.addr(insn_format.next_addr_off)
 
@@ -268,6 +278,9 @@ class Insn:
     def info(self) -> InsnInfo:
         """Returns the metadata and control flow information associated with this instruction."""
         return self.__info_
+
+    def __repr__(self) -> str:
+        return f"<Insn {self.__format_!s} [{self.info.hash_data_length}]>"
 
 
 # -----------------------------------------------------------------------------

@@ -163,7 +163,9 @@ cython_debug/
 
 # VSCode
 .vscode/
-
-# Added by cargo
-
-/target
+/target/
+CMakeFiles/
+CMakeCache.txt
+cxx/pairipvm
+cxx/Makefile
+cxx/cmake_install.cmake

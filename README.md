@@ -2,7 +2,7 @@
 
 Further research based on
 [pairipcore](https://github.com/Solaree/pairipcore), focusing on the virtual
-machine (VM) used to virtualize code in Android apps as a protection mechanism.
+machine (VM) used to virtualize code in Android apps as a protection mechanism (**P**l**A**y**I**nteg**RI**ty**P**rotect - pairip).
 
 > [!IMPORTANT]
 > Google designed the VM to be custom for every release of an application. The

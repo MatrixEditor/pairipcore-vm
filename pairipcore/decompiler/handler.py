@@ -7,11 +7,11 @@ from pairipcore.insn import FormatIDs, Insn
 # -----------------------------------------------------------------------------
 # Handler class
 # -----------------------------------------------------------------------------
-VMStoreType_U64 = "u64"
-VMStoreType_U32 = "u32"
-VMStoreType_U16 = "u16"
-VMStoreType_i32 = "i32"
-VMStoreType_u8 = "u8"
+VMType_u64 = "u64"
+VMType_u32 = "u32"
+VMType_u16 = "u16"
+VMType_i32 = "i32"
+VMType_u8 = "u8"
 
 
 class VMOp_Handler:

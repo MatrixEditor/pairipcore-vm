@@ -1,5 +1,6 @@
 from typing import Any, Type, Callable
 
+from caterpillar.model import sizeof
 from caterpillar.shortcuts import unpack, LittleEndian as le, pack
 from caterpillar.fields import uint16, uint32, uint64, double, int32, Field
 
@@ -31,7 +32,9 @@ def verify_fnv(addr: addr_t, vm: "VM") -> bool:
     if addr < 0:
         addr = vm.context.pc
 
-    xor_value = vm.context.u32(vm.context.addr(addr, rel=False)) ^ 0xFFFFFFFF00000000
+    xor_value = (
+        vm.context.u32(vm.context.addr(addr, rel=False)) ^ 0xFFFFFFFF00000000
+    )
     hash_value = vm.context.u64(addr + 4)
     hash_address = vm.context.addr(addr + 12, rel=False)
     hash_length = vm.context.u16(addr + 16)
@@ -65,6 +68,7 @@ def decode_entry_point_v0(vm: "VM") -> addr_t:
     a = vm.context.u32(addr=0x04)
     b01 = (~a & 0xFFFFFF8E) * -3 + (~a | 0xFFFFFF8E)
     b02 = (a * 2) ^ 0xFFFFFF1C
+    print((b01 + b02) & 0xFFFFFFFF)
     return vm.context.addr((b01 + b02) & 0xFFFFFFFF, rel=False)
 
 
@@ -97,7 +101,9 @@ class VMVariable:
     #: the position of this variable in memory (file offset)
     __address_: addr_t
 
-    def __init__(self, addr: addr_t, ty: str | None = None, value: Any = None) -> None:
+    def __init__(
+        self, addr: addr_t, ty: str | None = None, value: Any = None
+    ) -> None:
         self.__address_ = addr
         self.value = value
         self.type = ty
@@ -198,7 +204,7 @@ class VMContext:
         if addr == -1:
             addr = self.pc
 
-        return unpack(field @ addr, self.vm_code)
+        return unpack(field, self.vm_code[addr : addr + sizeof(field)])
 
     def u32(self, addr: addr_t = -1) -> int:
         """Reads an unsigned 32bit integer.
@@ -358,7 +364,9 @@ class VMState:
         line = f".{name}:"
         self.pline(line, *comments)
 
-    def pinsn(self, insn: str, args: str, *comments: str, indent: int = 1) -> None:
+    def pinsn(
+        self, insn: str, args: str, *comments: str, indent: int = 1
+    ) -> None:
         """Writes an instruction to the terminal.
 
         Args:
@@ -406,7 +414,9 @@ class VM:
         writer: Any = print,
         **env,
     ) -> None:
-        self.mem = VMMemory(mem_base_addr if mem_base_addr >= 0 else 0xDEAD00000000)
+        self.mem = VMMemory(
+            mem_base_addr if mem_base_addr >= 0 else 0xDEAD00000000
+        )
         self.context = VMContext(bytecode, pc)
         self.state = VMState(verbose, writer, **env)
         self._entry_point_decoder = entry_point_decode_fn
@@ -421,7 +431,9 @@ class VM:
             int: the entry point address (file offset)
         """
         if not self._entry_point_decoder:
-            raise ValueError(f"{self.__class__.__name__} can't resolve entry point!")
+            raise ValueError(
+                f"{self.__class__.__name__} can't resolve entry point!"
+            )
 
         return self._entry_point_decoder(self)
 
