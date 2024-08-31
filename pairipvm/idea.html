@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>String Decoding &#8212; pairipcore-vm</title>
+    <title>The Idea &#8212; pairipcore-vm</title>
   
   
   
@@ -45,11 +45,11 @@
     <script src="../_static/copybutton.js?v=f281be69"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'pyapi/strings';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pairipvm/idea';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Decompiler Components" href="decompiler.html" />
-    <link rel="prev" title="Instruction Format Classes" href="insn.html" />
+    <link rel="next" title="Discovered Operations" href="operations.html" />
+    <link rel="prev" title="Pairip VM (CXX)" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -162,19 +162,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../automation.html">Automatic Analysis</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../pairipvm/idea.html">The Idea</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../pairipvm/operations.html">Discovered Operations</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Pairip VM (CXX)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">The Idea</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">Discovered Operations</a></li>
 </ul>
 </details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="context.html">Virtual Machine Context</a></li>
-<li class="toctree-l1"><a class="reference internal" href="insn.html">Instruction Format Classes</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">String Decoding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="decompiler.html">Decompiler Components</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pyapi/context.html">Virtual Machine Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pyapi/insn.html">Instruction Format Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pyapi/strings.html">String Decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pyapi/decompiler.html">Decompiler Components</a></li>
 </ul>
 
     </div>
@@ -246,7 +246,7 @@
       
       
       
-      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/blob/master/pyapi/strings.rst?plain=1" target="_blank"
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/blob/master/pairipvm/idea.rst?plain=1" target="_blank"
    class="btn btn-sm btn-source-file-button dropdown-item"
    title="Show source"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -263,7 +263,7 @@
       
       
       
-      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/edit/master/pyapi/strings.rst" target="_blank"
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/edit/master/pairipvm/idea.rst" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -280,7 +280,7 @@
       
       
       
-      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/issues/new?title=Issue%20on%20page%20%2Fpyapi/strings.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/MatrixEditor/pairipcore-vm/issues/new?title=Issue%20on%20page%20%2Fpairipvm/idea.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -310,7 +310,7 @@
       
       
       
-      <li><a href="../_sources/pyapi/strings.rst" target="_blank"
+      <li><a href="../_sources/pairipvm/idea.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -394,7 +394,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>String Decoding</h1>
+    <h1>The Idea</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -404,10 +404,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.strings.s_ppdecode"><code class="docutils literal notranslate"><span class="pre">s_ppdecode()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.strings.s_pdecode"><code class="docutils literal notranslate"><span class="pre">s_pdecode()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.strings.ppdecode"><code class="docutils literal notranslate"><span class="pre">ppdecode()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.strings.pdecode"><code class="docutils literal notranslate"><span class="pre">pdecode()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-next">What’s next?</a></li>
 </ul>
             </nav>
         </div>
@@ -419,76 +416,46 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-pairipcore.strings">
-<span id="string-decoding"></span><span id="pyapi-strings"></span><h1>String Decoding<a class="headerlink" href="#module-pairipcore.strings" title="Link to this heading">#</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="pairipcore.strings.s_ppdecode">
-<span class="sig-prename descclassname"><span class="pre">pairipcore.strings.</span></span><span class="sig-name descname"><span class="pre">s_ppdecode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="context.html#pairipcore.context.VMContext" title="pairipcore.context.VMContext"><span class="pre">VMContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pp_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="../_modules/pairipcore/strings.html#s_ppdecode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.strings.s_ppdecode" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<a class="reference internal" href="context.html#pairipcore.context.VMContext" title="pairipcore.context.VMContext"><em>VMContext</em></a>)</p></li>
-<li><p><strong>pp_data</strong> (<em>addr_t</em>)</p></li>
-<li><p><strong>p_key</strong> (<em>addr_t</em>)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bytes</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pairipcore.strings.s_pdecode">
-<span class="sig-prename descclassname"><span class="pre">pairipcore.strings.</span></span><span class="sig-name descname"><span class="pre">s_pdecode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="context.html#pairipcore.context.VMContext" title="pairipcore.context.VMContext"><span class="pre">VMContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="../_modules/pairipcore/strings.html#s_pdecode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.strings.s_pdecode" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<a class="reference internal" href="context.html#pairipcore.context.VMContext" title="pairipcore.context.VMContext"><em>VMContext</em></a>)</p></li>
-<li><p><strong>p_data</strong> (<em>addr_t</em>)</p></li>
-<li><p><strong>p_key</strong> (<em>addr_t</em>)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bytes</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pairipcore.strings.ppdecode">
-<span class="sig-prename descclassname"><span class="pre">pairipcore.strings.</span></span><span class="sig-name descname"><span class="pre">ppdecode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="context.html#pairipcore.context.VMContext" title="pairipcore.context.VMContext"><span class="pre">VMContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pp_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="../_modules/pairipcore/strings.html#ppdecode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.strings.ppdecode" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>code</strong> (<a class="reference internal" href="context.html#pairipcore.context.VMContext" title="pairipcore.context.VMContext"><em>VMContext</em></a>)</p></li>
-<li><p><strong>pp_data</strong> (<em>addr_t</em>)</p></li>
-<li><p><strong>p_key</strong> (<em>addr_t</em>)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bytes</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pairipcore.strings.pdecode">
-<span class="sig-prename descclassname"><span class="pre">pairipcore.strings.</span></span><span class="sig-name descname"><span class="pre">pdecode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="context.html#pairipcore.context.VMContext" title="pairipcore.context.VMContext"><span class="pre">VMContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">addr_t</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="../_modules/pairipcore/strings.html#pdecode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pairipcore.strings.pdecode" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>code</strong> (<a class="reference internal" href="context.html#pairipcore.context.VMContext" title="pairipcore.context.VMContext"><em>VMContext</em></a>)</p></li>
-<li><p><strong>p_data</strong> (<em>addr_t</em>)</p></li>
-<li><p><strong>p_key</strong> (<em>addr_t</em>)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bytes</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <section id="the-idea">
+<span id="vm-idea"></span><h1>The Idea<a class="headerlink" href="#the-idea" title="Link to this heading">#</a></h1>
+<p>Working with C++ can sometimes be challenging, so the implementation presented here
+will be kept simple. The core concept is to create a Fetch-Decode-Execute loop that
+delegates opcode execution to a switch statement, which handles all the defined
+opcodes. Here’s a pseudocode example of how this might look:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Pseudo code of a possible implementation</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">interpret</span><span class="p">(</span><span class="n">VM</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// we assume the bytecode is already loaded and pc is set</span>
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">vm</span><span class="p">.</span><span class="n">should_stop</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// fetch &amp; decode in one statement</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">opcode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="n">current_opcode</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// execute instruction</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ops</span><span class="o">::</span><span class="n">interpret_op</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span><span class="w"> </span><span class="n">opcode</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>The next step is to base opcode interpretation on the instructions and the
+instruction formats we’ve previously defined:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">ops::interpret_op</span><span class="p">(</span><span class="n">VM</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vm</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">opcode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">result_code</span><span class="p">;</span>
+<span class="w">  </span><span class="k">switch</span><span class="p">(</span><span class="n">opcode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* opcode handlers */</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span>
+<span class="w">      </span><span class="n">result_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">result_code</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="what-s-next">
+<h2>What’s next?<a class="headerlink" href="#what-s-next" title="Link to this heading">#</a></h2>
+<p>TODO</p>
+</section>
 </section>
 
 
@@ -503,20 +470,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="insn.html"
+       href="index.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Instruction Format Classes</p>
+        <p class="prev-next-title">Pairip VM (CXX)</p>
       </div>
     </a>
     <a class="right-next"
-       href="decompiler.html"
+       href="operations.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Decompiler Components</p>
+        <p class="prev-next-title">Discovered Operations</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -536,10 +503,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.strings.s_ppdecode"><code class="docutils literal notranslate"><span class="pre">s_ppdecode()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.strings.s_pdecode"><code class="docutils literal notranslate"><span class="pre">s_pdecode()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.strings.ppdecode"><code class="docutils literal notranslate"><span class="pre">ppdecode()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.strings.pdecode"><code class="docutils literal notranslate"><span class="pre">pdecode()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-next">What’s next?</a></li>
 </ul>
   </nav></div>
 

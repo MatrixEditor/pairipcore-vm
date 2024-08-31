@@ -160,6 +160,14 @@
 <li class="toctree-l1"><a class="reference internal" href="strings.html">Strings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation.html">Automatic Analysis</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="pairipvm/idea.html">The Idea</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pairipvm/operations.html">Discovered Operations</a></li>
+</ul>
+</details></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pyapi/context.html">Virtual Machine Context</a></li>
@@ -399,6 +407,8 @@ document.write(`
 </li>
       <li><a href="pyapi/decompiler.html#pairipcore.cfg.LocationDB.add_memory">add_memory() (pairipcore.cfg.LocationDB method)</a>
 </li>
+      <li><a href="pairipvm/operations.html#_CPPv4I0_Kc_Kc_KcE6add_op">add_op (C++ struct)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/context.html#pairipcore.context.VMContext.addr">addr() (pairipcore.context.VMContext method)</a>
@@ -407,7 +417,11 @@ document.write(`
 </li>
       <li><a href="pyapi/context.html#pairipcore.context.VMMemory.alloc">alloc() (pairipcore.context.VMMemory method)</a>
 </li>
+      <li><a href="pairipvm/operations.html#_CPPv4I0_Kc_Kc_KcE6and_op">and_op (C++ struct)</a>
+</li>
       <li><a href="pyapi/decompiler.html#pairipcore.disassembler.as_disasm">as_disasm() (in module pairipcore.disassembler)</a>
+</li>
+      <li><a href="pairipvm/operations.html#_CPPv4I0_Kc_KcE9assign_op">assign_op (C++ struct)</a>
 </li>
       <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.AssignmentExpr">AssignmentExpr (class in pairipcore.decompiler.code)</a>
 </li>
@@ -423,9 +437,13 @@ document.write(`
         <li><a href="pyapi/insn.html#pairipcore.insn.InsnFormat.B">(pairipcore.insn.InsnFormat attribute)</a>
 </li>
       </ul></li>
+      <li><a href="pyapi/context.html#pairipcore.context.VMMemory.base_address">base_address (pairipcore.context.VMMemory attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pyapi/context.html#pairipcore.context.VMMemory.base_address">base_address (pairipcore.context.VMMemory attribute)</a>
+      <li><a href="pairipvm/operations.html#_CPPv4I00_Kc_Kc_Kc00E6bin_op">bin_op (C++ struct)</a>
+</li>
+      <li><a href="pairipvm/operations.html#_CPPv4N6bin_op15CompactFormatIDE">bin_op::CompactFormatID (C++ type)</a>
 </li>
       <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.Block">Block (class in pairipcore.decompiler.code)</a>
 </li>
@@ -465,6 +483,8 @@ document.write(`
 </li>
       <li><a href="pyapi/context.html#pairipcore.context.VMState.comment">comment (pairipcore.context.VMState attribute)</a>
 </li>
+      <li><a href="pairipvm/operations.html#_CPPv4I0_Kc_Kc_KcE10compare_op">compare_op (C++ struct)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -485,6 +505,8 @@ document.write(`
 </li>
       <li><a href="pyapi/decompiler.html#pairipcore.decompiler._decompiler.decompiler_main">decompiler_main() (in module pairipcore.decompiler._decompiler)</a>
 </li>
+      <li><a href="pairipvm/operations.html#_CPPv4I0_Kc_Kc_KcE9divide_op">divide_op (C++ struct)</a>
+</li>
       <li><a href="pyapi/context.html#pairipcore.context.VMContext.double">double() (pairipcore.context.VMContext method)</a>
 </li>
   </ul></td>
@@ -499,6 +521,10 @@ document.write(`
         <li><a href="pyapi/insn.html#pairipcore.insn.InsnFormat.E">(pairipcore.insn.InsnFormat attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyapi/insn.html#pairipcore.insn.InsnFormat.extra_vars">extra_vars (pairipcore.insn.InsnFormat property)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -581,6 +607,8 @@ document.write(`
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pairipvm/operations.html#_CPPv4I0E10lassign_op">lassign_op (C++ type)</a>
+</li>
       <li><a href="pyapi/decompiler.html#pairipcore.decompiler.code.LazyCodeStatement">LazyCodeStatement (class in pairipcore.decompiler.code)</a>
 </li>
       <li><a href="pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.leaf_insn_node">leaf_insn_node() (pairipcore.cfg.GraphDelegate method)</a>
@@ -625,6 +653,12 @@ document.write(`
 </li>
       </ul></li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pairipvm/operations.html#_CPPv4I0_Kc_Kc_KcE9modulo_op">modulo_op (C++ struct)</a>
+</li>
+      <li><a href="pairipvm/operations.html#_CPPv4I0_Kc_Kc_KcE11multiply_op">multiply_op (C++ struct)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="N">N</h2>
@@ -653,6 +687,8 @@ document.write(`
       <li><a href="pyapi/insn.html#pairipcore.insn.Insn.opcode_address">opcode_address (pairipcore.insn.Insn property)</a>
 </li>
       <li><a href="pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.opcode_ids">opcode_ids (pairipcore.cfg.GraphDelegate attribute)</a>
+</li>
+      <li><a href="pairipvm/operations.html#_CPPv4I0_Kc_Kc_KcE5or_op">or_op (C++ struct)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -739,16 +775,28 @@ document.write(`
       <li><a href="pyapi/insn.html#pairipcore.insn.Insn.R">R (pairipcore.insn.Insn attribute)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pairipvm/operations.html#_CPPv4I0E10rassign_op">rassign_op (C++ type)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyapi/strings.html#pairipcore.strings.s_pdecode">s_pdecode() (in module pairipcore.strings)</a>
+</li>
+      <li><a href="pyapi/strings.html#pairipcore.strings.s_ppdecode">s_ppdecode() (in module pairipcore.strings)</a>
+</li>
       <li><a href="pyapi/context.html#pairipcore.context.VMState.should_exit">should_exit (pairipcore.context.VMState attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyapi/insn.html#pairipcore.insn.InsnFormat.stack_vars">stack_vars (pairipcore.insn.InsnFormat property)</a>
+</li>
       <li><a href="pyapi/insn.html#pairipcore.insn.InsnFormat.store_var_off">store_var_off (pairipcore.insn.InsnFormat property)</a>
+</li>
+      <li><a href="pairipvm/operations.html#_CPPv4I0_Kc_Kc_KcE11subtract_op">subtract_op (C++ struct)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -758,11 +806,13 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/context.html#pairipcore.context.VMContext.u16">u16() (pairipcore.context.VMContext method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/context.html#pairipcore.context.VMContext.u32">u32() (pairipcore.context.VMContext method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/context.html#pairipcore.context.VMContext.u64">u64() (pairipcore.context.VMContext method)</a>
+</li>
+      <li><a href="pairipvm/operations.html#_CPPv4I00_Kc_Kc0E8unary_op">unary_op (C++ struct)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -809,6 +859,10 @@ document.write(`
 
 <h2 id="X">X</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pairipvm/operations.html#_CPPv4I0_Kc_Kc_KcE6xor_op">xor_op (C++ struct)</a>
+</li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyapi/insn.html#pairipcore.insn.InsnInfo.xor_value_addr">xor_value_addr (pairipcore.insn.InsnInfo property)</a>
 </li>

@@ -160,6 +160,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../strings.html">Strings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../automation.html">Automatic Analysis</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../pairipvm/idea.html">The Idea</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../pairipvm/operations.html">Discovered Operations</a></li>
+</ul>
+</details></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../pyapi/context.html">Virtual Machine Context</a></li>
@@ -319,8 +327,30 @@ document.write(`
 <span></span><span class="kn">from</span> <span class="nn">.context</span> <span class="kn">import</span> <span class="n">VMContext</span>
 <span class="kn">from</span> <span class="nn">._types</span> <span class="kn">import</span> <span class="n">addr_t</span>
 
+
+<div class="viewcode-block" id="s_ppdecode">
+<a class="viewcode-back" href="../../pyapi/strings.html#pairipcore.strings.s_ppdecode">[docs]</a>
+<span class="k">def</span> <span class="nf">s_ppdecode</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">VMContext</span><span class="p">,</span> <span class="n">pp_data</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">p_key</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">s_pdecode</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">pp_data</span><span class="p">,</span> <span class="n">rel</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">p_key</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="s_pdecode">
+<a class="viewcode-back" href="../../pyapi/strings.html#pairipcore.strings.s_pdecode">[docs]</a>
+<span class="k">def</span> <span class="nf">s_pdecode</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">VMContext</span><span class="p">,</span> <span class="n">p_data</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">p_key</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="n">dec_length</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">(</span><span class="n">p_data</span><span class="p">)</span> <span class="o">^</span> <span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">(</span><span class="n">p_key</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">dec_length</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">context</span><span class="p">[</span><span class="n">p_data</span> <span class="p">:</span> <span class="n">p_data</span> <span class="o">+</span> <span class="n">dec_length</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]):</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span> <span class="o">^</span> <span class="n">context</span><span class="p">[</span><span class="n">p_key</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span></div>
+
+
+
+<span class="c1">## --- OLD ---</span>
+
 <span class="c1"># default key - you might need to verify it for your asset files</span>
-<span class="n">KEY</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xab\x16</span><span class="s1">+</span><span class="se">\xc0</span><span class="s1">/D7</span><span class="se">\xb6\x7f</span><span class="s1">Q1</span><span class="se">\x8f</span><span class="s1">9@</span><span class="se">\x13\x11</span><span class="s1">*</span><span class="se">\xec</span><span class="s1">8</span><span class="se">\xdd</span><span class="s1">7</span><span class="se">\xda</span><span class="s1">O&quot;_T</span><span class="se">\x97\x00\x1d</span><span class="s1">;</span><span class="se">\</span>
+<span class="n">KEY</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xab\x16</span><span class="s1">+</span><span class="se">\xc0</span><span class="s1">/D7</span><span class="se">\xb6\x7f</span><span class="s1">Q1</span><span class="se">\x8f</span><span class="s1">9@</span><span class="se">\x13\x11</span><span class="s1">*</span><span class="se">\xec</span><span class="s1">8</span><span class="se">\xdd</span><span class="s1">7</span><span class="se">\xda</span><span class="s1">O&quot;_T</span><span class="se">\x97\x00\x1d</span><span class="s1">;</span><span class="se">\</span>
 <span class="se">\xa6</span><span class="s1">T`</span><span class="se">\xad\xbf</span><span class="s1">P</span><span class="se">\x8c\x86\xfe</span><span class="s1">g</span><span class="se">\xc9\xc2\xaf\xaf</span><span class="s1">_</span><span class="se">\xba</span><span class="s1">q</span><span class="se">\xc1\x9a</span><span class="s1">6</span><span class="se">\x1b</span><span class="s1">q.</span><span class="se">\xb6</span><span class="s1">C3</span><span class="se">\n\xa5\xe5\</span>
 <span class="se">\xea\xf9</span><span class="s1"> Y</span><span class="se">\xf1</span><span class="s1">t</span><span class="se">\x11\x13</span><span class="s1">%</span><span class="se">\xf2\x87\xd8\xb6\x8e\xcd\xa8</span><span class="s1">#</span><span class="se">\xb3</span><span class="s1">o</span><span class="se">\xd8</span><span class="s1">NR</span><span class="se">\xe8\xbe\xd9\xc1\</span>
 <span class="se">\xa0</span><span class="s1">j</span><span class="se">\xc2</span><span class="s1">(Vw</span><span class="se">\xd9</span><span class="s1">C</span><span class="se">\xfc\x92</span><span class="s1">k</span><span class="se">\x0c</span><span class="s1">#</span><span class="se">\xf8\xa9</span><span class="s1">h</span><span class="se">\xb8\xf7\xd4</span><span class="s1">$</span><span class="se">\xac\xad</span><span class="s1">-</span><span class="se">\x88</span><span class="s1">W</span><span class="se">\x92\x8a\xb3</span><span class="s1">y</span><span class="se">\</span>
@@ -330,6 +360,7 @@ document.write(`
 <span class="se">\x16\xd3\xfe\x0b\xb8\xfa\xb1\xfb</span><span class="s1">4</span><span class="se">\xf8\x16</span><span class="s1">v</span><span class="se">\x92\x96\xe3\xee\x97\xf1\xc1\xad\x15\xe3\</span>
 <span class="se">\x0f\x18</span><span class="s1">:^/</span><span class="se">\xfe\x14\x1a\xdd\x1b\xe9</span><span class="s1">q</span><span class="se">\x11\xc8\xc3\xaa\xf2\xa0\xca</span><span class="s1">&quot;}</span><span class="se">\x91\xcd\xc8\x01\</span>
 <span class="s1">_8H</span><span class="se">\xe9</span><span class="s1">j</span><span class="se">\xbe\xf4\x1a</span><span class="s1">B</span><span class="se">\xcc</span><span class="s1">m</span><span class="se">\xa2</span><span class="s1">)</span><span class="se">\\\x1d</span><span class="s1">f</span><span class="se">\xb6</span><span class="s1">8&#39;</span>
+<span class="p">)</span>
 
 <span class="n">KEY__LEN</span> <span class="o">=</span> <span class="mi">5803</span>
 

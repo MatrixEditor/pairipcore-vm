@@ -160,6 +160,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../strings.html">Strings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../automation.html">Automatic Analysis</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../pairipvm/idea.html">The Idea</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../pairipvm/operations.html">Discovered Operations</a></li>
+</ul>
+</details></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../pyapi/context.html">Virtual Machine Context</a></li>
@@ -471,7 +479,15 @@ document.write(`
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fmt_</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fmt_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stack_vars</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stack_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">extra_vars</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__extra_</span></div>
 
 
 
@@ -508,9 +524,11 @@ document.write(`
 <a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.InsnInfo.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">insn_format</span><span class="p">:</span> <span class="n">InsnFormat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__hash_xor_value_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">hash_xor_value_off</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__hash_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u64</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">hash_off</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__hash_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u64</span><span class="p">(</span><span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pc</span> <span class="o">+</span> <span class="n">insn_format</span><span class="o">.</span><span class="n">hash_off</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__hash_data_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">hash_data_off</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__hash_data_len_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">hash_data_length_off</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__hash_data_len_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">(</span>
+            <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pc</span> <span class="o">+</span> <span class="n">insn_format</span><span class="o">.</span><span class="n">hash_data_length_off</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__fallback_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">fallback_addr_off</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__next_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">next_addr_off</span><span class="p">)</span></div>
 
@@ -608,7 +626,10 @@ document.write(`
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InsnInfo</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the metadata and control flow information associated with this instruction.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Insn </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__format_</span><span class="si">!s}</span><span class="s2"> [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">hash_data_length</span><span class="si">}</span><span class="s2">]&gt;&quot;</span></div>
 
 
 

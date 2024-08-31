@@ -161,6 +161,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../strings.html">Strings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../automation.html">Automatic Analysis</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pairipvm/idea.html">The Idea</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pairipvm/operations.html">Discovered Operations</a></li>
+</ul>
+</details></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="context.html">Virtual Machine Context</a></li>
@@ -412,6 +420,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.hash_data_length_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.hash_data_length_off</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.store_var_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.store_var_off</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.vars"><code class="docutils literal notranslate"><span class="pre">InsnFormat.vars()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.stack_vars"><code class="docutils literal notranslate"><span class="pre">InsnFormat.stack_vars</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.extra_vars"><code class="docutils literal notranslate"><span class="pre">InsnFormat.extra_vars</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo"><code class="docutils literal notranslate"><span class="pre">InsnInfo</span></code></a><ul class="visible nav section-nav flex-column">
@@ -589,6 +599,16 @@ document.write(`
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.stack_vars">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stack_vars</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.stack_vars" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pairipcore.insn.InsnFormat.extra_vars">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extra_vars</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pairipcore.insn.InsnFormat.extra_vars" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -816,6 +836,8 @@ by the format ID) and a mnemonic name. The format and name are stored in the
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.hash_data_length_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.hash_data_length_off</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.store_var_off"><code class="docutils literal notranslate"><span class="pre">InsnFormat.store_var_off</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.vars"><code class="docutils literal notranslate"><span class="pre">InsnFormat.vars()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.stack_vars"><code class="docutils literal notranslate"><span class="pre">InsnFormat.stack_vars</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnFormat.extra_vars"><code class="docutils literal notranslate"><span class="pre">InsnFormat.extra_vars</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairipcore.insn.InsnInfo"><code class="docutils literal notranslate"><span class="pre">InsnInfo</span></code></a><ul class="visible nav section-nav flex-column">

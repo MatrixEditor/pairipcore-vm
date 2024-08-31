@@ -48,7 +48,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'automation';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Virtual Machine Context" href="pyapi/context.html" />
+    <link rel="next" title="Pairip VM (CXX)" href="pairipvm/index.html" />
     <link rel="prev" title="Strings" href="strings.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -160,6 +160,14 @@
 <li class="toctree-l1"><a class="reference internal" href="instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="strings.html">Strings</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Automatic Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="pairipvm/idea.html">The Idea</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pairipvm/operations.html">Discovered Operations</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
@@ -722,21 +730,21 @@ Finished namespace analysis:
   &gt; vm_dispatch_0 is at 0x00144e1f
   &gt; vm_dispatch_1 is at 0x00129aa0
   &gt; vm_dispatch_2 is at 0x0014d370
-Decompiling GVM::VMDispatch1...
+Decompiling pairipvm::VMDispatch1...
 Finished decompiling
 Opcode 0x02 at [00144f21, 0015ecfe] default=[&#39;0x144e1f&#39;, &#39;0x15ecfe&#39;] formatid=&#39;03x&#39;
 Opcode 0x05 at [001470bd, 0015ecfe] default=[&#39;0x144e1f&#39;, &#39;0x15ecfe&#39;] formatid=&#39;12x&#39;
 # -- snip --
-Decompiling GVM::VMDispatch2...
+Decompiling pairipvm::VMDispatch2...
 Finished decompiling
 Opcode 0x01 at [0014d3b9] default=[&#39;0x144e1f&#39;, &#39;0x15ecfe&#39;] formatid=&#39;02x&#39;
 # -- snip --
 Analyzing case addresses...
 Resolved 92 out of 154 opcodes so far!
 Missing 62 out of 154 opcodes
-Decompiling GVM::Dispatch1...
+Decompiling pairipvm::Dispatch1...
 Finished decompilation
-Analyzing ast source of GVM::Dispatch1...
+Analyzing ast source of pairipvm::Dispatch1...
 Discovered 160 possible opcode handlers with 1 bogus state(s)!
 Collected 60 additional opcode handlers!
 Finished analysis:
@@ -796,11 +804,11 @@ Finished analysis:
       </div>
     </a>
     <a class="right-next"
-       href="pyapi/context.html"
+       href="pairipvm/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Virtual Machine Context</p>
+        <p class="prev-next-title">Pairip VM (CXX)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
