@@ -29,7 +29,7 @@
   <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -148,14 +148,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../strings.html">Strings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../automation.html">Automatic Analysis</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../pairipvm/idea.html">The Idea</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../pairipvm/operations.html">Discovered Operations</a></li>
-</ul>
-</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
@@ -310,13 +302,13 @@
                 <article class="bd-article">
                   
   <h1>Source code for pairipcore.decompiler.code</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">textwrap</span>
-<span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="nn">t</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">textwrap</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">t</span>
 
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">pairipcore.context</span> <span class="kn">import</span> <span class="n">VM</span><span class="p">,</span> <span class="n">VMVariable</span><span class="p">,</span> <span class="n">addr_t</span>
-<span class="kn">from</span> <span class="nn">pairipcore.insn</span> <span class="kn">import</span> <span class="n">FormatIDs</span><span class="p">,</span> <span class="n">Insn</span><span class="p">,</span> <span class="n">InsnInfo</span><span class="p">,</span> <span class="n">InsnFormat</span>
-<span class="kn">from</span> <span class="nn">pairipcore.opcode</span> <span class="kn">import</span> <span class="n">VMOpcode_Interpret</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">VM</span><span class="p">,</span> <span class="n">VMVariable</span><span class="p">,</span> <span class="n">addr_t</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.insn</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormatIDs</span><span class="p">,</span> <span class="n">Insn</span><span class="p">,</span> <span class="n">InsnInfo</span><span class="p">,</span> <span class="n">InsnFormat</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.opcode</span><span class="w"> </span><span class="kn">import</span> <span class="n">VMOpcode_Interpret</span>
 
 
 <span class="c1"># -----------------------------------------------------------------------------</span>
@@ -324,7 +316,7 @@
 <span class="c1"># -----------------------------------------------------------------------------</span>
 <div class="viewcode-block" id="LazyCodeStatement">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.LazyCodeStatement">[docs]</a>
-<span class="k">class</span> <span class="nc">LazyCodeStatement</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LazyCodeStatement</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A base class representing a lazy code statement that will be converted to a string representation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -333,7 +325,7 @@
 
 <div class="viewcode-block" id="LazyCodeStatement.c_str">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.LazyCodeStatement.c_str">[docs]</a>
-    <span class="k">def</span> <span class="nf">c_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">c_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert the lazy code statement to a C-style string representation.</span>
 <span class="sd">        This method should be implemented by subclasses.</span>
@@ -341,7 +333,7 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses must implement this method.&quot;</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">c_str</span><span class="p">()</span></div>
 
 
@@ -349,7 +341,7 @@
 <div class="viewcode-block" id="AssignmentExpr">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.AssignmentExpr">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">AssignmentExpr</span><span class="p">(</span><span class="n">LazyCodeStatement</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AssignmentExpr</span><span class="p">(</span><span class="n">LazyCodeStatement</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class representing an assignment expression in code.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -359,7 +351,7 @@
 
 <div class="viewcode-block" id="AssignmentExpr.c_str">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.AssignmentExpr.c_str">[docs]</a>
-    <span class="k">def</span> <span class="nf">c_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">c_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert the assignment expression to a C-style string representation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -371,7 +363,7 @@
 <div class="viewcode-block" id="Line">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.Line">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Line</span><span class="p">(</span><span class="n">LazyCodeStatement</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Line</span><span class="p">(</span><span class="n">LazyCodeStatement</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class representing a single line of code.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -380,7 +372,7 @@
 
 <div class="viewcode-block" id="Line.c_str">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.Line.c_str">[docs]</a>
-    <span class="k">def</span> <span class="nf">c_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">c_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span></div>
 </div>
 
@@ -388,7 +380,7 @@
 
 <div class="viewcode-block" id="Block">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.Block">[docs]</a>
-<span class="k">class</span> <span class="nc">Block</span><span class="p">(</span><span class="n">LazyCodeStatement</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Block</span><span class="p">(</span><span class="n">LazyCodeStatement</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class representing a block of code, which consists of multiple statements.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -397,17 +389,17 @@
 
 <div class="viewcode-block" id="Block.__init__">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.Block.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">statements</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">statements</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">statements</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">statements</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">statement</span><span class="p">:</span> <span class="n">LazyCodeStatement</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LazyCodeStatement</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">statement</span><span class="p">:</span> <span class="n">LazyCodeStatement</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LazyCodeStatement</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">statements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
 <div class="viewcode-block" id="Block.c_str">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.Block.c_str">[docs]</a>
-    <span class="k">def</span> <span class="nf">c_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">c_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">lines</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">statements</span><span class="p">))</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">{{\n</span><span class="si">{</span><span class="n">textwrap</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;  &#39;</span><span class="p">)</span><span class="si">}</span><span class="se">\n}}</span><span class="s2">&quot;</span></div>
 </div>
@@ -417,20 +409,20 @@
 <div class="viewcode-block" id="Comment">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.Comment">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Comment</span><span class="p">(</span><span class="n">Line</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Comment</span><span class="p">(</span><span class="n">Line</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class representing a comment in code.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">other</span><span class="p">:</span> <span class="n">LazyCodeStatement</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">LazyCodeStatement</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LazyCodeStatement</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">LazyCodeStatement</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LazyCodeStatement</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">other</span> <span class="o">=</span> <span class="n">other</span>
         <span class="k">return</span> <span class="bp">self</span>
 
 <div class="viewcode-block" id="Comment.c_str">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.Comment.c_str">[docs]</a>
-    <span class="k">def</span> <span class="nf">c_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">c_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">other</span><span class="o">.</span><span class="n">c_str</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">other</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
             <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">line</span><span class="si">:</span><span class="s2">&lt;60</span><span class="si">}</span><span class="s2">// </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -442,7 +434,7 @@
 <div class="viewcode-block" id="CallExpr">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.CallExpr">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">CallExpr</span><span class="p">(</span><span class="n">LazyCodeStatement</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CallExpr</span><span class="p">(</span><span class="n">LazyCodeStatement</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class representing a function or method call expression.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -454,7 +446,7 @@
 
 <div class="viewcode-block" id="CallExpr.c_str">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.CallExpr.c_str">[docs]</a>
-    <span class="k">def</span> <span class="nf">c_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">c_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the function call expression in C-style syntax.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -469,7 +461,7 @@
 
 <div class="viewcode-block" id="Code">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.Code">[docs]</a>
-<span class="k">class</span> <span class="nc">Code</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Code</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class representing a collection of code statements and variable declarations.</span>
 
@@ -481,12 +473,12 @@
 
 <div class="viewcode-block" id="Code.__init__">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.Code.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__statements_</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__variables_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">mem</span><span class="o">.</span><span class="n">variables</span>  <span class="c1"># private reference</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">statement</span><span class="p">:</span> <span class="n">LazyCodeStatement</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Code&quot;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">statement</span><span class="p">:</span> <span class="n">LazyCodeStatement</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Code&quot;</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">statement</span> <span class="o">=</span> <span class="n">Line</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
 
@@ -495,7 +487,7 @@
 
 <div class="viewcode-block" id="Code.lines">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.code.Code.lines">[docs]</a>
-    <span class="k">def</span> <span class="nf">lines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">lines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate lines of code including variable declarations and statements.</span>
 

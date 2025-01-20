@@ -29,7 +29,7 @@
   <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -148,14 +148,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../strings.html">Strings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../automation.html">Automatic Analysis</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../pairipvm/idea.html">The Idea</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../pairipvm/operations.html">Discovered Operations</a></li>
-</ul>
-</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
@@ -310,16 +302,16 @@
                 <article class="bd-article">
                   
   <h1>Source code for pairipcore.cfg</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">argparse</span>
-<span class="kn">import</span> <span class="nn">graphviz</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">graphviz</span>
 
-<span class="kn">from</span> <span class="nn">pairipcore.context</span> <span class="kn">import</span> <span class="n">VM</span><span class="p">,</span> <span class="n">addr_t</span>
-<span class="kn">from</span> <span class="nn">pairipcore.insn</span> <span class="kn">import</span> <span class="n">Insn</span><span class="p">,</span> <span class="n">InsnFormat</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">VM</span><span class="p">,</span> <span class="n">addr_t</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.insn</span><span class="w"> </span><span class="kn">import</span> <span class="n">Insn</span><span class="p">,</span> <span class="n">InsnFormat</span>
 
 
 <div class="viewcode-block" id="LocationDB">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.LocationDB">[docs]</a>
-<span class="k">class</span> <span class="nc">LocationDB</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LocationDB</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A database for managing address ranges and labels within a virtual machine.</span>
 
@@ -333,12 +325,12 @@
 
 <div class="viewcode-block" id="LocationDB.__init__">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.LocationDB.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__ranges_</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__labels_</span> <span class="o">=</span> <span class="p">{}</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if an address is within any of the managed ranges.</span>
 
@@ -352,7 +344,7 @@
 
 <div class="viewcode-block" id="LocationDB.add_insn">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.LocationDB.add_insn">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_insn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">insn</span><span class="p">:</span> <span class="n">Insn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_insn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">insn</span><span class="p">:</span> <span class="n">Insn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add an instruction&#39;s address range to the database.</span>
 
@@ -368,7 +360,7 @@
 
 <div class="viewcode-block" id="LocationDB.add_memory">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.LocationDB.add_memory">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a memory range to the database.</span>
 
@@ -381,7 +373,7 @@
 
 <div class="viewcode-block" id="LocationDB.add">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.LocationDB.add">[docs]</a>
-    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a custom address range to the database.</span>
 
@@ -394,7 +386,7 @@
 
 <div class="viewcode-block" id="LocationDB.get_label">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.LocationDB.get_label">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">is_mem</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">is_mem</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve or generate a label for an address.</span>
 
@@ -417,7 +409,7 @@
 
 <div class="viewcode-block" id="LocationDB.has_label">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.LocationDB.has_label">[docs]</a>
-    <span class="k">def</span> <span class="nf">has_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">has_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if an address has an assigned label.</span>
 
@@ -434,7 +426,7 @@
 
 <div class="viewcode-block" id="GraphDelegate">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.GraphDelegate">[docs]</a>
-<span class="k">class</span> <span class="nc">GraphDelegate</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GraphDelegate</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A delegate class for managing graph nodes and edges related to VM instructions and memory.</span>
 
@@ -451,14 +443,14 @@
 
 <div class="viewcode-block" id="GraphDelegate.__init__">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">opcode_ids</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">opcode_ids</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">opcode_ids</span> <span class="o">=</span> <span class="n">opcode_ids</span></div>
 
 
 <div class="viewcode-block" id="GraphDelegate.memory_node">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.memory_node">[docs]</a>
-    <span class="k">def</span> <span class="nf">memory_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mem_label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mem_addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">memory_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mem_label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mem_addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a graph node for a memory location.</span>
 
@@ -476,7 +468,7 @@
 
 <div class="viewcode-block" id="GraphDelegate.leaf_insn_node">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.leaf_insn_node">[docs]</a>
-    <span class="k">def</span> <span class="nf">leaf_insn_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">opcode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">leaf_insn_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">opcode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a graph node for a leaf instruction.</span>
 
@@ -498,7 +490,7 @@
 
 <div class="viewcode-block" id="GraphDelegate.insn_node">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.GraphDelegate.insn_node">[docs]</a>
-    <span class="k">def</span> <span class="nf">insn_node</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">insn_node</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">opcode</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">insn</span><span class="p">:</span> <span class="n">Insn</span><span class="p">,</span> <span class="n">loc_db</span><span class="p">:</span> <span class="n">LocationDB</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -546,7 +538,7 @@
 
 <div class="viewcode-block" id="instruction_handler">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.instruction_handler">[docs]</a>
-<span class="k">def</span> <span class="nf">instruction_handler</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">instruction_handler</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Recursively handle and visualize instructions in the VM&#39;s memory, updating</span>
 <span class="sd">    the location database and graph delegate with instruction details.</span>
@@ -593,7 +585,7 @@
 
 <div class="viewcode-block" id="new_cfg">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.cfg.new_cfg">[docs]</a>
-<span class="k">def</span> <span class="nf">new_cfg</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">new_cfg</span><span class="p">(</span>
     <span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">opcode_def</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">loc_db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">graphviz</span><span class="o">.</span><span class="n">Digraph</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>

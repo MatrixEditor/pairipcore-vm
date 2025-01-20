@@ -29,7 +29,7 @@
   <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -148,14 +148,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../strings.html">Strings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../automation.html">Automatic Analysis</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../pairipvm/idea.html">The Idea</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../pairipvm/operations.html">Discovered Operations</a></li>
-</ul>
-</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
@@ -310,9 +302,9 @@
                 <article class="bd-article">
                   
   <h1>Source code for pairipcore.decompiler.utils</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">pairipcore</span> <span class="kn">import</span> <span class="n">addr_t</span>
-<span class="kn">from</span> <span class="nn">pairipcore.context</span> <span class="kn">import</span> <span class="n">VM</span><span class="p">,</span> <span class="n">VMVariable</span>
-<span class="kn">from</span> <span class="nn">pairipcore.insn</span> <span class="kn">import</span> <span class="n">Insn</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore</span><span class="w"> </span><span class="kn">import</span> <span class="n">addr_t</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">VM</span><span class="p">,</span> <span class="n">VMVariable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.insn</span><span class="w"> </span><span class="kn">import</span> <span class="n">Insn</span>
 
 
 <span class="c1"># -----------------------------------------------------------------------------</span>
@@ -320,7 +312,7 @@
 <span class="c1"># -----------------------------------------------------------------------------</span>
 <div class="viewcode-block" id="VMJump">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.utils.VMJump">[docs]</a>
-<span class="k">def</span> <span class="nf">VMJump</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">insn</span><span class="p">:</span> <span class="n">Insn</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">VMJump</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">insn</span><span class="p">:</span> <span class="n">Insn</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set the program counter (PC) to the next instruction address based on the</span>
 <span class="sd">    instruction&#39;s hash verification.</span>
@@ -346,7 +338,7 @@
 <span class="c1"># -----------------------------------------------------------------------------</span>
 <div class="viewcode-block" id="VMDeref">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.utils.VMDeref">[docs]</a>
-<span class="k">def</span> <span class="nf">VMDeref</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">VMDeref</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dereference a memory address to retrieve the stored value.</span>
 
@@ -363,7 +355,7 @@
 
 <div class="viewcode-block" id="VMNewGlobalVar">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.utils.VMNewGlobalVar">[docs]</a>
-<span class="k">def</span> <span class="nf">VMNewGlobalVar</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VMVariable</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">VMNewGlobalVar</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VMVariable</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a new global variable and add it to the VM&#39;s memory.</span>
 
@@ -385,7 +377,7 @@
 
 <div class="viewcode-block" id="VMGetGlobalVar">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.utils.VMGetGlobalVar">[docs]</a>
-<span class="k">def</span> <span class="nf">VMGetGlobalVar</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VMVariable</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">VMGetGlobalVar</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VMVariable</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrieve an existing global variable by its address.</span>
 
@@ -402,7 +394,7 @@
 
 <div class="viewcode-block" id="VMGetOrCreateGlobalVar">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler.utils.VMGetOrCreateGlobalVar">[docs]</a>
-<span class="k">def</span> <span class="nf">VMGetOrCreateGlobalVar</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">VMGetOrCreateGlobalVar</span><span class="p">(</span>
     <span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VMVariable</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>

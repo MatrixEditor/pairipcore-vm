@@ -29,7 +29,7 @@
   <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -148,14 +148,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../strings.html">Strings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../automation.html">Automatic Analysis</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../pairipvm/idea.html">The Idea</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../pairipvm/operations.html">Discovered Operations</a></li>
-</ul>
-</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
@@ -310,8 +302,8 @@
                 <article class="bd-article">
                   
   <h1>Source code for pairipcore.insn</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">._types</span> <span class="kn">import</span> <span class="n">addr_t</span>
-<span class="kn">from</span> <span class="nn">.context</span> <span class="kn">import</span> <span class="n">VM</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">._types</span><span class="w"> </span><span class="kn">import</span> <span class="n">addr_t</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">VM</span>
 
 
 <span class="c1"># -----------------------------------------------------------------------------</span>
@@ -319,7 +311,7 @@
 <span class="c1"># -----------------------------------------------------------------------------</span>
 <div class="viewcode-block" id="InsnFormat">
 <a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.InsnFormat">[docs]</a>
-<span class="k">class</span> <span class="nc">InsnFormat</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">InsnFormat</span><span class="p">:</span>
     <span class="n">__info_begin_</span><span class="p">:</span> <span class="nb">int</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Specifies the offset where the instruction info can be found.&quot;&quot;&quot;</span>
 
@@ -341,7 +333,7 @@
 
 <div class="viewcode-block" id="InsnFormat.__init__">
 <a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.InsnFormat.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">info_off</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">stack_vars</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
@@ -375,7 +367,7 @@
 <div class="viewcode-block" id="InsnFormat.parse">
 <a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.InsnFormat.parse">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">format_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;InsnFormat&quot;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse</span><span class="p">(</span><span class="n">format_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;InsnFormat&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Parses a format ID string to create an InsnFormat object.</span>
 
 <span class="sd">        Args:</span>
@@ -399,7 +391,7 @@
         <span class="k">return</span> <span class="n">InsnFormat</span><span class="p">(</span><span class="n">stack_vars</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">stack_vars</span><span class="p">,</span> <span class="n">extra_vars</span><span class="p">,</span> <span class="n">storage_var</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the total length of the instruction format.</span>
 
 <span class="sd">        Returns:</span>
@@ -408,32 +400,32 @@
         <span class="k">return</span> <span class="mh">0x16</span> <span class="o">+</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__stack_</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__extra_</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">next_addr_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">next_addr_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the offset for the next instruction address.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_begin_</span> <span class="o">+</span> <span class="mh">0x12</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">fallback_addr_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fallback_addr_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the offset for the fallback instruction address.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_begin_</span> <span class="o">+</span> <span class="mh">0x16</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">hash_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hash_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the offset for the hash value.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_begin_</span> <span class="o">+</span> <span class="mh">0x04</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">hash_xor_value_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hash_xor_value_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the offset for the XOR value used in the hash.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_begin_</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">hash_data_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hash_data_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the offset for the hash data.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_begin_</span> <span class="o">+</span> <span class="mh">0x0C</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">hash_data_length_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hash_data_length_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the offset for the length of the hash data.</span>
 
 <span class="sd">        Returns:</span>
@@ -442,7 +434,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_begin_</span> <span class="o">+</span> <span class="mh">0x10</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">store_var_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">store_var_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the offset of the storage variable.</span>
 
 <span class="sd">        Returns:</span>
@@ -452,7 +444,7 @@
 
 <div class="viewcode-block" id="InsnFormat.vars">
 <a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.InsnFormat.vars">[docs]</a>
-    <span class="k">def</span> <span class="nf">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the offsets of each stack variable.</span>
 
 <span class="sd">        Returns:</span>
@@ -464,15 +456,15 @@
         <span class="p">}</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fmt_</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">stack_vars</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stack_vars</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stack_</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">extra_vars</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">extra_vars</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__extra_</span></div>
 
 
@@ -482,7 +474,7 @@
 <span class="c1"># -----------------------------------------------------------------------------</span>
 <div class="viewcode-block" id="InsnInfo">
 <a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.InsnInfo">[docs]</a>
-<span class="k">class</span> <span class="nc">InsnInfo</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">InsnInfo</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents the metadata and control flow information associated with a</span>
 <span class="sd">    particular instruction in the VM.</span>
@@ -508,7 +500,7 @@
 
 <div class="viewcode-block" id="InsnInfo.__init__">
 <a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.InsnInfo.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">insn_format</span><span class="p">:</span> <span class="n">InsnFormat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">insn_format</span><span class="p">:</span> <span class="n">InsnFormat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__hash_xor_value_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">hash_xor_value_off</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__hash_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">u64</span><span class="p">(</span><span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pc</span> <span class="o">+</span> <span class="n">insn_format</span><span class="o">.</span><span class="n">hash_off</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__hash_data_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">insn_format</span><span class="o">.</span><span class="n">hash_data_off</span><span class="p">)</span>
@@ -520,32 +512,32 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">hash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the expected hash value for verification.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hash_</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">hash_data_addr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hash_data_addr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the memory address where the data to be hashed is located.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hash_data_</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">hash_data_length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hash_data_length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the length of the data to be hashed.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hash_data_len_</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">xor_value_addr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">xor_value_addr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the memory address of the XOR value used in the hash calculation.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hash_xor_value_</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">fallback</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fallback</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the address of the fallback instruction if the hash verification fails.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fallback_</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the address of the next instruction to execute if the hash verification succeeds.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__next_</span></div>
 
@@ -553,7 +545,7 @@
 
 <div class="viewcode-block" id="Insn">
 <a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.Insn">[docs]</a>
-<span class="k">class</span> <span class="nc">Insn</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Insn</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents an instruction in the virtual machine, including its format, address,</span>
 <span class="sd">    and associated metadata.</span>
@@ -580,7 +572,7 @@
 
 <div class="viewcode-block" id="Insn.__init__">
 <a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.Insn.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">insn_format</span><span class="p">:</span> <span class="n">InsnFormat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">insn_format</span><span class="p">:</span> <span class="n">InsnFormat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__format_</span> <span class="o">=</span> <span class="n">insn_format</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__address_</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pc</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__info_</span> <span class="o">=</span> <span class="n">InsnInfo</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">insn_format</span><span class="p">)</span>
@@ -595,26 +587,26 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the address of this instruction (excluding the opcode).&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__address_</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">opcode_address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">opcode_address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">addr_t</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the address where the opcode for this instruction is located.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">-</span> <span class="mi">2</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">insn_format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InsnFormat</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">insn_format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InsnFormat</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the format of this instruction.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__format_</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InsnInfo</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InsnInfo</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the metadata and control flow information associated with this instruction.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__info_</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Insn </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__format_</span><span class="si">!s}</span><span class="s2"> [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">hash_data_length</span><span class="si">}</span><span class="s2">]&gt;&quot;</span></div>
 
 
@@ -659,7 +651,7 @@
 
 <div class="viewcode-block" id="O">
 <a class="viewcode-back" href="../../pyapi/insn.html#pairipcore.insn.O">[docs]</a>
-<span class="k">def</span> <span class="nf">O</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">opcode</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">format_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>  <span class="c1">#: noqa</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">O</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">opcode</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">format_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>  <span class="c1">#: noqa</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Registers an opcode with its corresponding format and name.</span>
 

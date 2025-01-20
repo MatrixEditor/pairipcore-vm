@@ -29,7 +29,7 @@
   <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -148,14 +148,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../strings.html">Strings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../automation.html">Automatic Analysis</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../pairipvm/idea.html">The Idea</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../pairipvm/operations.html">Discovered Operations</a></li>
-</ul>
-</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
@@ -310,20 +302,20 @@
                 <article class="bd-article">
                   
   <h1>Source code for pairipcore.strings</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">.context</span> <span class="kn">import</span> <span class="n">VMContext</span>
-<span class="kn">from</span> <span class="nn">._types</span> <span class="kn">import</span> <span class="n">addr_t</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">VMContext</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">._types</span><span class="w"> </span><span class="kn">import</span> <span class="n">addr_t</span>
 
 
 <div class="viewcode-block" id="s_ppdecode">
 <a class="viewcode-back" href="../../pyapi/strings.html#pairipcore.strings.s_ppdecode">[docs]</a>
-<span class="k">def</span> <span class="nf">s_ppdecode</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">VMContext</span><span class="p">,</span> <span class="n">pp_data</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">p_key</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">s_ppdecode</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">VMContext</span><span class="p">,</span> <span class="n">pp_data</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">p_key</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">s_pdecode</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">pp_data</span><span class="p">,</span> <span class="n">rel</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">p_key</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="s_pdecode">
 <a class="viewcode-back" href="../../pyapi/strings.html#pairipcore.strings.s_pdecode">[docs]</a>
-<span class="k">def</span> <span class="nf">s_pdecode</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">VMContext</span><span class="p">,</span> <span class="n">p_data</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">p_key</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">s_pdecode</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">VMContext</span><span class="p">,</span> <span class="n">p_data</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">p_key</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
     <span class="n">dec_length</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">(</span><span class="n">p_data</span><span class="p">)</span> <span class="o">^</span> <span class="n">context</span><span class="o">.</span><span class="n">u16</span><span class="p">(</span><span class="n">p_key</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">dec_length</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">context</span><span class="p">[</span><span class="n">p_data</span> <span class="p">:</span> <span class="n">p_data</span> <span class="o">+</span> <span class="n">dec_length</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]):</span>
@@ -353,14 +345,14 @@
 
 <div class="viewcode-block" id="ppdecode">
 <a class="viewcode-back" href="../../pyapi/strings.html#pairipcore.strings.ppdecode">[docs]</a>
-<span class="k">def</span> <span class="nf">ppdecode</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n">VMContext</span><span class="p">,</span> <span class="n">pp_data</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">p_key</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ppdecode</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n">VMContext</span><span class="p">,</span> <span class="n">pp_data</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">p_key</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">pdecode</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code</span><span class="o">.</span><span class="n">addr</span><span class="p">(</span><span class="n">pp_data</span><span class="p">),</span> <span class="n">p_key</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="pdecode">
 <a class="viewcode-back" href="../../pyapi/strings.html#pairipcore.strings.pdecode">[docs]</a>
-<span class="k">def</span> <span class="nf">pdecode</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n">VMContext</span><span class="p">,</span> <span class="n">p_data</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">p_key</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pdecode</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n">VMContext</span><span class="p">,</span> <span class="n">p_data</span><span class="p">:</span> <span class="n">addr_t</span><span class="p">,</span> <span class="n">p_key</span><span class="p">:</span> <span class="n">addr_t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
     <span class="n">key</span> <span class="o">=</span> <span class="n">KEY</span>
     <span class="n">len__b</span> <span class="o">=</span> <span class="n">KEY__LEN</span>
     <span class="k">if</span> <span class="n">p_key</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>

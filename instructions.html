@@ -30,7 +30,7 @@
   <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
@@ -149,14 +149,6 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="strings.html">Strings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation.html">Automatic Analysis</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="pairipvm/idea.html">The Idea</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pairipvm/operations.html">Discovered Operations</a></li>
-</ul>
-</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
@@ -424,7 +416,7 @@ challenging. Despite this, the decoding algorithm for each opcode is provided be
 which will enable us to decode the opcodes used in the bytecode:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Python implementation of <code class="docutils literal notranslate"><span class="pre">decode_opcode</span></code></span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span> <span class="nf">decode_opcode</span><span class="p">(</span><span class="n">raw_opcode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span><span class="w"> </span><span class="nf">decode_opcode</span><span class="p">(</span><span class="n">raw_opcode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">2</span>    <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">raw_opcode</span> <span class="o">^</span> <span class="mh">0xFFFFFF64</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFF</span>
 <span class="linenos">3</span>    <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="mh">0xA6D1</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span>
 <span class="linenos">4</span>
@@ -447,7 +439,7 @@ opcode in the bytecode stream.</p>
 <p>Unlike other VMs, Google chose to embed part of the memory directly within the asset file,
 requiring virtual memory addresses to point to an offset in that file. Unfortunately,
 these addresses are encoded, so we need to decode them first to reveal the actual offset:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decode_address</span><span class="p">(</span><span class="n">enc_address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">code_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">decode_address</span><span class="p">(</span><span class="n">enc_address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">code_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="k">return</span> <span class="p">((</span><span class="n">enc_address</span> <span class="o">^</span> <span class="o">~</span><span class="n">code_length</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">)</span> <span class="o">%</span> <span class="n">code_length</span>
 </pre></div>
 </div>

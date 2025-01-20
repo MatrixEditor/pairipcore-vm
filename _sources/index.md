@@ -28,13 +28,6 @@ automation
 
 ```{toctree}
 :maxdepth: 2
-:caption: Generating a VM
-
-pairipvm/index
-```
-
-```{toctree}
-:maxdepth: 2
 :caption: Python API
 
 pyapi/context

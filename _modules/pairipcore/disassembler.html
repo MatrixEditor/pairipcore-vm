@@ -29,7 +29,7 @@
   <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -148,14 +148,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../strings.html">Strings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../automation.html">Automatic Analysis</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../pairipvm/idea.html">The Idea</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../pairipvm/operations.html">Discovered Operations</a></li>
-</ul>
-</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
@@ -310,21 +302,21 @@
                 <article class="bd-article">
                   
   <h1>Source code for pairipcore.disassembler</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">pairipcore.context</span> <span class="kn">import</span> <span class="n">VM</span>
-<span class="kn">from</span> <span class="nn">pairipcore.decompiler._decompiler</span> <span class="kn">import</span> <span class="n">Decompiler</span>
-<span class="kn">from</span> <span class="nn">pairipcore.decompiler.handler</span> <span class="kn">import</span> <span class="n">VMOp_Handler</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">VM</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.decompiler._decompiler</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decompiler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.decompiler.handler</span><span class="w"> </span><span class="kn">import</span> <span class="n">VMOp_Handler</span>
 
 
 <div class="viewcode-block" id="VMOp_DisasmHandler">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.disassembler.VMOp_DisasmHandler">[docs]</a>
-<span class="k">class</span> <span class="nc">VMOp_DisasmHandler</span><span class="p">(</span><span class="n">VMOp_Handler</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">VMOp_DisasmHandler</span><span class="p">(</span><span class="n">VMOp_Handler</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Handler class for disassembling VM operations with detailed debugging output.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="VMOp_DisasmHandler.debug">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.disassembler.VMOp_DisasmHandler.debug">[docs]</a>
-    <span class="k">def</span> <span class="nf">debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">vm</span><span class="p">)</span>
         <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;INSN (N=#</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">insn</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">next</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2">) (F=#</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">insn</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">fallback</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2">)&quot;</span>
         <span class="n">store_off</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">insn</span><span class="o">.</span><span class="n">insn_format</span><span class="o">.</span><span class="n">store_var_off</span>
@@ -345,7 +337,7 @@
 
 <div class="viewcode-block" id="as_disasm">
 <a class="viewcode-back" href="../../pyapi/decompiler.html#pairipcore.disassembler.as_disasm">[docs]</a>
-<span class="k">def</span> <span class="nf">as_disasm</span><span class="p">(</span><span class="n">dec</span><span class="p">:</span> <span class="n">Decompiler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Decompiler</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">as_disasm</span><span class="p">(</span><span class="n">dec</span><span class="p">:</span> <span class="n">Decompiler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Decompiler</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Configure the decompiler to use disassembly handlers for debugging.</span>
 

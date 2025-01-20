@@ -30,7 +30,7 @@
   <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
@@ -51,7 +51,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'automation';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Pairip VM (CXX)" href="pairipvm/index.html" />
+    <link rel="next" title="Virtual Machine Context" href="pyapi/context.html" />
     <link rel="prev" title="Strings" href="strings.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -149,14 +149,6 @@
 <li class="toctree-l1"><a class="reference internal" href="instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="strings.html">Strings</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Automatic Analysis</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="pairipvm/idea.html">The Idea</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pairipvm/operations.html">Discovered Operations</a></li>
-</ul>
-</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
@@ -435,7 +427,7 @@ this project defines two function types specifically for these purposes:</p>
 </div>
 <p>These functions must be provided when creating the interpreter for the current
 instruction set:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pairipcore</span> <span class="kn">import</span> <span class="n">VM</span><span class="p">,</span> <span class="n">decode_opcode_v0</span><span class="p">,</span> <span class="n">decode_entry_point_v0</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore</span><span class="w"> </span><span class="kn">import</span> <span class="n">VM</span><span class="p">,</span> <span class="n">decode_opcode_v0</span><span class="p">,</span> <span class="n">decode_entry_point_v0</span>
 
 <span class="n">code</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">vm</span> <span class="o">=</span> <span class="n">VM</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">decode_opcode_v0</span><span class="p">,</span> <span class="n">decode_entry_point_v0</span><span class="p">)</span>
@@ -790,11 +782,11 @@ Finished analysis:
       </div>
     </a>
     <a class="right-next"
-       href="pairipvm/index.html"
+       href="pyapi/context.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Pairip VM (CXX)</p>
+        <p class="prev-next-title">Virtual Machine Context</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

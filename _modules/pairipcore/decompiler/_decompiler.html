@@ -29,7 +29,7 @@
   <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -148,14 +148,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../instructions.html">Instruction Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../strings.html">Strings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../automation.html">Automatic Analysis</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generating a VM</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../pairipvm/index.html">Pairip VM (CXX)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../pairipvm/idea.html">The Idea</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../pairipvm/operations.html">Discovered Operations</a></li>
-</ul>
-</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
@@ -310,11 +302,11 @@
                 <article class="bd-article">
                   
   <h1>Source code for pairipcore.decompiler._decompiler</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">pairipcore.context</span> <span class="kn">import</span> <span class="n">VM</span>
-<span class="kn">from</span> <span class="nn">pairipcore.decompiler.code</span> <span class="kn">import</span> <span class="n">Code</span>
-<span class="kn">from</span> <span class="nn">pairipcore.decompiler.handler</span> <span class="kn">import</span> <span class="n">VMOp_Handler</span>
-<span class="kn">from</span> <span class="nn">pairipcore.insn</span> <span class="kn">import</span> <span class="n">InsnFormat</span>
-<span class="kn">from</span> <span class="nn">pairipcore.opcode</span> <span class="kn">import</span> <span class="n">VMOpcode_Interpret</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">VM</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.decompiler.code</span><span class="w"> </span><span class="kn">import</span> <span class="n">Code</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.decompiler.handler</span><span class="w"> </span><span class="kn">import</span> <span class="n">VMOp_Handler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.insn</span><span class="w"> </span><span class="kn">import</span> <span class="n">InsnFormat</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pairipcore.opcode</span><span class="w"> </span><span class="kn">import</span> <span class="n">VMOpcode_Interpret</span>
 
 
 <span class="c1"># -----------------------------------------------------------------------------</span>
@@ -322,7 +314,7 @@
 <span class="c1"># -----------------------------------------------------------------------------</span>
 <div class="viewcode-block" id="decompiler_main">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler._decompiler.decompiler_main">[docs]</a>
-<span class="k">def</span> <span class="nf">decompiler_main</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">decomp</span><span class="p">:</span> <span class="s2">&quot;Decompiler&quot;</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Code</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">decompiler_main</span><span class="p">(</span><span class="n">vm</span><span class="p">:</span> <span class="n">VM</span><span class="p">,</span> <span class="n">decomp</span><span class="p">:</span> <span class="s2">&quot;Decompiler&quot;</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Code</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Main function to decompile the VM bytecode, executing the appropriate</span>
 <span class="sd">    handlers for each opcode.</span>
@@ -372,29 +364,29 @@
 <span class="c1"># -----------------------------------------------------------------------------</span>
 <span class="c1"># Decompiler class</span>
 <span class="c1"># -----------------------------------------------------------------------------</span>
-<span class="k">class</span> <span class="nc">Decompiler</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Decompiler</span><span class="p">:</span>
     <span class="n">format_ids</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">InsnFormat</span><span class="p">]</span>
     <span class="n">__table_</span><span class="p">:</span> <span class="nb">dict</span>
     <span class="n">handler_ty</span><span class="p">:</span> <span class="nb">type</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler_ty</span><span class="p">:</span> <span class="nb">type</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler_ty</span><span class="p">:</span> <span class="nb">type</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__table_</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">handler_ty</span> <span class="o">=</span> <span class="n">handler_ty</span> <span class="ow">or</span> <span class="n">VMOp_Handler</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">format_ids</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">VMOpcode_Interpret</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">decompiler_main</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__table_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler_ty</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__table_</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
 
 <div class="viewcode-block" id="from_opcode_def">
 <a class="viewcode-back" href="../../../pyapi/decompiler.html#pairipcore.decompiler._decompiler.from_opcode_def">[docs]</a>
-<span class="k">def</span> <span class="nf">from_opcode_def</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">from_opcode_def</span><span class="p">(</span>
     <span class="n">opcode_def</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Decompiler</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
