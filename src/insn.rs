@@ -122,6 +122,6 @@ impl Instruction {
     }
 
     pub fn len(&self) -> usize {
-        0x16 + self.reg.len() * 4
+        0x1A + self.reg.len() * 4
     }
 }

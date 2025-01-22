@@ -45,7 +45,7 @@ pub struct FindKeyOptions {
     pub save_to: Option<PathBuf>,
 
     #[arg(short = 'b', long, action = clap::ArgAction::SetTrue)]
-    pub as_bin: bool
+    pub as_bin: bool,
 }
 
 #[derive(Parser)]
@@ -61,15 +61,24 @@ pub struct FindStringsOptions {
     pub fmt_ids: Option<String>,
 
     #[arg(short, long, value_name = "FILE")]
-    pub output: Option<PathBuf>
+    pub output: Option<PathBuf>,
+
+    #[arg(long, value_name = "OFFSET")]
+    pub start: Option<u32>,
+
+    #[arg(long, value_name = "STEP")]
+    pub step: Option<u32>,
+
+    #[arg(short = 'a', long, action = clap::ArgAction::SetTrue)]
+    pub show_addr: bool,
 }
 
-fn main() -> Result<(), Error>{
+fn main() -> Result<(), Error> {
     let cli: Cli = Cli::parse();
     match &cli.command {
         Some(Commands::FindKey { options }) => cmd::find_key::main(options)?,
         Some(Commands::Strings { options }) => cmd::find_strings::main(options)?,
-        _ => {},
+        _ => {}
     }
     Ok(())
 }

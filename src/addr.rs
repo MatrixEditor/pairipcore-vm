@@ -45,6 +45,10 @@ impl PhysAddress {
     pub const fn unwrap(&self) -> u32 {
         self.0
     }
+
+    pub const fn new(addr: u32) -> Self {
+        PhysAddress(addr)
+    }
 }
 impl AsRef<u32> for PhysAddress {
     fn as_ref(&self) -> &u32 {

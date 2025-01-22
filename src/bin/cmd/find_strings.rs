@@ -47,7 +47,13 @@ fn iter_strings<'d>(
 ) -> Result<(), Error> {
     // prepare context
     let mut strings = HashMap::new();
-    let positions = util::strings::get_string_locs(ctx, key, Some(&mut strings))?;
+    let positions = util::strings::get_string_locs(
+        ctx,
+        key,
+        Some(&mut strings),
+        options.start.clone(),
+        options.step.clone(),
+    )?;
     if let Some(out_file) = &options.output {
         let f = std::fs::File::create(out_file)?;
         let mut w = std::io::BufWriter::new(f);
@@ -59,7 +65,11 @@ fn iter_strings<'d>(
     } else {
         for (addr, _) in positions.iter().sorted() {
             let s = &strings[&addr];
-            println!("{:#08x}: {}", addr.unwrap(), s);
+            if options.show_addr {
+                println!("{:#08x}: {}", addr.unwrap(), s);
+            } else {
+                println!("{}", s);
+            }
         }
     }
 
