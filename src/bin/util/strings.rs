@@ -37,12 +37,13 @@ pub fn get_string_locs<'d>(
         let data = ctx.slice(data_addr, length as usize);
         match decode_str(data, key) {
             Some(s) => {
-                if s.len() > 2 && s.chars().all(|c| c.is_ascii_graphic()) {
+                if s.len() >= 1 && s.chars().all(|c| c.is_ascii_graphic()) {
                     positions.insert((data_addr, length));
                     storage.as_deref_mut().unwrap().insert(data_addr, s);
                 }
             }
-            _ => {}
+            _ => {
+            }
         }
     }
     Ok(positions)

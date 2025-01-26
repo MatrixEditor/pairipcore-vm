@@ -1,9 +1,13 @@
+use std::ops::Add;
+
+
+// TODO: rewrite into enum
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VirtAddress(u32);
 
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
 pub struct PhysAddress(u32);
 
 impl VirtAddress {
@@ -50,8 +54,16 @@ impl PhysAddress {
         PhysAddress(addr)
     }
 }
+
 impl AsRef<u32> for PhysAddress {
     fn as_ref(&self) -> &u32 {
         &self.0
+    }
+}
+
+impl Add<u32> for PhysAddress {
+    type Output = u32;
+    fn add(self, other: u32) -> u32 {
+        self.0 + other
     }
 }

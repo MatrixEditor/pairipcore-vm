@@ -39,6 +39,10 @@ impl InstructionFormat {
     pub fn var_count(&self) -> u32 {
         self.load_reg + self.extra_reg
     }
+
+    pub fn len(&self) -> u32 {
+        0x1A + self.var_count() * 4
+    }
 }
 
 impl Display for InstructionFormat {
@@ -48,7 +52,7 @@ impl Display for InstructionFormat {
             "{}{}{}",
             self.load_reg,
             self.extra_reg,
-            self.store_reg.unwrap_or(b'x')
+            char::from_u32((self.store_reg.unwrap_or(23) + b'a') as u32).unwrap()
         )
     }
 }
@@ -123,5 +127,9 @@ impl Instruction {
 
     pub fn len(&self) -> usize {
         0x1A + self.reg.len() * 4
+    }
+
+    pub fn regs(&self) -> &[VirtAddress] {
+        &self.reg
     }
 }

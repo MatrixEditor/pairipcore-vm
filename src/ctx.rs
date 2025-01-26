@@ -82,4 +82,8 @@ impl<'d> Ctx<'d> {
     pub fn advance(&mut self, count: u32) {
         self.vip = (self.vip.unwrap() + count).into();
     }
+
+    pub fn regs_to_vars(&mut self, regs: &[VirtAddress]) -> Vec<PhysAddress> {
+        regs.iter().map(|reg| self.translate(*reg)).collect()
+    }
 }
